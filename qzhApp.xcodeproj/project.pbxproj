@@ -25,6 +25,7 @@
 		6C06EBF41FF3792F0054B339 /* MyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06EBF31FF3792F0054B339 /* MyColor.swift */; };
 		6C0C3CAB200496D800AD40D9 /* QZHVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3CAA200496D800AD40D9 /* QZHVisitorView.swift */; };
 		6C0C3CCC20049F8B00AD40D9 /* QZHNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3CCB20049F8B00AD40D9 /* QZHNetworkManager.swift */; };
+		6C0C3CD42004B19400AD40D9 /* QZHNetworkManager_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3CD32004B19400AD40D9 /* QZHNetworkManager_Extension.swift */; };
 		6C122DA41FF47C470043EA67 /* EnterprisePortalControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C122DA31FF47C470043EA67 /* EnterprisePortalControllerData.swift */; };
 		6C122DA81FF47D4B0043EA67 /* EnterprisePortalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C122DA71FF47D4B0043EA67 /* EnterprisePortalViewModel.swift */; };
 		6C122DAA1FF498BF0043EA67 /* labelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C122DA91FF498BF0043EA67 /* labelView.swift */; };
@@ -345,6 +346,7 @@
 		6C06EBF31FF3792F0054B339 /* MyColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyColor.swift; sourceTree = "<group>"; };
 		6C0C3CAA200496D800AD40D9 /* QZHVisitorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHVisitorView.swift; sourceTree = "<group>"; };
 		6C0C3CCB20049F8B00AD40D9 /* QZHNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHNetworkManager.swift; sourceTree = "<group>"; };
+		6C0C3CD32004B19400AD40D9 /* QZHNetworkManager_Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHNetworkManager_Extension.swift; sourceTree = "<group>"; };
 		6C122DA31FF47C470043EA67 /* EnterprisePortalControllerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterprisePortalControllerData.swift; sourceTree = "<group>"; };
 		6C122DA71FF47D4B0043EA67 /* EnterprisePortalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterprisePortalViewModel.swift; sourceTree = "<group>"; };
 		6C122DA91FF498BF0043EA67 /* labelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = labelView.swift; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				6C0C3CCB20049F8B00AD40D9 /* QZHNetworkManager.swift */,
+				6C0C3CD32004B19400AD40D9 /* QZHNetworkManager_Extension.swift */,
 			);
 			name = Network;
 			path = qzhApp/Classes/Tools/Network;
@@ -1255,6 +1258,7 @@
 				6C06EBD91FF3718D0054B339 /* NetWork.swift in Sources */,
 				6C98C3781FF4F0CF00F598CB /* viewController.swift in Sources */,
 				6C4D9D3F20033B5D00F2D22F /* NSString+CZBase64.m in Sources */,
+				6C0C3CD42004B19400AD40D9 /* QZHNetworkManager_Extension.swift in Sources */,
 				6C4D9D5320035E2000F2D22F /* UIBarButtonItem+Extensions.swift in Sources */,
 				6C4D9D4320033B5D00F2D22F /* UIColor+CZAddition.m in Sources */,
 				6C4D9CF42003237B00F2D22F /* QZHMainViewController.swift in Sources */,

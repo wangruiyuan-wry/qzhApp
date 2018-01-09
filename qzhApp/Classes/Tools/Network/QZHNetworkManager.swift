@@ -22,6 +22,12 @@ class QZHNetworkManager: AFHTTPSessionManager {
     static let shared = QZHNetworkManager()
     
     //使用一个函数是封装 AFN 的 GET POST 请求
+    ///
+    /// - Parameters:
+    ///   - method: GET POST
+    ///   - URLString: URLString
+    ///   - parameters: 参数字典
+    ///   - completion: 回调方法
     func request(method:QZHHTTPMethod = .GET,URLString: String,parameters:[String:AnyObject],completion: @escaping (_ json:AnyObject?,_ isSubccess:Bool)->()){
         let success = {(task:URLSessionDataTask,json:AnyObject?)->() in
             completion(json,true)
