@@ -21,6 +21,10 @@ class QZHNetworkManager: AFHTTPSessionManager {
     ///在第一次访问时执行闭包，并且将结果保存在 shared 常量中
     static let shared = QZHNetworkManager()
     
+    ///  访问令牌，所有网络请求，都基于此令牌（登陆除外）
+    var sccessToken:String?
+    
+    
     //使用一个函数是封装 AFN 的 GET POST 请求
     ///
     /// - Parameters:
