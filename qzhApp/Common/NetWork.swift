@@ -21,20 +21,14 @@ class NetworkRequest
 
 extension NetworkRequest{
     
-    func getRequest(_ urlString:String,params:[String:Any],urlType:Int,success:@escaping(_ response:String)->(),failture:@escaping(_ error:Error)->()){
+    func getRequest(_ urlString:String,params:[String:Any],urlType:Int,success:@escaping(_ response:Dictionary<String,AnyObject>)->(),failture:@escaping(_ error:Error)->()){
         var url:String=""
-        if urlType==1{
-            url="http://www.qzh360.com:7002/\(urlString)"
-        }else{
-            url=urlString
-        }
+        url="http://192.168.100.73:81/\(urlString)"
         Alamofire.request(url,method:HTTPMethod.get,parameters:params,encoding:URLEncoding.default,headers:nil).responseJSON{
             (response) in
             switch response.result{
-            case .success :
-                if let value=response.result.value as? String{
-                    success(value)
-                }
+            case .success(let value) :
+                success(value as! Dictionary<String,AnyObject>)
             case .failure(let error):
                 failture(error)
             }
@@ -43,11 +37,9 @@ extension NetworkRequest{
     
     func postRequest(_ urlString:String,params:[String:Any],urlType:Int,success:@escaping(_ respnse:String)->(),failture:@escaping(_ error:Error)->()){
         var url:String=""
-        if urlType==1{
-            url="http://www.qzh360.com:7002/\(urlString)"
-        }else{
-            url=urlString
-        }
+         url="https://192.168.100.73:81/\(urlString)"
+        
+        print(url)
         Alamofire.request(url,method:HTTPMethod.post,parameters:params,encoding:URLEncoding.default,headers:nil).responseJSON{
             (response) in
             switch response.result{

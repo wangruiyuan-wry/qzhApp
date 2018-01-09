@@ -1,0 +1,6 @@
+framework module Pods_qzhApp {
+  umbrella header "Pods-qzhApp-umbrella.h"
+
+  export *
+  module * { export * }
+}

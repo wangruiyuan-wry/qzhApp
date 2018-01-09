@@ -73,7 +73,16 @@ class PublicButton:UIButton{
     
     //小字体的摁钮
     func setTitleSize(_ size:CGFloat){
-        self.titleLabel?.font=UIFont.systemFont(ofSize: size)
+        self.titleLabel?.font=UIFont.systemFont(ofSize: size*PX)
+    }
+    
+    //
+    func setBtnIconAtright(icon:String,title:String,color:UIColor){
+        self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13) //文字大小
+        self.setTitleColor(color, for: .normal) //文字颜色
+        self.set(image: UIImage(named: icon), title: title, titlePosition: .left,
+                 additionalSpacing: 10.0, state: .normal)
+        self.layer.borderWidth=0
     }
 }
 

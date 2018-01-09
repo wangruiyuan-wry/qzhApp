@@ -9,6 +9,33 @@
 import Foundation
 import UIKit
 
-class EnterprisePortalView: UIView {
+class EnterprisePortalView: UIView,UITableViewDelegate {
     
+    
+}
+extension EnterprisePortalViewController{
+    class var pageNo:Int{
+        get{
+            return Varribles.pageNo
+        }
+        set{
+            Varribles.pageNo=newValue
+        }
+    }
+    class var width:CGFloat{
+        get{
+            return Varribles.width
+        }
+        set{
+            Varribles.width=newValue
+        }
+    }
+    class var height:CGFloat{
+        get{
+            return Varribles.height
+        }
+        set{
+            Varribles.height=newValue
+        }
+    }
 }

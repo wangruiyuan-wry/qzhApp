@@ -23,6 +23,10 @@ class myColor:UIColor{
     func Gray8()->UIColor{
         return  UIColor(red:136/255,green:136/255,blue:136/255,alpha:1)
     }
+    //#666
+    func Gray6()->UIColor{
+        return  UIColor(red:102/255,green:102/255,blue:102/255,alpha:1)
+    }
     //#e8e8e8
     func GrayE8()->UIColor{
         return  UIColor(red:232/255,green:232/255,blue:232/255,alpha:1)
@@ -47,6 +51,10 @@ class myColor:UIColor{
     func gray80()->UIColor{
         return UIColor(red:128/255,green:128/255,blue:128/255,alpha:1)
     }
+    //#333333
+    func gray3()->UIColor{
+        return UIColor(red:51/255,green:51/255,blue:51/255,alpha:1)
+    }
     //#d9d9d9
     func grayD9()->UIColor{
         return UIColor(red:217/255,green:217/255,blue:217/255,alpha:1)
@@ -68,7 +76,6 @@ class myColor:UIColor{
     func blue4187c2()->UIColor{
         return UIColor(red:65/255,green:135/255,blue:194/255,alpha:1)
     }
-
     //#00a7f8
     func blue00a7f8()->UIColor{
         return UIColor(red:0/255,green:167/255,blue:248/255,alpha:1)
@@ -76,6 +83,10 @@ class myColor:UIColor{
     //#1387c4
     func blue1387c4()->UIColor{
         return UIColor(red:19/255,green:135/255,blue:196/255,alpha:1)
+    }
+    //#007aff
+    func blue007aff()->UIColor{
+        return UIColor(red:0/255,green:122/255,blue:255/255,alpha:1)
     }
     //#00a7fb
     func blue01a7fb()->UIColor{
@@ -113,5 +124,9 @@ class myColor:UIColor{
     //#fe000
     func redfe000()->UIColor{
         return UIColor(red:254/255,green:0/255,blue:0/255,alpha:1)
+    }
+    //#ff4300
+    func redFf4300()->UIColor{
+        return UIColor(red:255/255,green:67/255,blue:0/255,alpha:1)
     }
 }

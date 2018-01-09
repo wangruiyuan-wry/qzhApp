@@ -33,7 +33,7 @@ class headerController: UINavigationBar,UISearchBarDelegate, UITableViewDelegate
     fileprivate func set_top(){
         let widthes=self.bounds.width
         self.frame=CGRect(x:0,y:20,width:widthes,height:44)
-        titleTextAttributes=[NSFontAttributeName:UIFont.boldSystemFont(ofSize: 18),NSForegroundColorAttributeName:UIColor.white]
+        titleTextAttributes=[NSFontAttributeName:UIFont.boldSystemFont(ofSize: PX*36),NSForegroundColorAttributeName:UIColor.white]
         tintColor=UIColor.white
         backgroundColor=myColor().blue4187c2()
         barTintColor=myColor().blue4187c2()

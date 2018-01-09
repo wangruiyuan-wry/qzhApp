@@ -21,11 +21,10 @@ class PublicFunction:NSObject{
     @objc func open_Chat(_ ownSelf:UIViewController){
         let ownStoryBoard=ownSelf.storyboard
         let anotherVew:UIViewController =  ownStoryBoard!.instantiateViewController(withIdentifier: "chat") as UIViewController
-        ownSelf.present(anotherVew,animated:true,completion:nil)
+       // ownSelf.present(anotherVew,animated:true,completion:nil)
     }
     //返回上一页
     @objc open func back_page(_ ownSelf:UIViewController){
-        
         ownSelf.presentingViewController!.dismiss(animated:true,completion:nil)
     }
     
@@ -79,6 +78,79 @@ class PublicFunction:NSObject{
         alert.view.addSubview(datePicker)
         ownSelf.present(alert, animated: true, completion: nil)
     }
+    //打开地址选择器
+    func addressAction(_ ownSelf:UIViewController,success:@escaping(_ response:[Dictionary<String,AnyObject>])->()){
+        let alert:UIAlertController=UIAlertController(title:"\n\n\n\n",message:nil,preferredStyle:.alert)
+        //创建地址选择器
+        let addressPiker:provincesThreeLevelCascade=provincesThreeLevelCascade()
+        addressPiker.frame=CGRect(x:10,y:0,width:250,height:100)
+        addressPiker.initLoadAddressOnly()
+        alert.addAction(UIAlertAction(title:"确定",style:UIAlertActionStyle.default){
+            (alertAction)-> Void in
+            let address:[Dictionary<String,AnyObject>]=addressPiker.getSelAddress()
+            success(addressPiker.getSelAddress() as [Dictionary<String,AnyObject>])
+        })
+        
+        alert.addAction(UIAlertAction(title:"取消",style:UIAlertActionStyle.cancel,handler:nil))
+        alert.view.addSubview(addressPiker)
+        ownSelf.present(alert, animated: true, completion: nil)
+    }
+    
+    //企业类型选择
+    func selEnterpriseType(_ ownSelf:UIViewController,success:@escaping(_ response:AnyObject)->()){
+        let alert:UIAlertController=UIAlertController(title:"\n\n\n\n",message:nil,preferredStyle:.alert)
+        let _EnterpriseTypeData=[["id":222,"state":"企业类型1"],["id":222,"state":"企业类型2"]]
+        //创建地址选择器
+        let EnterpriseTypePicker:pickerView=pickerView()
+        EnterpriseTypePicker.frame=CGRect(x:10,y:0,width:250,height:100)
+        EnterpriseTypePicker.initLoadData(paramArray: _EnterpriseTypeData as [Dictionary<String, AnyObject>])
+        alert.addAction(UIAlertAction(title:"确定",style:UIAlertActionStyle.default){
+            (alertAction)-> Void in
+            success(EnterpriseTypePicker.getResult() as AnyObject)
+        })
+        
+        alert.addAction(UIAlertAction(title:"取消",style:UIAlertActionStyle.cancel,handler:nil))
+        alert.view.addSubview(EnterpriseTypePicker)
+        ownSelf.present(alert, animated: true, completion: nil)
+    }
+    //一级行业
+    func selYJHYType(_ ownSelf:UIViewController,success:@escaping(_ response:AnyObject)->()){
+        let alert:UIAlertController=UIAlertController(title:"\n\n\n\n",message:nil,preferredStyle:.alert)
+        //创建选择器
+        let _YJHYTypeData=[["id":222,"state":"一级行业1"],["id":222,"state":"一级行业2"]]
+        let YJHYTypePiker:pickerView=pickerView()
+        YJHYTypePiker.frame=CGRect(x:10,y:0,width:250,height:100)
+        YJHYTypePiker.initLoadData(paramArray: _YJHYTypeData as [Dictionary<String, AnyObject>])
+        alert.addAction(UIAlertAction(title:"确定",style:UIAlertActionStyle.default){
+            (alertAction)-> Void in
+            let result:AnyObject=YJHYTypePiker.getResult()
+            success(result as AnyObject)
+        })
+        
+        alert.addAction(UIAlertAction(title:"取消",style:UIAlertActionStyle.cancel,handler:nil))
+        alert.view.addSubview(YJHYTypePiker)
+        ownSelf.present(alert, animated: true, completion: nil)
+    }
+    
+    //二级行业
+    func selEJHYType(_ ownSelf:UIViewController,success:@escaping(_ response:AnyObject)->()){
+        let alert:UIAlertController=UIAlertController(title:"\n\n\n\n",message:nil,preferredStyle:.alert)
+        //创建选择器
+        let _EJHYTypeData=[["id":222,"state":"二级行业1"],["id":222,"state":"二级行业2"]]
+        let EJHYTypePiker:pickerView=pickerView()
+        EJHYTypePiker.frame=CGRect(x:10,y:0,width:250,height:130)
+        EJHYTypePiker.initLoadData(paramArray: _EJHYTypeData as [Dictionary<String, AnyObject>])
+        alert.addAction(UIAlertAction(title:"确定",style:UIAlertActionStyle.default){
+            (alertAction)-> Void in
+            let result:AnyObject=EJHYTypePiker.getResult()
+            success(result as AnyObject)
+        })
+        
+        alert.addAction(UIAlertAction(title:"取消",style:UIAlertActionStyle.cancel,handler:nil))
+        alert.view.addSubview(EJHYTypePiker)
+        ownSelf.present(alert, animated: true, completion: nil)
+    }
+
     
     //网络图片的url
     func imgFromURL(_ path:String)->Data{
@@ -239,6 +311,79 @@ class PublicFunction:NSObject{
         //            strHtml = strHtml!.stringByReplacingOccurrencesOfString("\r" , withString : " ")
         return strHtmls
     }
-    
+   
+    //头部消息图标按钮
+    @objc func btn_right_chat( )->UIButton{
+        let img = UIImage(named:"chatIcon")?.specifiesHeight(14)
+        let btn=UIButton(frame:CGRect(x:10,y:0,width:20,height:25))
+        
+        btn.setTitleColor(myColor().Gray6(), for: .normal)
+        btn.titleLabel?.font=UIFont.init(name: "Zapfino", size: 6)
+        
+        btn.set(image: img, title: "消息", titlePosition: .bottom,additionalSpacing: -15, state: .normal)
+        btn.imageEdgeInsets=UIEdgeInsetsMake(-5, 2, 0, 2)
+        return btn
+        
+    }
 
 }
+
+extension String{
+    var parseJSONString:Any?{
+        var any:Any?
+        let data=self.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        do{
+            any=try JSONSerialization.jsonObject(with: data!, options:.mutableContainers)
+        }catch let error as NSError{
+            print("error:\(error)")
+        }
+        return any
+    }
+
+    //获取指定字符的位置下标
+    func strIndexOf(char:Character)->Int{
+        let indexStr:Int
+        if let idx=self.characters.index(of: char){
+            indexStr=self.characters.distance(from: self.startIndex, to: idx)
+        }else{
+            indexStr=0-1
+        }
+        return indexStr
+    }
+    
+    //获取字符串长度
+    func getLength()->Int{
+        return self.characters.count
+    }
+}
+class StringAndDic{
+    func getDicFromString(str:String)->NSDictionary{
+        let strData:Data=str.data(using: .utf8)!
+        let dict=try? JSONSerialization.jsonObject(with: strData,options: .mutableContainers)
+        if dict != nil{
+            return dict as! NSDictionary
+        }
+        return NSDictionary()
+    }
+    
+    func getJSONFromString(str:String)->[[String:Any]]{
+        let strData:Data=str.data(using: .utf8)!
+        let dict=try? JSONSerialization.jsonObject(with: strData,options: .mutableContainers) as! [[String:Any]]
+        if dict != nil{
+            return dict!
+        }
+        return dict!
+    }
+    
+    func getStringFromDic(dic:NSDictionary)->String{
+        if(!JSONSerialization.isValidJSONObject(dic)){
+            print("无法解析出字符串")
+            return ""
+        }
+        let data:NSData!=try? JSONSerialization.data(withJSONObject: dic, options: []) as NSData!
+        let str=NSString(data:data as Data,encoding:String.Encoding.utf8.rawValue)
+        return str! as String
+    }
+}
+
+    

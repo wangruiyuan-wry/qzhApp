@@ -10,6 +10,47 @@ import Foundation
 import UIKit
 
 class labelView: UILabel {
+    
+    private var padding = UIEdgeInsets.zero
+    
+    @IBInspectable
+    var paddingLeft:CGFloat{
+        set {padding.left=newValue}
+        get {return padding.left}
+    }
+    
+    @IBInspectable
+    var paddingRight:CGFloat{
+        set {padding.right=newValue}
+        get {return padding.right}
+    }
+    
+    @IBInspectable
+    var paddingTop:CGFloat{
+        set {padding.top=newValue}
+        get {return padding.top}
+    }
+    
+    @IBInspectable
+    var paddingBottom:CGFloat{
+        set {padding.bottom=newValue}
+        get {return padding.bottom}
+    }
+    
+    override func drawText(in rect: CGRect) {
+        super.drawText(in: UIEdgeInsetsInsetRect(rect, padding))
+    }
+    
+    override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+        let insets=self.padding
+        var rect = super.textRect(forBounds: UIEdgeInsetsInsetRect(bounds, insets), limitedToNumberOfLines: numberOfLines)
+        rect.origin.x -= insets.left
+        rect.origin.y -= insets.top
+        rect.size.width += (insets.left+insets.right)
+        rect.size.height += (insets.bottom+insets.top)
+        return rect
+    }
+    
     //行间距
     var parpah=NSMutableParagraphStyle()
     
@@ -82,6 +123,12 @@ class labelView: UILabel {
     func setTtiltleSize(){
         self.font=UIFont.systemFont(ofSize: 14)
     }
+
+    //字体大小
+    func setFontSize(size:CGFloat){
+        self.font=UIFont.systemFont(ofSize: size*PX)
+    }
+
     
     //大号标字体大小
     func setBigSize(){
@@ -151,21 +198,23 @@ class labelView: UILabel {
         self.font=UIFont.systemFont(ofSize: 11)
     }
     
-    //我的客户企业简介标题字
+    //企业介绍标题字
     func setCoustomCompanyInfoTitle(_ y:Int,width:Int,title:String){
         let txts=PublicFunction().flattenHTML(title)
-        self.frame=CGRect(x:10,y:y,width:width,height:20)
+        self.frame=CGRect(x:Int(PX*30),y:y,width:width,height:Int(PX*44))
         self.text=txts
-        self.font=UIFont.boldSystemFont(ofSize: 12)
+        self.setFontSize(size: 32)
         self.textAlignment=NSTextAlignment.center
     }
-    //我的客户企业简介正文字
+    //企业介绍正文字
     func setCoustomCompanyInfoTxt(_ y:Int,width:Int,height:Int,title:String){
         let txts=PublicFunction().flattenHTML(title)
-        self.frame=CGRect(x:10,y:y,width:width,height:height)
+        self.frame=CGRect(x:Int(PX*30),y:y,width:width,height:height)
         self.text=txts
-        self.font=UIFont.systemFont(ofSize: 12)
+        self.setFontSize(size:28)
         self.textAlignment=NSTextAlignment.center
+        self.lineBreakMode=NSLineBreakMode.byCharWrapping
+        self.numberOfLines=0
     }
     
     //设置评价中心字体颜色
