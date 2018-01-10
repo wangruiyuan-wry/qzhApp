@@ -18,6 +18,9 @@ class QZHEnterprisePortalViewController: QZHBaseViewController {
     //加载的数据
     override func loadData() {
         
+        //去掉单元格的分割线
+        self.tabbelView?.separatorStyle = .none
+        
        listViewModel.loadStatus { (isSuccess) in
             //结束刷新控件
             self.refreahController?.endRefreshing()
@@ -54,6 +57,7 @@ extension QZHEnterprisePortalViewController{
         //2. 设置 cell
         cell.textLabel?.text = listViewModel.statusList[indexPath.row].address
         
+        
         //3. 返回 cell
         return cell
     }
@@ -70,7 +74,7 @@ extension QZHEnterprisePortalViewController{
         navItem.rightBarButtonItem = UIBarButtonItem(title: "", img: "", target: self, action: #selector(showFriends))
         
         //注册原型 cell
-        tabbelView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        //tabbelView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tabbelView?.register(UINib(nibName:"QZHEnterprisePortalStatusCell",bundle:nil), forCellReuseIdentifier: cellId)
     }
 }

@@ -8,7 +8,20 @@
 
 import UIKit
 
+/// 企业列表 Cell 的协议
+/// 如果需要设置可选协议方法
+/// - 需要遵守 NSObjectProtocol 协议
+/// - 协议需要是 @objc 的
+/// - 方法需要 @objc optional
+@objc protocol QZHEnterprisePortalStatusCellDelegate: NSObjectProtocol {
+    
+    /// 企业列表 Cell 选中 URL 字符串
+    @objc optional func statusCellDidSelectedURLString(cell: QZHEnterprisePortalStatusCell, urlString: String)
+}
+
 class QZHEnterprisePortalStatusCell: UITableViewCell {
+    
+    weak var delegate:QZHEnterprisePortalStatusCellDelegate?
     
     //企业 logo 图片
     @IBOutlet weak var logoImg: imgClass!
@@ -37,4 +50,16 @@ class QZHEnterprisePortalStatusCell: UITableViewCell {
             
         }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    func setupCell(){
+        
+    }
+}
+
+//MARK:-列表项布局
+extension QZHEnterprisePortalStatusCell{
 }
