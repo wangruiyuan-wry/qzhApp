@@ -29,6 +29,9 @@
 		6C0C3CF02004BDBF00AD40D9 /* QZHStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3CEF2004BDBF00AD40D9 /* QZHStatus.swift */; };
 		6C0C3CF62004C29F00AD40D9 /* QZHEnterprisePortalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3CF52004C29F00AD40D9 /* QZHEnterprisePortalModel.swift */; };
 		6C0C3CF82004C2AC00AD40D9 /* QZHEnterprisePortalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3CF72004C2AC00AD40D9 /* QZHEnterprisePortalViewModel.swift */; };
+		6C0C3CFA20059F0200AD40D9 /* QZHEnterprisePortalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3CF920059F0200AD40D9 /* QZHEnterprisePortalViewController.swift */; };
+		6C0C3D052005B72800AD40D9 /* QZHEnterprisePortalStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3D042005B72800AD40D9 /* QZHEnterprisePortalStatusCell.swift */; };
+		6C0C3D072005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C0C3D062005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib */; };
 		6C122DA81FF47D4B0043EA67 /* EnterprisePortalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C122DA71FF47D4B0043EA67 /* EnterprisePortalViewModel.swift */; };
 		6C122DAA1FF498BF0043EA67 /* labelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C122DA91FF498BF0043EA67 /* labelView.swift */; };
 		6C123D4F1FF4BA240043EA67 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C123CF31FF4B9D30043EA67 /* Alamofire.framework */; };
@@ -352,6 +355,9 @@
 		6C0C3CEF2004BDBF00AD40D9 /* QZHStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHStatus.swift; sourceTree = "<group>"; };
 		6C0C3CF52004C29F00AD40D9 /* QZHEnterprisePortalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEnterprisePortalModel.swift; sourceTree = "<group>"; };
 		6C0C3CF72004C2AC00AD40D9 /* QZHEnterprisePortalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEnterprisePortalViewModel.swift; sourceTree = "<group>"; };
+		6C0C3CF920059F0200AD40D9 /* QZHEnterprisePortalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEnterprisePortalViewController.swift; sourceTree = "<group>"; };
+		6C0C3D042005B72800AD40D9 /* QZHEnterprisePortalStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEnterprisePortalStatusCell.swift; sourceTree = "<group>"; };
+		6C0C3D062005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QZHEnterprisePortalStatusCell.xib; sourceTree = "<group>"; };
 		6C122DA71FF47D4B0043EA67 /* EnterprisePortalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterprisePortalViewModel.swift; sourceTree = "<group>"; };
 		6C122DA91FF498BF0043EA67 /* labelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = labelView.swift; sourceTree = "<group>"; };
 		6C123CE71FF4B9D30043EA67 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
@@ -363,7 +369,7 @@
 		6C4D9CDE2002FB1A00F2D22F /* qzh-bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "qzh-bridge.h"; sourceTree = "<group>"; };
 		6C4D9CE62003024500F2D22F /* main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main.json; sourceTree = "<group>"; };
 		6C4D9CEB2003215700F2D22F /* QZHNavigationCobtroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHNavigationCobtroller.swift; sourceTree = "<group>"; };
-		6C4D9CED200321A600F2D22F /* QZHBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QZHBaseViewController.swift; path = Main/QZHBaseViewController.swift; sourceTree = "<group>"; };
+		6C4D9CED200321A600F2D22F /* QZHBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHBaseViewController.swift; sourceTree = "<group>"; };
 		6C4D9CEF2003222100F2D22F /* QZHHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHHomeViewController.swift; sourceTree = "<group>"; };
 		6C4D9CF32003237B00F2D22F /* QZHMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHMainViewController.swift; sourceTree = "<group>"; };
 		6C4D9D1C20033B5D00F2D22F /* CZAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZAdditions.h; sourceTree = "<group>"; };
@@ -592,6 +598,8 @@
 		6C0C3CAD20049AB300AD40D9 /* EnterprisePoral */ = {
 			isa = PBXGroup;
 			children = (
+				6C0C3CFB2005AD5A00AD40D9 /* StatusCell */,
+				6C0C3CF920059F0200AD40D9 /* QZHEnterprisePortalViewController.swift */,
 			);
 			path = EnterprisePoral;
 			sourceTree = "<group>";
@@ -605,6 +613,15 @@
 			name = Network;
 			path = qzhApp/Classes/Tools/Network;
 			sourceTree = SOURCE_ROOT;
+		};
+		6C0C3CFB2005AD5A00AD40D9 /* StatusCell */ = {
+			isa = PBXGroup;
+			children = (
+				6C0C3D042005B72800AD40D9 /* QZHEnterprisePortalStatusCell.swift */,
+				6C0C3D062005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib */,
+			);
+			path = StatusCell;
+			sourceTree = "<group>";
 		};
 		6C1231861FF4B5350043EA67 /* Resource */ = {
 			isa = PBXGroup;
@@ -642,7 +659,6 @@
 			isa = PBXGroup;
 			children = (
 				6C4D9CDF2002FBE900F2D22F /* Main */,
-				6C4D9CED200321A600F2D22F /* QZHBaseViewController.swift */,
 				6C4D9CEA2003205000F2D22F /* Home */,
 				6C0C3CAD20049AB300AD40D9 /* EnterprisePoral */,
 			);
@@ -683,6 +699,7 @@
 				6C4D9D4F20034D4700F2D22F /* 测试 */,
 				6C4D9D55200372CE00F2D22F /* 主控制器 */,
 				6C0C3CA92004968A00AD40D9 /* VisitorView */,
+				6C4D9CED200321A600F2D22F /* QZHBaseViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1133,6 +1150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C4D9CE72003024500F2D22F /* main.json in Resources */,
+				6C0C3D072005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib in Resources */,
 				6C06EBB61FF370750054B339 /* Info.plist in Resources */,
 				6C3DD2351FFB82200022E582 /* address.plist in Resources */,
 				6C06EAB91FF36D710054B339 /* Assets.xcassets in Resources */,
@@ -1259,6 +1277,7 @@
 				6C06E9A51FF36C9C0054B339 /* ViewController.swift in Sources */,
 				6C4D9D4820033B5D00F2D22F /* Bundle+Extensions.swift in Sources */,
 				6CFD403B1FFCD93300B36D74 /* pickerView.swift in Sources */,
+				6C0C3D052005B72800AD40D9 /* QZHEnterprisePortalStatusCell.swift in Sources */,
 				6C0C3CF62004C29F00AD40D9 /* QZHEnterprisePortalModel.swift in Sources */,
 				6C0C3CF02004BDBF00AD40D9 /* QZHStatus.swift in Sources */,
 				6CDF02931FF5E42400EFB5A7 /* tabelViewController.swift in Sources */,
@@ -1275,6 +1294,7 @@
 				6C4D9D4220033B5D00F2D22F /* UIButton+CZAddition.m in Sources */,
 				6C4D77B81FFC5EF500581221 /* companyInfo.swift in Sources */,
 				6C4D9D5120034D8800F2D22F /* QZHDemoViewController.swift in Sources */,
+				6C0C3CFA20059F0200AD40D9 /* QZHEnterprisePortalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

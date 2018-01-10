@@ -40,7 +40,7 @@ extension QZHMainViewController{
     func setupChildControllers(){
         let array = [
             ["clsName":"QZHHomeViewController","title":"首页","imageName":"collectionIcon"],
-            ["clsName":"QZHHomeViewController","title":"分类","imageName":"collectionIcon"],
+            ["clsName":"QZHEnterprisePortalViewController","title":"分类","imageName":"collectionIcon"],
             ["clsName":"QZHHomeViewController","title":"购物车","imageName":"collectionIcon"],
             ["clsName":"QZHHomeViewController","title":"我的","imageName":"collectionIcon"]
         ]

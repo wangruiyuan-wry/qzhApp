@@ -15,13 +15,15 @@ class QZHEnterprisePortalModel: NSObject {
     /// 企业Id
     var id: Int64 = 0
     /// 公司名称
-    var companyName:String = ""
+    var company:String = ""
     /// 主营产品
-    var mainPro:String = ""
+    var mainproduct:String = ""
     /// 联系电话
-    var contactTel:String = ""
+    var tel:String = ""
     /// 地址
     var address:String = ""
+    ///公司 logo 图片
+    var logo:String = ""
     
     /// 重写 description 的计算属性
     override var description: String{

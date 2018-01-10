@@ -18,7 +18,7 @@ import UIKit
 class QZHBaseViewController: UIViewController{
     
     ///用户登录标记
-    var  userLogon = false
+    var  userLogon = true
     
     /// 访客视图字典信息
     var visitorInfoDictionary:[String:String]?
