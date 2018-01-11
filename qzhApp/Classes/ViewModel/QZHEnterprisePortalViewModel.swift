@@ -24,7 +24,7 @@ private let maxPullupTryTimes = 2
 class QZHEnterprisePortalViewModel:NSObject{
     
      /// 企业门户企业列表视图模型数组懒加载
-    lazy var statusList = [QZHEnterprisePortalModel]()
+    lazy var statusList = [QZHEnterprisePortalCompanyViewModel]()
     
     /// 上拉刷新错误次数
     var pullupErrorTimes = 0
@@ -52,22 +52,33 @@ class QZHEnterprisePortalViewModel:NSObject{
             _pageNo = 1
         }
         
+        //发起网络请求，返回企业列表数据[字典数组]
         QZHNetworkManager.shared.statusList(url: "portal/myStore/enterpriseList", params: ["pageNo":_pageNo as AnyObject,"pageSize":15 as AnyObject], completion: { (response, isSuccess) in
             if !isSuccess {
                 print("网络错误！！")
+                completion(false, false)
             } else{
                 if response["status"] as! Int != 200{
                     print("数据异常")
+                    completion(false, false)
                 }else{
                     let _data:Dictionary<String,AnyObject> = response["data"] as! Dictionary<String, AnyObject>
                     
-                    let _list:[Dictionary<String,AnyObject>] = _data["list"] as! [Dictionary<String, AnyObject>]
+                    let list:[[String:AnyObject]] = _data["list"] as! [[String:AnyObject]]
+                    
                     //1.字典转模型
-                    guard let listArray = NSArray.yy_modelArray(with: QZHEnterprisePortalModel.self, json: _list ?? [])as? [QZHEnterprisePortalModel] else{
+                    //1>定义结果可变数组
+                    var listArray = [QZHEnterprisePortalCompanyViewModel]()
+                    
+                    //2>遍历服务器返回的字典数组，字典转模型
+                    for dict in list ?? []{
+                        //a）创建企业模型
+                        guard let model = QZHEnterprisePortalModel.yy_model(with:dict) else{
+                            continue
+                        }
                         
-                        completion(isSuccess, false)
-                        
-                        return
+                        //b）将model添加到数组
+                        listArray.append(QZHEnterprisePortalCompanyViewModel(model:model))
                     }
                     
                     //2. FIXME 拼接数据

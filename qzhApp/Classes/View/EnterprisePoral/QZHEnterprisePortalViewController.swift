@@ -55,12 +55,11 @@ extension QZHEnterprisePortalViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // 1. 取 cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-        cell.selectedBackgroundView=nil        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! QZHEnterprisePortalStatusCell
+        
         
         //2. 设置 cell
-        cell.textLabel?.text = listViewModel.statusList[indexPath.row].address
+        //cell.textLabel?.text = listViewModel.statusList[indexPath.row].address
         
         
         //3. 返回 cell
@@ -81,5 +80,16 @@ extension QZHEnterprisePortalViewController{
         //注册原型 cell
         //tabbelView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tabbelView?.register(UINib(nibName:"QZHEnterprisePortalStatusCell",bundle:nil), forCellReuseIdentifier: cellId)
+        
+        //设置行高
+        tabbelView?.rowHeight = UITableViewAutomaticDimension
+        tabbelView?.estimatedRowHeight = 260*PX
+        
+        setupNavTitle()
+    }
+    
+    //设置导航栏标题
+    func setupNavTitle(){
+    
     }
 }

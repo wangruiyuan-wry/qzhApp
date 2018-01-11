@@ -53,6 +53,10 @@ class QZHMainViewController: UITabBarController {
         
         print("用户登录通知\(n)")
         
+        //展现登录控制器 - 通常会和 UINavigationController 一起使用，方便返回
+        let nav = UINavigationController(rootViewController:QZHOAuthViewController())
+        present(nav, animated: true, completion: nil)
+        
     }
 }
 

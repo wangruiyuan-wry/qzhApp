@@ -34,6 +34,7 @@
 		6C0C3D072005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C0C3D062005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib */; };
 		6C0C3D1C2005F40400AD40D9 /* QZHEnterprisePortalCompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3D1B2005F40400AD40D9 /* QZHEnterprisePortalCompanyViewModel.swift */; };
 		6C0F6D6B200728E300CA1509 /* QZHCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0F6D6A200728E300CA1509 /* QZHCommon.swift */; };
+		6C0F6D6E20072C9500CA1509 /* QZHOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0F6D6D20072C9500CA1509 /* QZHOAuthViewController.swift */; };
 		6C122DA81FF47D4B0043EA67 /* EnterprisePortalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C122DA71FF47D4B0043EA67 /* EnterprisePortalViewModel.swift */; };
 		6C122DAA1FF498BF0043EA67 /* labelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C122DA91FF498BF0043EA67 /* labelView.swift */; };
 		6C123D4F1FF4BA240043EA67 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C123CF31FF4B9D30043EA67 /* Alamofire.framework */; };
@@ -361,6 +362,7 @@
 		6C0C3D062005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QZHEnterprisePortalStatusCell.xib; sourceTree = "<group>"; };
 		6C0C3D1B2005F40400AD40D9 /* QZHEnterprisePortalCompanyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEnterprisePortalCompanyViewModel.swift; sourceTree = "<group>"; };
 		6C0F6D6A200728E300CA1509 /* QZHCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QZHCommon.swift; path = qzhApp/Classes/ViewModel/QZHCommon.swift; sourceTree = SOURCE_ROOT; };
+		6C0F6D6D20072C9500CA1509 /* QZHOAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHOAuthViewController.swift; sourceTree = "<group>"; };
 		6C122DA71FF47D4B0043EA67 /* EnterprisePortalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterprisePortalViewModel.swift; sourceTree = "<group>"; };
 		6C122DA91FF498BF0043EA67 /* labelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = labelView.swift; sourceTree = "<group>"; };
 		6C123CE71FF4B9D30043EA67 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
@@ -624,6 +626,14 @@
 			path = StatusCell;
 			sourceTree = "<group>";
 		};
+		6C0F6D6C20072C5000CA1509 /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				6C0F6D6D20072C9500CA1509 /* QZHOAuthViewController.swift */,
+			);
+			path = OAuth;
+			sourceTree = "<group>";
+		};
 		6C1231861FF4B5350043EA67 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,6 +709,7 @@
 		6C4D9CDF2002FBE900F2D22F /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				6C0F6D6C20072C5000CA1509 /* OAuth */,
 				6C4D9D4F20034D4700F2D22F /* 测试 */,
 				6C4D9D55200372CE00F2D22F /* 主控制器 */,
 				6C0C3CA92004968A00AD40D9 /* VisitorView */,
@@ -1295,6 +1306,7 @@
 				6C4D9CF42003237B00F2D22F /* QZHMainViewController.swift in Sources */,
 				6C06EBEC1FF375F20054B339 /* CacheFunc.swift in Sources */,
 				6C4D9D4420033B5D00F2D22F /* UILabel+CZAddition.m in Sources */,
+				6C0F6D6E20072C9500CA1509 /* QZHOAuthViewController.swift in Sources */,
 				6C4D9D4220033B5D00F2D22F /* UIButton+CZAddition.m in Sources */,
 				6C4D77B81FFC5EF500581221 /* companyInfo.swift in Sources */,
 				6C4D9D5120034D8800F2D22F /* QZHDemoViewController.swift in Sources */,

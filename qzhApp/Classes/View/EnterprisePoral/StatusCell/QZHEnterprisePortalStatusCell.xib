@@ -16,17 +16,17 @@
             <rect key="frame" x="0.0" y="0.0" width="679" height="272"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NDa-9H-092" id="56C-QH-Fx1">
-                <rect key="frame" x="0.0" y="0.0" width="679" height="271.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="679" height="272"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uoT-IK-yjb">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uoT-IK-yjb" customClass="imgClass" customModule="qzhApp" customModuleProvider="target">
                         <rect key="frame" x="30" y="30" width="200" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="5hg-an-Y0o"/>
                             <constraint firstAttribute="height" constant="200" id="5j5-W7-5LI"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-P0-D34">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-P0-D34" customClass="labelView" customModule="qzhApp" customModuleProvider="target">
                         <rect key="frame" x="260" y="30" width="389" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="xFo-tK-wLa"/>
@@ -35,7 +35,7 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41Y-ZX-DXy">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41Y-ZX-DXy" customClass="labelView" customModule="qzhApp" customModuleProvider="target">
                         <rect key="frame" x="260" y="74" width="381" height="26"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="jpe-po-98M"/>
@@ -44,7 +44,7 @@
                         <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvz-Nw-J52">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvz-Nw-J52" customClass="labelView" customModule="qzhApp" customModuleProvider="target">
                         <rect key="frame" x="260" y="130" width="389" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="5Fd-wg-Eus"/>
@@ -57,7 +57,7 @@
                         <rect key="frame" x="419" y="108" width="10" height="13"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dko-qy-EKg">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dko-qy-EKg" customClass="labelView" customModule="qzhApp" customModuleProvider="target">
                         <rect key="frame" x="279" y="192" width="92" height="29"/>
                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                         <nil key="textColor"/>
@@ -70,7 +70,7 @@
                             <constraint firstAttribute="height" constant="1" id="G5A-yY-A7f"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="locationIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fE0-HV-dEC">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="locationIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fE0-HV-dEC" customClass="imgClass" customModule="qzhApp" customModuleProvider="target">
                         <rect key="frame" x="251" y="192" width="20" height="29"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="2ve-Sm-gnU"/>
@@ -112,6 +112,13 @@
                     <constraint firstAttribute="bottom" secondItem="fE0-HV-dEC" secondAttribute="bottom" constant="30" id="zp9-6o-OD7"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="address" destination="dko-qy-EKg" id="UMx-5X-Iht"/>
+                <outlet property="addressICON" destination="fE0-HV-dEC" id="Cxq-gP-Res"/>
+                <outlet property="companyName" destination="0Ej-P0-D34" id="4Z6-rx-T2C"/>
+                <outlet property="contactTEL" destination="zvz-Nw-J52" id="3G3-Kp-Ky9"/>
+                <outlet property="logoImg" destination="uoT-IK-yjb" id="L9H-2d-srB"/>
+            </connections>
             <point key="canvasLocation" x="206.5" y="208"/>
         </tableViewCell>
     </objects>

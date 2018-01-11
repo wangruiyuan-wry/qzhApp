@@ -34,15 +34,12 @@ class QZHEnterprisePortalStatusCell: UITableViewCell {
     
     //联系电话
     @IBOutlet weak var contactTEL: labelView!
-    
+
     //地址文本
     @IBOutlet weak var address: labelView!
     
     //地址小图标
     @IBOutlet weak var addressICON: imgClass!
-    
-    //分割线
-    @IBOutlet weak var dividerLine: UILabel!
     
     //企业列表视图模型
     /*var viewModel:QZHEnterprisePortalViewModel{
@@ -53,6 +50,9 @@ class QZHEnterprisePortalStatusCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: true)
     }
     
     func setupCell(){

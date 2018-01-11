@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.\
-        
+        //状态栏字体颜色的设置
+        //UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         // #available 是检测设备版本，如果是10.0以上
         if #available(iOS 10.0, *){
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.carPlay,.sound]) { (success, error) in
