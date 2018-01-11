@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.\
-
+        
+        // #available 是检测设备版本，如果是10.0以上
+        if #available(iOS 10.0, *){
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.carPlay,.sound]) { (success, error) in
+                
+            }
+        }else{
+            //10.0以下
+            let notifySetting = UIUserNotificationSettings(types:[.alert,.badge,.sound],categories:nil)
+            application.registerUserNotificationSettings(notifySetting)
+        }
+        
+        //取得用户授权显示通知【上方提示条／声音／bageNumber】
+        
+        
         window=UIWindow()
         window?.backgroundColor = UIColor.white
         
