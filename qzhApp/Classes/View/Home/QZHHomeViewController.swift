@@ -18,6 +18,15 @@ class QZHHomeViewController: QZHBaseViewController {
     //加载的数据
     override func loadData() {
         
+        //print(QZHNetworkManager.shared)
+        //网络工具加载数据
+         /*let str = "http://192.168.100.73:81/portal/myStore/enterpriseList"
+       
+        QZHNetworkManager.shared.request(URLString: str, parameters: [:]) { (json, isSuccess) in
+            print("\(json)结果")
+        }*/
+        
+        
         //模拟‘延时’加载 -> dispacth_after
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.4) {
             for i in 0..<10{

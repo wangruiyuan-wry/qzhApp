@@ -17,9 +17,6 @@ import UIKit
 
 class QZHBaseViewController: UIViewController{
     
-    ///用户登录标记
-    var  userLogon = true
-    
     /// 访客视图字典信息
     var visitorInfoDictionary:[String:String]?
     
@@ -41,7 +38,9 @@ class QZHBaseViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        loadData()
+        if QZHNetworkManager.shared.userLogo{
+            loadData()
+        }
     }
     
     override var title: String?{
@@ -67,7 +66,13 @@ extension QZHBaseViewController{
         
         setupNavigation()
         
-        userLogon ? setupTabelView() : setupVisitorView()
+        if QZHNetworkManager.shared.userLogo{
+            setupTabelView()
+        }else{
+            setupVisitorView()
+        }
+        
+        //QZHNetworkManager.shared.userLogo?setupTabelView():setupVisitorView()
         
     }
     
@@ -154,5 +159,19 @@ extension  QZHBaseViewController: UITableViewDataSource,UITableViewDelegate{
             //开始刷新
             loadData()
         }
+    }
+}
+
+
+//MAKRK: - 访客视图监听方法
+extension QZHBaseViewController{
+    @objc private func login(){
+
+        //发送通知
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification), object: nil)
+        
+    }
+    @objc private func register(){
+        print("用户注册")
     }
 }

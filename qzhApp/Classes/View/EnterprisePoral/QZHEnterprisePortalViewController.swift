@@ -13,6 +13,7 @@ private let cellId = "cellId"
 
 class QZHEnterprisePortalViewController: QZHBaseViewController {
 
+    //列表视图模型
     lazy var listViewModel = QZHEnterprisePortalViewModel()
     
     //加载的数据
@@ -20,8 +21,7 @@ class QZHEnterprisePortalViewController: QZHBaseViewController {
         
         //去掉单元格的分割线
         self.tabbelView?.separatorStyle = .none
-        
-       listViewModel.loadStatus { (isSuccess) in
+       listViewModel.loadStatus(pullup: self.isPulup) { (isSuccess,shouldRefresh) in
             //结束刷新控件
             self.refreahController?.endRefreshing()
             
@@ -29,8 +29,13 @@ class QZHEnterprisePortalViewController: QZHBaseViewController {
             self.isPulup = false
             
             //刷新表/Users/sbxmac/Documents/My Workspace/qzhApp/Podfile格
-            self.tabbelView?.reloadData()
+            if shouldRefresh {
+                
+                self.tabbelView?.reloadData()
+                
+            }
         }
+        
     }
     
     //／显示消息 好友列表

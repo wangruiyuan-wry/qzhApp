@@ -45,11 +45,11 @@ class QZHEnterprisePortalStatusCell: UITableViewCell {
     @IBOutlet weak var dividerLine: UILabel!
     
     //企业列表视图模型
-    var viewModel:QZHEnterprisePortalViewModel{
+    /*var viewModel:QZHEnterprisePortalViewModel{
         didSet{
             
         }
-    }
+    }*/
     
     override func awakeFromNib() {
         super.awakeFromNib()

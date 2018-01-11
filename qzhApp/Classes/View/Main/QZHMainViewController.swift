@@ -11,10 +11,29 @@ import UIKit
 
 //主控制器
 class QZHMainViewController: UITabBarController {
-
+    
+    //定时器
+    var timer:Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupChildControllers()
+        setupTimer()
+        
+        //设置代理
+        delegate=self
+        
+        //注册通知
+        NotificationCenter.default.addObserver(self, selector: #selector(userLogin), name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification), object: nil)
+    }
+    
+    
+    deinit {
+        //销毁时钟
+        timer?.invalidate()
+        
+        //注销通知
+        NotificationCenter.default.removeObserver(self)
     }
     
     /**
@@ -28,6 +47,62 @@ class QZHMainViewController: UITabBarController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .portrait
     }*/
+    
+    //MARK: -监听方法
+    @objc private  func userLogin(n:Notification){
+        
+        print("用户登录通知\(n)")
+        
+    }
+}
+
+//MARK： - UITabBarControllerDelegate
+extension QZHMainViewController:UITabBarControllerDelegate{
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+        //1.>获取控制器在数组中的索引
+        let idx = (childViewControllers as NSArray).index(of: viewController)
+        
+        //2.>判断索引是首页，同时idx也是首页，重复点击首页
+        if selectedIndex == 0 && idx == selectedIndex{
+            print("点击首页")
+            //3.>让表格滚到顶部
+            //a> 获取控制器
+            let nav = childViewControllers[0] as! UINavigationController
+            let vc = nav.childViewControllers[0] as! QZHHomeViewController
+            //b>滚动到顶部
+            vc.tabbelView?.setContentOffset(CGPoint(x:0,y:-64), animated: true)
+            //4.>刷新数据
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: {
+                vc.loadData()
+            })
+        }
+        
+        //判断目标控制器是否是 UIViewController
+        return !viewController.isMember(of: UIViewController.self)
+    }
+    
+}
+
+
+//MARK: - 时钟相关方法
+extension QZHMainViewController{
+    
+    /// 定义时钟 - 时间间隔建议长点
+    func setupTimer(){
+        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    /// 时钟出发方法
+   @objc private func updateTimer() {
+    
+        if !QZHNetworkManager.shared.userLogo{
+            return
+        }
+        //设置 APP 的 bageNumber ，从 IOS 8.0 之后，要用户授权之后才能够显示
+        //UIApplication.shared.applicationIconBadgeNumber = 未读数量
+    }
 }
 
 //用来切分代码块
