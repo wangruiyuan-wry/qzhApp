@@ -314,13 +314,14 @@ class PublicFunction:NSObject{
    
     //头部消息图标按钮
     @objc func btn_right_chat( )->UIButton{
-        let img = UIImage(named:"chatIcon")?.specifiesHeight(14)
-        let btn=UIButton(frame:CGRect(x:10,y:0,width:20,height:25))
+        var img = UIImage(named:"chatIcon")
+        img = img?.specifiesWidth(35*PX)
+        let btn=UIButton(frame:CGRect(x:0,y:13*PX,width:45*PX,height:60*PX))
         
         btn.setTitleColor(myColor().Gray6(), for: .normal)
-        btn.titleLabel?.font=UIFont.init(name: "Zapfino", size: 6)
+        btn.titleLabel?.font=UIFont.systemFont(ofSize: 6)
         
-        btn.set(image: img, title: "消息", titlePosition: .bottom,additionalSpacing: -15, state: .normal)
+        btn.set(image: img, title: "消息", titlePosition: .bottom,additionalSpacing: 0, state: .normal)
         btn.imageEdgeInsets=UIEdgeInsetsMake(-5, 2, 0, 2)
         return btn
         

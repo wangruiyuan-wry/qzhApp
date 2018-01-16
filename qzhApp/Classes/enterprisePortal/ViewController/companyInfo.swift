@@ -39,7 +39,10 @@ class CompanyInfo:UIViewController{
         CompanyInfo.pageNo=1
         
         //页面大小信息
-        header.set_blue(PublicFunction().flattenHTML(paramName) as NSString, ownSelf: self)
+       // header.set_blue(PublicFunction().flattenHTML(paramName) as NSString, ownSelf: self)
+       
+        //header.set_ItemAll(PublicFunction().flattenHTML(paramName) as NSString, ownSelf: self)
+        
         //头部选项卡
         var top=header.height+header.y
         let tab:viewControllers=viewControllers()

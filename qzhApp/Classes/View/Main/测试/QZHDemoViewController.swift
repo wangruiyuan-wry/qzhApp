@@ -21,13 +21,11 @@ class QZHDemoViewController: QZHBaseViewController {
         let vc = QZHDemoViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-   
 }
 extension QZHDemoViewController{
     
     /// 重写父类方法
-    override func setupUI() {
+    override func setupUI(){
         super.setupUI()
         navItem.rightBarButtonItem = UIBarButtonItem(title:"下一个",style:.plain,target:self,action:#selector(showNext))
     }

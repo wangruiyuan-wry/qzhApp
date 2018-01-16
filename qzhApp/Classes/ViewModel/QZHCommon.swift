@@ -16,3 +16,5 @@ public let SCREEN_WIDTH=UIScreen.main.bounds.size.width
 public let SCREEN_HEIGHT=UIScreen.main.bounds.size.height
 
 public let PX=SCREEN_WIDTH/750
+
+public let pageFlag:Bool = false

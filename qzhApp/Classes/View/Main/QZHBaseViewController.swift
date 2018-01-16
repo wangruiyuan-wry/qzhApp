@@ -38,9 +38,7 @@ class QZHBaseViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        if QZHNetworkManager.shared.userLogo{
-            loadData()
-        }
+        loadData()
     }
     
     override var title: String?{
@@ -66,11 +64,13 @@ extension QZHBaseViewController{
         
         setupNavigation()
         
-        if QZHNetworkManager.shared.userLogo{
+        setupTabelView()
+        
+        /*if pageFlag{
             setupTabelView()
         }else{
             setupVisitorView()
-        }
+        }*/
         
         //QZHNetworkManager.shared.userLogo?setupTabelView():setupVisitorView()
         
@@ -87,7 +87,7 @@ extension QZHBaseViewController{
         tabbelView?.delegate = self
     
         //设置内容缩进
-        tabbelView?.contentInset=UIEdgeInsets(top:navigationBar.bounds.height,left:0,bottom:(tabBarController?.tabBar.bounds.height)!,right:0)
+        //tabbelView?.contentInset=UIEdgeInsets(top:navigationBar.bounds.height,left:0,bottom:(tabBarController?.tabBar.bounds.height)!,right:0)
     
         //设置刷新控件
         // 1> 实例化控件
@@ -104,7 +104,6 @@ extension QZHBaseViewController{
     /// 设置访客视图
     private func setupVisitorView(){
         let visitorView = UIView(frame:view.bounds)
-        visitorView.backgroundColor = UIColor.cz_random()
         
         view.insertSubview(visitorView, belowSubview: navigationBar)
     }
@@ -117,6 +116,7 @@ extension QZHBaseViewController{
         navigationBar.items = [navItem]
         
         // 设置 navBar 的渲染颜色
+        navigationBar.frame = CGRect(x:0,y:20,width:750*PX,height:128*PX-20)
         navigationBar.barTintColor = UIColor.cz_color(withHex: 0xF6F6F6)
         navigationBar.barTintColor = UIColor.white
         navigationBar.tintColor=myColor().Gray6()

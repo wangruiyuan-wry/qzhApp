@@ -18,15 +18,6 @@ class QZHHomeViewController: QZHBaseViewController {
     //加载的数据
     override func loadData() {
         
-        //print(QZHNetworkManager.shared)
-        //网络工具加载数据
-         /*let str = "http://192.168.100.73:81/portal/myStore/enterpriseList"
-       
-        QZHNetworkManager.shared.request(URLString: str, parameters: [:]) { (json, isSuccess) in
-            print("\(json)结果")
-        }*/
-        
-        
         //模拟‘延时’加载 -> dispacth_after
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.4) {
             for i in 0..<10{
@@ -83,10 +74,28 @@ extension QZHHomeViewController{
     override func setupUI() {
         super.setupUI()
         
+        let qymBtn:QZHUIButton = QZHUIButton()
+        qymBtn.setupButton(200, 300, 400, 60, UIColor.gray, UIColor.white, "企业门户", 30, 1, UIColor.gray, "", UIControlState.normal, 0, UIViewContentMode.center)
+        qymBtn.addTarget(self, action:#selector(EnterprisePortalPage), for:.touchUpInside)
+        view.addSubview(qymBtn)
+        
         //设置导航栏按钮 
         navItem.rightBarButtonItem = UIBarButtonItem(title: "", img: "", target: self, action: #selector(showFriends))
         
         //注册原型 cell
         tabbelView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tabbelView?.isHidden = true
     }
+}
+
+
+//MARK: - 监听事件
+extension QZHHomeViewController{
+    
+    //企业门户的跳转
+    func EnterprisePortalPage(){
+        let nav = QZHEnterprisePortalViewController()
+        present(nav, animated: true, completion: nil)
+    }
+    
 }

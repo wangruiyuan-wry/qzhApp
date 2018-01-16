@@ -51,8 +51,6 @@ class QZHMainViewController: UITabBarController {
     //MARK: -监听方法
     @objc private  func userLogin(n:Notification){
         
-        print("用户登录通知\(n)")
-        
         //展现登录控制器 - 通常会和 UINavigationController 一起使用，方便返回
         let nav = UINavigationController(rootViewController:QZHOAuthViewController())
         present(nav, animated: true, completion: nil)
@@ -168,7 +166,7 @@ extension QZHMainViewController{
         vc.tabBarController?.tabBarItem.badgeColor = UIColor.white
         
         //实例化导航控制器的时候会调用 push 方法对 rootVC 压栈
-        let nav = QZHNavigationCobtroller(rootViewController:vc)
+        let nav = QZHNavigationController(rootViewController:vc)
         
         return nav
         

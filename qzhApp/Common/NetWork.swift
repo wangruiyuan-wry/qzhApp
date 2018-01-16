@@ -37,7 +37,7 @@ extension NetworkRequest{
     
     func postRequest(_ urlString:String,params:[String:Any],urlType:Int,success:@escaping(_ respnse:String)->(),failture:@escaping(_ error:Error)->()){
         var url:String=""
-         url="https://192.168.100.73:81/\(urlString)"
+         url="http://192.168.100.73:81/\(urlString)"
         
         print(url)
         Alamofire.request(url,method:HTTPMethod.post,parameters:params,encoding:URLEncoding.default,headers:nil).responseJSON{

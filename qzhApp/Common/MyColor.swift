@@ -67,6 +67,26 @@ class myColor:UIColor{
     func gray7F()->UIColor{
         return UIColor(red:127/255,green:127/255,blue:127/255,alpha:1)
     }
+    //#dddddd
+    func grayD()->UIColor{
+        return UIColor(red:221/255,green:221/255,blue:221/255,alpha:1)
+    }
+    //#999999
+    func gray9()->UIColor{
+        return UIColor(red:153/255,green:153/255,blue:153/255,alpha:1)
+    }
+    //#f0f0f0
+    func grayF0()->UIColor{
+        return UIColor(red:240/255,green:240/255,blue:240/255,alpha:1)
+    }
+    //#f6f6f6
+    func grayF6()->UIColor{
+        return UIColor(red:246/255,green:246/255,blue:246/255,alpha:1)
+    }
+    //#e6e6e6
+    func grayE6()->UIColor{
+        return UIColor(red:230/255,green:230/255,blue:230/255,alpha:1)
+    }
     
     //#00a7fb
     func blue00a7fb()->UIColor{

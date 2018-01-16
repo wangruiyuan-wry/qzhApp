@@ -186,6 +186,12 @@ class labelView: UILabel {
         self.backgroundColor = color
     }
     
+    //设置字体颜色以及大小
+    func setupText(size:CGFloat,color:UIColor){
+        self.setFontSize(size:size)
+        self.textColor=color
+    }
+    
     //我的薪酬页面label设置
     func setLeftLabel(_ txt:String,width:Int){
         let txts=PublicFunction().flattenHTML(txt)

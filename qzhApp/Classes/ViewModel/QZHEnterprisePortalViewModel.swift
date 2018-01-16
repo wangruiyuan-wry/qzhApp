@@ -26,11 +26,124 @@ class QZHEnterprisePortalViewModel:NSObject{
      /// 企业门户企业列表视图模型数组懒加载
     lazy var statusList = [QZHEnterprisePortalCompanyViewModel]()
     
+    /// 企业类型列表视图数组懒加载
+    lazy var enterpriseTypeList = [QZHEnterpriseTypeViewModel]()
+    
+    /// 一级行业列表视图数组懒加载
+    lazy var fristIndustryList = [QZHEnterpriseFirstViewModel]()
+    
+    /// 二级行业列表视图数组懒加载
+    lazy var secondIndustryList = [QZHEnterpriseSecondViewdModel]()
+    
     /// 上拉刷新错误次数
     var pullupErrorTimes = 0
     
-    //页码
-    var _pageNo :Int = 1
+    /// 加载一级行业
+    ///
+    /// - Parameter completion: 完成回调
+    func loadFirstIndustry(completion:@escaping (_ isSuccess:Bool)->()){
+        QZHNetworkManager.shared.statusList(url: "portal/industry/listFirstLv", params: [:]) { (response,isSuccess) in
+            if !isSuccess{
+                print("网络错误！！")
+                completion(false)
+            }else{
+                if response["status"] as! Int != 200{
+                    print("数据异常")
+                    completion(false)
+                }else{
+                    let _data:[Dictionary<String,AnyObject>] = response["data"] as! [Dictionary<String, AnyObject>]
+                    var listArray = [QZHEnterpriseFirstViewModel]()
+                    for dict in _data ?? []{
+                        
+                        //对字典进行处理
+                        let newDict = PublicFunction().setNULLInDIC(dict)
+                        //a）创建企业模型
+                        guard let model = QZHEnterpriseFirstModel.yy_model(with:newDict) else{
+                            continue
+                        }
+                        
+                        //b）将model添加到数组
+                        listArray.append(QZHEnterpriseFirstViewModel(model:model))
+                    }
+                    //2. FIXME 拼接数据
+                    self.fristIndustryList += listArray
+                    completion(isSuccess)
+                }
+            }
+        }
+    }
+    
+    /// 根据一级行业加载二级行业
+    ///
+    /// - Parameter completion: 完成回调
+    func loadSecondIndustry(completion:@escaping (_ isSuccess:Bool)->()){
+        QZHNetworkManager.shared.statusList(url: "portal/industry/listSecondLv/\(QZHEnterprisePortalModel.superKey)", params: [:]) { (response,isSuccess) in
+            if !isSuccess{
+                print("网络错误！！")
+                completion(false)
+            }else{
+                if response["status"] as! Int != 200{
+                    print("数据异常")
+                    completion(false)
+                }else{
+                    self.secondIndustryList = []
+                    let _data:[Dictionary<String,AnyObject>] = response["data"] as! [Dictionary<String, AnyObject>]
+                    var listArray = [QZHEnterpriseSecondViewdModel]()
+                    for dict in _data ?? []{
+                        
+                        //对字典进行处理
+                        let newDict = PublicFunction().setNULLInDIC(dict)
+                        //a）创建企业模型
+                        guard let model = QZHEnterpriseSecondModel.yy_model(with:newDict) else{
+                            continue
+                        }
+                        
+                        //b）将model添加到数组
+                        listArray.append(QZHEnterpriseSecondViewdModel(model:model))
+                    }
+                    //2. FIXME 拼接数据
+                    self.secondIndustryList += listArray
+                    completion(isSuccess)
+                }
+            }
+        }
+    }
+
+    
+    /// 加载企业类型
+    ///
+    /// - Parameter completion: 完成回调
+    func loadEnterpriseType(completion:@escaping (_ isSuccess:Bool)->()){
+        QZHNetworkManager.shared.statusList(url: "portal/enterprise/listNames", params: [:]) { (response,isSuccess) in
+            if !isSuccess{
+                print("网络错误！！")
+                completion(false)
+            }else{
+                if response["status"] as! Int != 200{
+                    print("数据异常")
+                    completion(false)
+                }else{
+                    let _data:[Dictionary<String,AnyObject>] = response["data"] as! [Dictionary<String, AnyObject>]
+                    var listArray = [QZHEnterpriseTypeViewModel]()
+                    for dict in _data ?? []{
+                        
+                        //对字典进行处理
+                        let newDict = PublicFunction().setNULLInDIC(dict)
+                        //a）创建企业模型
+                        guard let model = QZHEnterpriseTypeModel.yy_model(with:newDict) else{
+                            continue
+                        }
+                        
+                        //b）将model添加到数组
+                        listArray.append(QZHEnterpriseTypeViewModel(model:model))
+                    }
+                    //2. FIXME 拼接数据
+                    self.enterpriseTypeList += listArray
+                    completion(isSuccess)
+                }
+            }
+        }
+    }
     
     /// 加载企业列表
     ///
@@ -47,13 +160,12 @@ class QZHEnterprisePortalViewModel:NSObject{
         }
         
         if pullup{
-            _pageNo += 1
+            QZHEnterprisePortalModel.pageNo += 1
         }else{
-            _pageNo = 1
+            QZHEnterprisePortalModel.pageNo = 1
         }
-        
         //发起网络请求，返回企业列表数据[字典数组]
-        QZHNetworkManager.shared.statusList(url: "portal/myStore/enterpriseList", params: ["pageNo":_pageNo as AnyObject,"pageSize":15 as AnyObject], completion: { (response, isSuccess) in
+        QZHNetworkManager.shared.statusList(method:.POST,url: "portal/myStore/listMember", params: ["pageNo":QZHEnterprisePortalModel.pageNo as AnyObject,"pageSize":15 as AnyObject,"pca":QZHEnterprisePortalModel.pca as AnyObject,"enterpriceType":QZHEnterprisePortalModel.enterpriceType as AnyObject,"industryType":QZHEnterprisePortalModel.industryType as AnyObject,"order":QZHEnterprisePortalModel.order as AnyObject], completion: { (response, isSuccess) in
             if !isSuccess {
                 print("网络错误！！")
                 completion(false, false)
@@ -63,17 +175,17 @@ class QZHEnterprisePortalViewModel:NSObject{
                     completion(false, false)
                 }else{
                     let _data:Dictionary<String,AnyObject> = response["data"] as! Dictionary<String, AnyObject>
-                    
                     let list:[[String:AnyObject]] = _data["list"] as! [[String:AnyObject]]
-                    
                     //1.字典转模型
                     //1>定义结果可变数组
                     var listArray = [QZHEnterprisePortalCompanyViewModel]()
                     
                     //2>遍历服务器返回的字典数组，字典转模型
                     for dict in list ?? []{
+                        //对字典进行处理
+                        let newDict = PublicFunction().setNULLInDIC(dict)
                         //a）创建企业模型
-                        guard let model = QZHEnterprisePortalModel.yy_model(with:dict) else{
+                        guard let model = QZHEnterprisePortalModel.yy_model(with:newDict) else{
                             continue
                         }
                         
@@ -91,6 +203,7 @@ class QZHEnterprisePortalViewModel:NSObject{
                         self.statusList = listArray
                         
                     }
+                    //print(listArray)
                     
                     //3.判断上拉刷新的数据量
                     if pullup && listArray.count == 0 {

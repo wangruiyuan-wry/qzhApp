@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C022155200848D100612728 /* QZHOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C022154200848D100612728 /* QZHOAuthViewController.swift */; };
+		6C0221592008584E00612728 /* QZHSearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0221582008584E00612728 /* QZHSearchBar+Extension.swift */; };
+		6C02215D20088A6E00612728 /* QZHUIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02215C20088A6E00612728 /* QZHUIView+Extension.swift */; };
+		6C02215F20088D3400612728 /* QZHUILabelView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02215E20088D3400612728 /* QZHUILabelView+Extension.swift */; };
+		6C022161200895DF00612728 /* QZHUIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C022160200895DF00612728 /* QZHUIButton+Extension.swift */; };
+		6C022167200C43CF00612728 /* QZHArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C022166200C43CF00612728 /* QZHArea.swift */; };
+		6C02216B200C5E9600612728 /* area.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C02216A200C5E9600612728 /* area.json */; };
+		6C02216D200C686800612728 /* QZHUIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02216C200C686800612728 /* QZHUIScrollView+Extension.swift */; };
 		6C06E9A51FF36C9C0054B339 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06E9A41FF36C9C0054B339 /* ViewController.swift */; };
 		6C06E9B81FF36C9C0054B339 /* qzhAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06E9B71FF36C9C0054B339 /* qzhAppTests.swift */; };
 		6C06E9C31FF36C9D0054B339 /* qzhAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06E9C21FF36C9D0054B339 /* qzhAppUITests.swift */; };
@@ -15,8 +23,6 @@
 		6C06EB6C1FF36D710054B339 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C06EAB61FF36D710054B339 /* Main.storyboard */; };
 		6C06EBB61FF370750054B339 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C06EBB51FF370750054B339 /* Info.plist */; };
 		6C06EBB91FF370830054B339 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06EBB81FF370830054B339 /* AppDelegate.swift */; };
-		6C06EBD91FF3718D0054B339 /* NetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06EBD81FF3718D0054B339 /* NetWork.swift */; };
-		6C06EBE81FF374A30054B339 /* HeaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06EBE71FF374A30054B339 /* HeaderController.swift */; };
 		6C06EBEA1FF3750C0054B339 /* PublicFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06EBE91FF3750C0054B339 /* PublicFunc.swift */; };
 		6C06EBEC1FF375F20054B339 /* CacheFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06EBEB1FF375F20054B339 /* CacheFunc.swift */; };
 		6C06EBEE1FF376A40054B339 /* imgClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C06EBED1FF376A40054B339 /* imgClass.swift */; };
@@ -34,11 +40,16 @@
 		6C0C3D072005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C0C3D062005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib */; };
 		6C0C3D1C2005F40400AD40D9 /* QZHEnterprisePortalCompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3D1B2005F40400AD40D9 /* QZHEnterprisePortalCompanyViewModel.swift */; };
 		6C0F6D6B200728E300CA1509 /* QZHCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0F6D6A200728E300CA1509 /* QZHCommon.swift */; };
-		6C0F6D6E20072C9500CA1509 /* QZHOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0F6D6D20072C9500CA1509 /* QZHOAuthViewController.swift */; };
+		6C0F6D7320075DA200CA1509 /* HeaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0F6D7120075DA200CA1509 /* HeaderController.swift */; };
+		6C0F6D7420075DA200CA1509 /* NetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0F6D7220075DA200CA1509 /* NetWork.swift */; };
 		6C122DA81FF47D4B0043EA67 /* EnterprisePortalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C122DA71FF47D4B0043EA67 /* EnterprisePortalViewModel.swift */; };
 		6C122DAA1FF498BF0043EA67 /* labelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C122DA91FF498BF0043EA67 /* labelView.swift */; };
 		6C123D4F1FF4BA240043EA67 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C123CF31FF4B9D30043EA67 /* Alamofire.framework */; };
 		6C123D501FF4BA240043EA67 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C123CF31FF4B9D30043EA67 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6C28547C200DD23000749A2C /* QZHIndustryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C28547B200DD22F00749A2C /* QZHIndustryView.swift */; };
+		6C28548B200DF37E00749A2C /* QZHEnterpriseDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C285489200DF37E00749A2C /* QZHEnterpriseDetail.swift */; };
+		6C28548D200DF3D400749A2C /* QZHEnterpriseDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C28548C200DF3D400749A2C /* QZHEnterpriseDetailModel.swift */; };
+		6C285491200E01B900749A2C /* QZHEnterpriseDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C285490200E01B900749A2C /* QZHEnterpriseDetailViewModel.swift */; };
 		6C3DD2351FFB82200022E582 /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C3DD2331FFB82200022E582 /* address.plist */; };
 		6C3DD2361FFB82200022E582 /* provincesThreeLevelCascade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DD2341FFB82200022E582 /* provincesThreeLevelCascade.swift */; };
 		6C4D77B81FFC5EF500581221 /* companyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D77B61FFC5EF500581221 /* companyInfo.swift */; };
@@ -330,6 +341,14 @@
 
 /* Begin PBXFileReference section */
 		3A84509780FA264256C87F1E /* Pods_qzhApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_qzhApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C022154200848D100612728 /* QZHOAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHOAuthViewController.swift; sourceTree = "<group>"; };
+		6C0221582008584E00612728 /* QZHSearchBar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QZHSearchBar+Extension.swift"; sourceTree = "<group>"; };
+		6C02215C20088A6E00612728 /* QZHUIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QZHUIView+Extension.swift"; sourceTree = "<group>"; };
+		6C02215E20088D3400612728 /* QZHUILabelView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QZHUILabelView+Extension.swift"; sourceTree = "<group>"; };
+		6C022160200895DF00612728 /* QZHUIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QZHUIButton+Extension.swift"; sourceTree = "<group>"; };
+		6C022166200C43CF00612728 /* QZHArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHArea.swift; sourceTree = "<group>"; };
+		6C02216A200C5E9600612728 /* area.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = area.json; sourceTree = "<group>"; };
+		6C02216C200C686800612728 /* QZHUIScrollView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QZHUIScrollView+Extension.swift"; sourceTree = "<group>"; };
 		6C06E99F1FF36C9C0054B339 /* qzhApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qzhApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C06E9A41FF36C9C0054B339 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6C06E9B31FF36C9C0054B339 /* qzhAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = qzhAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -343,8 +362,6 @@
 		6C06EAB71FF36D710054B339 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6C06EBB51FF370750054B339 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C06EBB81FF370830054B339 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6C06EBD81FF3718D0054B339 /* NetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetWork.swift; sourceTree = "<group>"; };
-		6C06EBE71FF374A30054B339 /* HeaderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderController.swift; sourceTree = "<group>"; };
 		6C06EBE91FF3750C0054B339 /* PublicFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicFunc.swift; sourceTree = "<group>"; };
 		6C06EBEB1FF375F20054B339 /* CacheFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheFunc.swift; sourceTree = "<group>"; };
 		6C06EBED1FF376A40054B339 /* imgClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imgClass.swift; sourceTree = "<group>"; };
@@ -362,10 +379,15 @@
 		6C0C3D062005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QZHEnterprisePortalStatusCell.xib; sourceTree = "<group>"; };
 		6C0C3D1B2005F40400AD40D9 /* QZHEnterprisePortalCompanyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEnterprisePortalCompanyViewModel.swift; sourceTree = "<group>"; };
 		6C0F6D6A200728E300CA1509 /* QZHCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QZHCommon.swift; path = qzhApp/Classes/ViewModel/QZHCommon.swift; sourceTree = SOURCE_ROOT; };
-		6C0F6D6D20072C9500CA1509 /* QZHOAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHOAuthViewController.swift; sourceTree = "<group>"; };
+		6C0F6D7120075DA200CA1509 /* HeaderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderController.swift; sourceTree = "<group>"; };
+		6C0F6D7220075DA200CA1509 /* NetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetWork.swift; sourceTree = "<group>"; };
 		6C122DA71FF47D4B0043EA67 /* EnterprisePortalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterprisePortalViewModel.swift; sourceTree = "<group>"; };
 		6C122DA91FF498BF0043EA67 /* labelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = labelView.swift; sourceTree = "<group>"; };
 		6C123CE71FF4B9D30043EA67 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
+		6C28547B200DD22F00749A2C /* QZHIndustryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHIndustryView.swift; sourceTree = "<group>"; };
+		6C285489200DF37E00749A2C /* QZHEnterpriseDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEnterpriseDetail.swift; sourceTree = "<group>"; };
+		6C28548C200DF3D400749A2C /* QZHEnterpriseDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEnterpriseDetailModel.swift; sourceTree = "<group>"; };
+		6C285490200E01B900749A2C /* QZHEnterpriseDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEnterpriseDetailViewModel.swift; sourceTree = "<group>"; };
 		6C3DD2331FFB82200022E582 /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		6C3DD2341FFB82200022E582 /* provincesThreeLevelCascade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = provincesThreeLevelCascade.swift; sourceTree = "<group>"; };
 		6C4D77B61FFC5EF500581221 /* companyInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = companyInfo.swift; sourceTree = "<group>"; };
@@ -454,6 +476,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6C0221372008485E00612728 /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				6C022154200848D100612728 /* QZHOAuthViewController.swift */,
+			);
+			path = OAuth;
+			sourceTree = "<group>";
+		};
 		6C06E9961FF36C9C0054B339 = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +509,7 @@
 		6C06E9A11FF36C9C0054B339 /* qzhApp */ = {
 			isa = PBXGroup;
 			children = (
+				6C02216A200C5E9600612728 /* area.json */,
 				6C1231861FF4B5350043EA67 /* Resource */,
 				6C06EBB71FF370830054B339 /* AppDelegate */,
 				6C06E9D21FF36D700054B339 /* Classes */,
@@ -523,6 +554,8 @@
 		6C06E9D31FF36D700054B339 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6C0F6D7120075DA200CA1509 /* HeaderController.swift */,
+				6C0F6D7220075DA200CA1509 /* NetWork.swift */,
 				6C3DD2331FFB82200022E582 /* address.plist */,
 				6C3DD2341FFB82200022E582 /* provincesThreeLevelCascade.swift */,
 				6CDF02AE1FF5ECC300EFB5A7 /* scrolliew.swift */,
@@ -532,8 +565,6 @@
 				6C06EBED1FF376A40054B339 /* imgClass.swift */,
 				6C06EBB51FF370750054B339 /* Info.plist */,
 				6C06E9D41FF36D700054B339 /* Assets.xcassets */,
-				6C06EBD81FF3718D0054B339 /* NetWork.swift */,
-				6C06EBE71FF374A30054B339 /* HeaderController.swift */,
 				6C06EBE91FF3750C0054B339 /* PublicFunc.swift */,
 				6C06EBEB1FF375F20054B339 /* CacheFunc.swift */,
 				6C06EBEF1FF377070054B339 /* PublicButton.swift */,
@@ -601,6 +632,7 @@
 		6C0C3CAD20049AB300AD40D9 /* EnterprisePoral */ = {
 			isa = PBXGroup;
 			children = (
+				6C285484200DF31D00749A2C /* QZHEnterpriseDetail */,
 				6C0C3CFB2005AD5A00AD40D9 /* StatusCell */,
 				6C0C3CF920059F0200AD40D9 /* QZHEnterprisePortalViewController.swift */,
 			);
@@ -626,14 +658,6 @@
 			path = StatusCell;
 			sourceTree = "<group>";
 		};
-		6C0F6D6C20072C5000CA1509 /* OAuth */ = {
-			isa = PBXGroup;
-			children = (
-				6C0F6D6D20072C9500CA1509 /* QZHOAuthViewController.swift */,
-			);
-			path = OAuth;
-			sourceTree = "<group>";
-		};
 		6C1231861FF4B5350043EA67 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -655,6 +679,40 @@
 				6C123CFF1FF4B9D30043EA67 /* Alamofire.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6C285484200DF31D00749A2C /* QZHEnterpriseDetail */ = {
+			isa = PBXGroup;
+			children = (
+				6C285488200DF37E00749A2C /* view */,
+				6C28548A200DF37E00749A2C /* viewModel */,
+				6C285487200DF37E00749A2C /* Model */,
+			);
+			path = QZHEnterpriseDetail;
+			sourceTree = "<group>";
+		};
+		6C285487200DF37E00749A2C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C28548C200DF3D400749A2C /* QZHEnterpriseDetailModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6C285488200DF37E00749A2C /* view */ = {
+			isa = PBXGroup;
+			children = (
+				6C285489200DF37E00749A2C /* QZHEnterpriseDetail.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		6C28548A200DF37E00749A2C /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6C285490200E01B900749A2C /* QZHEnterpriseDetailViewModel.swift */,
+			);
+			path = viewModel;
 			sourceTree = "<group>";
 		};
 		6C4D77B51FFC5EF500581221 /* ViewController */ = {
@@ -709,7 +767,7 @@
 		6C4D9CDF2002FBE900F2D22F /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				6C0F6D6C20072C5000CA1509 /* OAuth */,
+				6C0221372008485E00612728 /* OAuth */,
 				6C4D9D4F20034D4700F2D22F /* 测试 */,
 				6C4D9D55200372CE00F2D22F /* 主控制器 */,
 				6C0C3CA92004968A00AD40D9 /* VisitorView */,
@@ -764,6 +822,13 @@
 			children = (
 				6C4D9D3620033B5D00F2D22F /* Bundle+Extensions.swift */,
 				6C4D9D5220035E2000F2D22F /* UIBarButtonItem+Extensions.swift */,
+				6C0221582008584E00612728 /* QZHSearchBar+Extension.swift */,
+				6C02215C20088A6E00612728 /* QZHUIView+Extension.swift */,
+				6C02215E20088D3400612728 /* QZHUILabelView+Extension.swift */,
+				6C022160200895DF00612728 /* QZHUIButton+Extension.swift */,
+				6C02216C200C686800612728 /* QZHUIScrollView+Extension.swift */,
+				6C022166200C43CF00612728 /* QZHArea.swift */,
+				6C28547B200DD22F00749A2C /* QZHIndustryView.swift */,
 			);
 			name = Extensions;
 			path = qzhApp/Classes/Tools/Extensions;
@@ -1165,6 +1230,7 @@
 			files = (
 				6C4D9CE72003024500F2D22F /* main.json in Resources */,
 				6C0C3D072005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib in Resources */,
+				6C02216B200C5E9600612728 /* area.json in Resources */,
 				6C06EBB61FF370750054B339 /* Info.plist in Resources */,
 				6C3DD2351FFB82200022E582 /* address.plist in Resources */,
 				6C06EAB91FF36D710054B339 /* Assets.xcassets in Resources */,
@@ -1259,16 +1325,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C4D77B91FFC5EF500581221 /* EnterprisePortalController.swift in Sources */,
+				6C0F6D7420075DA200CA1509 /* NetWork.swift in Sources */,
+				6C28548B200DF37E00749A2C /* QZHEnterpriseDetail.swift in Sources */,
 				6C0C3CCC20049F8B00AD40D9 /* QZHNetworkManager.swift in Sources */,
 				6C06EBF21FF3779A0054B339 /* MenuController.swift in Sources */,
+				6C28547C200DD23000749A2C /* QZHIndustryView.swift in Sources */,
 				6C4D9CF02003222100F2D22F /* QZHHomeViewController.swift in Sources */,
 				6C06EBEA1FF3750C0054B339 /* PublicFunc.swift in Sources */,
+				6C022167200C43CF00612728 /* QZHArea.swift in Sources */,
+				6C285491200E01B900749A2C /* QZHEnterpriseDetailViewModel.swift in Sources */,
 				6C0C3D1C2005F40400AD40D9 /* QZHEnterprisePortalCompanyViewModel.swift in Sources */,
+				6C022155200848D100612728 /* QZHOAuthViewController.swift in Sources */,
 				6C122DAA1FF498BF0043EA67 /* labelView.swift in Sources */,
 				6C98C3761FF4EE3B00F598CB /* EnterprisePortalView.swift in Sources */,
 				6C0C3CF82004C2AC00AD40D9 /* QZHEnterprisePortalViewModel.swift in Sources */,
 				6C4D9D3E20033B5D00F2D22F /* NSObject+CZRuntime.m in Sources */,
 				6C4D9D3D20033B5D00F2D22F /* NSAttributedString+CZAdditon.m in Sources */,
+				6C022161200895DF00612728 /* QZHUIButton+Extension.swift in Sources */,
 				6C06EBF41FF3792F0054B339 /* MyColor.swift in Sources */,
 				6C122DA81FF47D4B0043EA67 /* EnterprisePortalViewModel.swift in Sources */,
 				6C06EBB91FF370830054B339 /* AppDelegate.swift in Sources */,
@@ -1276,8 +1349,8 @@
 				6C4D9D4120033B5D00F2D22F /* NSString+CZPath.m in Sources */,
 				6C4D9D3C20033B5D00F2D22F /* NSArray+Log.m in Sources */,
 				6C4D9D4620033B5D00F2D22F /* UIView+CZAddition.m in Sources */,
-				6C06EBE81FF374A30054B339 /* HeaderController.swift in Sources */,
 				6C4D9CEC2003215700F2D22F /* QZHNavigationCobtroller.swift in Sources */,
+				6C0221592008584E00612728 /* QZHSearchBar+Extension.swift in Sources */,
 				6C3DD2361FFB82200022E582 /* provincesThreeLevelCascade.swift in Sources */,
 				6C4D9D4520033B5D00F2D22F /* UIScreen+CZAddition.m in Sources */,
 				6C4D77D51FFC63AC00581221 /* companyInfoViewModel.swift in Sources */,
@@ -1287,7 +1360,10 @@
 				6CDF02AF1FF5ECC300EFB5A7 /* scrolliew.swift in Sources */,
 				6C0C3CAB200496D800AD40D9 /* QZHVisitorView.swift in Sources */,
 				6C06EBEE1FF376A40054B339 /* imgClass.swift in Sources */,
+				6C02215D20088A6E00612728 /* QZHUIView+Extension.swift in Sources */,
 				6C4D9D4020033B5D00F2D22F /* NSString+CZHash.m in Sources */,
+				6C28548D200DF3D400749A2C /* QZHEnterpriseDetailModel.swift in Sources */,
+				6C0F6D7320075DA200CA1509 /* HeaderController.swift in Sources */,
 				6C06EBF01FF377070054B339 /* PublicButton.swift in Sources */,
 				6C06E9A51FF36C9C0054B339 /* ViewController.swift in Sources */,
 				6C4D9D4820033B5D00F2D22F /* Bundle+Extensions.swift in Sources */,
@@ -1295,18 +1371,18 @@
 				6C0C3D052005B72800AD40D9 /* QZHEnterprisePortalStatusCell.swift in Sources */,
 				6C0C3CF62004C29F00AD40D9 /* QZHEnterprisePortalModel.swift in Sources */,
 				6C0C3CF02004BDBF00AD40D9 /* QZHStatus.swift in Sources */,
+				6C02216D200C686800612728 /* QZHUIScrollView+Extension.swift in Sources */,
 				6CDF02931FF5E42400EFB5A7 /* tabelViewController.swift in Sources */,
-				6C06EBD91FF3718D0054B339 /* NetWork.swift in Sources */,
 				6C98C3781FF4F0CF00F598CB /* viewController.swift in Sources */,
 				6C4D9D3F20033B5D00F2D22F /* NSString+CZBase64.m in Sources */,
 				6C0C3CD42004B19400AD40D9 /* QZHNetworkManager_Extension.swift in Sources */,
+				6C02215F20088D3400612728 /* QZHUILabelView+Extension.swift in Sources */,
 				6C0F6D6B200728E300CA1509 /* QZHCommon.swift in Sources */,
 				6C4D9D5320035E2000F2D22F /* UIBarButtonItem+Extensions.swift in Sources */,
 				6C4D9D4320033B5D00F2D22F /* UIColor+CZAddition.m in Sources */,
 				6C4D9CF42003237B00F2D22F /* QZHMainViewController.swift in Sources */,
 				6C06EBEC1FF375F20054B339 /* CacheFunc.swift in Sources */,
 				6C4D9D4420033B5D00F2D22F /* UILabel+CZAddition.m in Sources */,
-				6C0F6D6E20072C9500CA1509 /* QZHOAuthViewController.swift in Sources */,
 				6C4D9D4220033B5D00F2D22F /* UIButton+CZAddition.m in Sources */,
 				6C4D77B81FFC5EF500581221 /* companyInfo.swift in Sources */,
 				6C4D9D5120034D8800F2D22F /* QZHDemoViewController.swift in Sources */,

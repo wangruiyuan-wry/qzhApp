@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QZHNavigationCobtroller: UINavigationController {
+class QZHNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
