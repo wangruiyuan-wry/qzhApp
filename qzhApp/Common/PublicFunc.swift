@@ -154,8 +154,8 @@ class PublicFunction:NSObject{
     
     //网络图片的url
     func imgFromURL(_ path:String)->Data{
-        let imgPath:String="http://www.qzh360.com/\(path)"
-        return try! Data(contentsOf:URL(string:imgPath)!)
+       // let imgPath:String="http://www.qzh360.com/\(path)"
+        return try! Data(contentsOf:URL(string:path)!)
     }
     
     //将URL转换为Data

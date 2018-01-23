@@ -18,7 +18,7 @@ extension UIBarButtonItem{
     ///   - fontSize: fontSize ,默认16
     ///   - target: target
     ///   - action: action
-    convenience init(title:String,img:String,fontSize:CGFloat = 16,target:AnyObject,action:Selector) {
+    convenience init(title:String,img:String,fontSize:CGFloat = 16,target:AnyObject,action:Selector,color:UIColor = myColor().gray3()) {
         /// 消息按钮
         var btn:UIButton=UIButton()
         if  img == "" && title == ""{
@@ -37,6 +37,16 @@ extension UIBarButtonItem{
             var img=UIImage(named:img)
             img=img?.specifiesWidth(15)
             btn.setImage(img, for:.normal)
+        }else if img != "" && title != ""{
+            var img = UIImage(named:img)
+            img = img?.specifiesWidth(35*PX)
+            btn=UIButton(frame:CGRect(x:0,y:13*PX,width:45*PX,height:60*PX))
+            
+            btn.setTitleColor(color, for: .normal)
+            btn.titleLabel?.font=UIFont.systemFont(ofSize: 6)
+            
+            btn.set(image: img, title: title, titlePosition: .bottom,additionalSpacing: 0, state: .normal)
+            btn.imageEdgeInsets=UIEdgeInsetsMake(-5, 2, 0, 2)
         }
         
         btn.addTarget(target, action: action, for: .touchUpInside)

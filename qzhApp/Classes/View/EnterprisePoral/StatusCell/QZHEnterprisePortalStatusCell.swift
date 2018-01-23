@@ -75,10 +75,3 @@ class QZHEnterprisePortalStatusCell: UITableViewCell {
         super.setSelected(selected, animated: true)
     }
 }
-
-//MARK:-列表项布局
-extension QZHEnterprisePortalStatusCell{    
-    func setupCell(){
-
-    }
-}

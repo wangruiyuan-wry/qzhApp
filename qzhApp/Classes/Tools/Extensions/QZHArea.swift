@@ -12,10 +12,7 @@ class QZHArea: QZHUIView {
 
     var addressJSON:[Dictionary<String,AnyObject>] = []
     
-    @objc func initFrame(x:CGFloat,y:CGFloat,width:CGFloat,height:CGFloat,action:Selector,ownself:UIViewController){
-        self.frame = CGRect(x:x,y:y,width:width,height:height)
-        self.isHidden = true
-        self.backgroundColor = myColor().grayF0()
+    func getJSON(){
         //获取本地省市区 JSON 文件内容
         let path = Bundle.main.path(forResource: "area", ofType: "json")
         let url = URL(fileURLWithPath: path!)
@@ -26,7 +23,17 @@ class QZHArea: QZHUIView {
         }catch let error as Error!{
             print("读取到本地数据出错:\(error)")
         }
-        setupProvice(action, ownself: ownself)
+
+    }
+    
+    @objc func initFrame(x:CGFloat,y:CGFloat,width:CGFloat,height:CGFloat,action:Selector,ownself:UIViewController){
+        self.frame = CGRect(x:x,y:y,width:width,height:height)
+        self.isHidden = true
+        self.backgroundColor = myColor().grayF0()
+        
+        getJSON()
+        
+       setupProvice(action, ownself: ownself)
     }
     
     //设置省列表
@@ -146,6 +153,23 @@ class QZHArea: QZHUIView {
     //移除指定列
     func removeListOfTag(tag:Int){
         self.viewWithTag(tag)?.removeFromSuperview()
+    }
+    
+    //根据 code 获取省市区
+    func getPCA(codes:String) -> String {
+        let pcaStr:String = ""
+        /*getJSON()
+        let _pcaCode:Int = Int.init(codes)!
+        
+        //print(addressJSON)
+        for json in addressJSON{
+            if json["provinceCode"] != _pcaCode{
+                continue
+            }
+            print(json[""])
+        }*/
+        
+        return pcaStr
     }
 }
 

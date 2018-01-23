@@ -63,4 +63,25 @@ extension QZHSearchBar{
         
         delegate = self
     }
+    
+    func style_search_white(){
+        self.placeholder="搜索产品"
+        self.barTintColor=myColor().grayA9()
+        self.barStyle=UIBarStyle.default
+        self.backgroundColor=UIColor.clear
+        self.tintColor=UIColor.white
+        //self.setImage(UIImage(named:"whiteSearchIcon"), for: .search, state: .normal)
+        
+        let search_txt=self.subviews.first?.subviews.last
+        search_txt?.backgroundColor=UIColor.white
+        
+        let _placeholder_txt = self.value(forKey: "searchField") as?UITextField
+        let _placeholder_label = _placeholder_txt?.value(forKey: "placeholderLabel") as? UILabel
+        _placeholder_label?.textColor = myColor().grayA9()
+        _placeholder_label?.textAlignment = NSTextAlignment.left
+        //_placeholder_label?.font = UIFont.systemFont(ofSize: 30*PX)
+        
+        
+        delegate = self
+    }
 }

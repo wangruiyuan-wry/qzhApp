@@ -14,6 +14,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Kingfisher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PagingMenuController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-qzhApp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,27 +52,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1B85874CCDEEC5903571AB787E8CEF0A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1CC0CDE2D6FF590625E3B3F72A5165FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>251BAD17812F7EBF6532EACF66F941C3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>35CF989EDD4BC2FE55A38603B49F2E2C</key>
+		<key>3E161DE97F0859E71C4A8795EA08A011</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>715B9682FD8AEA27552EF7D2BE4AA0DE</key>
+		<key>6F712943B3C5592E82604940D11CE08A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>905E947F392D696A96E39B21518F1486</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9EEA181B131BDE958C2ABBAAAF9FDC7A</key>
+		<key>842E9D9277114752FE06549C04563871</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E3FDFC6FAD2DE41E558C57BC5EB48852</key>
+		<key>E568C707B89717D6000FC8D2284E0F4A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F2398C36128C40AA37CCE1D01ACB984D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

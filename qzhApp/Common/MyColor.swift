@@ -9,7 +9,32 @@
 import Foundation
 import UIKit
 
-class myColor:UIColor{    
+class myColor:UIColor{
+    //#435e81
+    func blue435e81()->UIColor{
+        return UIColor(red:67/255,green:94/255,blue:129/255,alpha:1)
+    }
+    //#4a6485
+    func blue4a6485()->UIColor{
+        return UIColor(red:74/255,green:100/255,blue:133/255,alpha:1)
+    }
+    //#e37e6c
+    func e37e6c()->UIColor{
+        return UIColor(red:227/255,green:126/255,blue:108/255,alpha:1)
+    }
+    //#e72105
+    func e72105()->UIColor{
+        return UIColor(red:231/255,green:33/255,blue:5/255,alpha:1)
+    }
+    //#f651d7
+    func f651d7()->UIColor{
+        return UIColor(red:246/255,green:81/255,blue:215/255,alpha:1)
+    }
+    //#c24763
+    func c24763()->UIColor{
+        return UIColor(red:194/255,green:71/255,blue:99/255,alpha:1)
+    }
+    
     //#f7
     func f7()->UIColor{
         return UIColor(red:247/255,green:247/255,blue:247/255,alpha:1)
@@ -70,6 +95,10 @@ class myColor:UIColor{
     //#dddddd
     func grayD()->UIColor{
         return UIColor(red:221/255,green:221/255,blue:221/255,alpha:1)
+    }
+    //#a9a9a9
+    func grayA9()->UIColor{
+        return UIColor(red:169/255,green:169/255,blue:169/255,alpha:1)
     }
     //#999999
     func gray9()->UIColor{
@@ -140,6 +169,10 @@ class myColor:UIColor{
     func blue02a7f9()->UIColor{
         return UIColor(red:2/255,green:167/255,blue:249/255,alpha:1)
     }
+    //#0eb0b1
+    func blue0eb0b1()->UIColor{
+        return UIColor(red:14/255,green:176/255,blue:177/255,alpha:1)
+    }
     
     //#fe000
     func redfe000()->UIColor{
@@ -148,5 +181,13 @@ class myColor:UIColor{
     //#ff4300
     func redFf4300()->UIColor{
         return UIColor(red:255/255,green:67/255,blue:0/255,alpha:1)
+    }
+    //#d93718
+    func redD93718()->UIColor{
+        return UIColor(red:217/255,green:55/255,blue:24/255,alpha:1)
+    }
+    //#f835f
+    func redF835f()->UIColor{
+        return UIColor(red:255/255,green:131/255,blue:95/255,alpha:1)
     }
 }

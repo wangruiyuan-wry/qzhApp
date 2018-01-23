@@ -116,10 +116,10 @@ extension QZHMainViewController{
     //设置所有子控制器
     func setupChildControllers(){
         let array = [
-            ["clsName":"QZHHomeViewController","title":"首页","imageName":"collectionIcon"],
-            ["clsName":"QZHEnterprisePortalViewController","title":"分类","imageName":"collectionIcon"],
-            ["clsName":"QZHHomeViewController","title":"购物车","imageName":"collectionIcon"],
-            ["clsName":"QZHHomeViewController","title":"我的","imageName":"collectionIcon"]
+            ["clsName":"QZHHomeViewController","title":"首页","imageName":"home"],
+            ["clsName":"QZHEnterprisePortalViewController","title":"分类","imageName":"sort"],
+            ["clsName":"QZHHomeViewController","title":"购物车","imageName":"shoppingCar"],
+            ["clsName":"QZHHomeViewController","title":"我的","imageName":"user"]
         ]
         
         var arrayM = [UIViewController]()
@@ -154,7 +154,7 @@ extension QZHMainViewController{
         vc.tabBarItem.selectedImage = UIImage(named:""+_imageName+"Sel")?.withRenderingMode(.alwaysOriginal)
         //设置 tabbar 的标题字体（大小）
         vc.tabBarItem.setTitleTextAttributes(
-            [NSForegroundColorAttributeName: UIColor.orange],
+            [NSForegroundColorAttributeName: myColor().blue007aff()],
             for: .highlighted)
         // 系统默认是 12 号字，修改字体大小，要设置 Normal 的字体大小
         vc.tabBarItem.setTitleTextAttributes(
@@ -164,7 +164,6 @@ extension QZHMainViewController{
         vc.tabBarController?.tabBar.backgroundColor = UIColor.white
         vc.tabBarController?.tabBar.barTintColor = UIColor.white
         vc.tabBarController?.tabBarItem.badgeColor = UIColor.white
-        
         //实例化导航控制器的时候会调用 push 方法对 rootVC 压栈
         let nav = QZHNavigationController(rootViewController:vc)
         

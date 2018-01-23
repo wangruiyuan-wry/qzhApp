@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "电话.png",
+      "filename" : "{58F31900-9F90-4DD7-A336-30F4B24CADE3}.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "电话@2x.png",
+      "filename" : "{08B86DA1-29B6-4571-A0CB-71B7B2ADCA01}.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "电话@3x.png",
+      "filename" : "{D7E88931-CB22-4519-8EDD-BCC896370D6A}.png",
       "scale" : "3x"
     }
   ],

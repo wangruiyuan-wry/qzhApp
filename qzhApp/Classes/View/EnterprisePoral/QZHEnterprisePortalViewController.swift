@@ -102,6 +102,8 @@ extension QZHEnterprisePortalViewController{
         }else{
             cell.logoImg?.image = UIImage(named:"noPic")
         }
+        
+        
         cell.tag = Int(viewModel.status.id)
         cell.addOnClickLister(target: self, action: #selector(self.goToEnterpriseDetail(_:)))
         //3. 返回 cell

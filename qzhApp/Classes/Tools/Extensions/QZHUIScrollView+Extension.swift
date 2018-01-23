@@ -20,36 +20,6 @@ class QZHUIScrollView: UIScrollView,UIScrollViewDelegate{
         self.isScrollEnabled=true
     }
     
-    //有头部有底部
-    func body_Size(y:Int,width:Int,height:Int){
-        self.frame=CGRect(x:0,y:y,width:Int(SCREEN_WIDTH),height:height)
-        self.backgroundColor=UIColor(red:238/255,green:238/255,blue:238/255,alpha:1)
-        self.delegate=self
-        self.alwaysBounceVertical=false
-        self.bounces=true
-        self.showsHorizontalScrollIndicator = false
-        self.isScrollEnabled=true
-        
-    }
-    func refresh(y:Int,width:Int)->UIActivityIndicatorView{
-        let refresh=UIActivityIndicatorView(frame:CGRect(x:Int((SCREEN_WIDTH-30)/2),y:y+10,width:30,height:30))
-        refresh.backgroundColor=UIColor.white
-        refresh.activityIndicatorViewStyle = .white
-        refresh.color=UIColor.gray
-        self.contentSize=CGSize(width:width,height:width/8+20)
-        refresh.tag=9999
-        refresh.hidesWhenStopped=true
-        refresh.stopAnimating()
-        return refresh
-    }
-    
-    func stopRefresh(_ scrollView: UIScrollView){
-        let refresh=scrollView.viewWithTag(9999) as! UIActivityIndicatorView
-        refresh.stopAnimating()
-        let height=scrollView.contentSize.height
-        scrollView.contentSize=CGSize(width:scrollView.width,height:height-refresh.height-20)
-    }
-    
     //设置普通的view容器
     func setViewContent(x:Int,y:Int,width:Int,height:Int){
         self.frame=CGRect(x:x,y:y,width:width,height:height)
@@ -58,32 +28,8 @@ class QZHUIScrollView: UIScrollView,UIScrollViewDelegate{
         self.isScrollEnabled=true
     }
     
-    
-    //清空内容
-    func setViewEmpty(){
-        let subviews=self.subviews
-        for subview in subviews{
-            subview.removeFromSuperview()
-        }
-    }
-    
     //在scrollView滚动的时候调用
     func scrollViewDidScroll(_ scrollView: UIScrollView){
-        if scrollView.contentOffset.y==scrollView.contentSize.height-scrollView.bounds.size.height{
-            if scrollView.superview?.restorationIdentifier != ""{
-                let height=scrollView.contentSize.height
-                let refresh = self.refresh(y:Int(scrollView.contentSize.height),width:Int(scrollView.width))
-                scrollView.addSubview(refresh)
-                scrollView.contentSize=CGSize(width:scrollView.width,height:height+refresh.height+20)
-                if !refresh.isAnimating{
-                    refresh.startAnimating()
-                }
-                /*if scrollView.superview?.restorationIdentifier=="MyCustomer" && scrollView.restorationIdentifier != "false"{
-                 MyCustomer().rollingLoad(grounpInt: scrollView.tag, bodys: scrollView as! srcollView)
-                 }*/
-            }
-            
-        }
     }
     
     //在scrollView将要开始 拖动的时候调用

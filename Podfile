@@ -8,5 +8,7 @@ target 'qzhApp' do
   pod "FMDB"
   pod "SVProgressHUD"
   pod "pop"
-
+  pod "PagingMenuController"
+  pod "Kingfisher"
+  
 end

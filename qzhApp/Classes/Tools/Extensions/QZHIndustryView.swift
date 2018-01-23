@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+//行业分类 UI
 class QZHIndustryView: QZHUIView {
     //列表视图
     var listMode = QZHEnterprisePortalViewModel()

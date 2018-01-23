@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "发送邮件.png",
+      "filename" : "{3D3433FE-C2F8-4D2B-9FDB-19D63E799DF7}.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "发送邮件@2x.png",
+      "filename" : "{6CE2823C-B27F-4E81-95A5-A1219E2C1D9C}.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "发送邮件@3x.png",
+      "filename" : "{E1FB2E81-8280-46A3-AE0F-B438B919264D}.png",
       "scale" : "3x"
     }
   ],

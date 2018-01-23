@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import YYModel
 
 class QZHEnterpriseDetailModel: NSObject {
     
@@ -54,6 +55,10 @@ class QZHEnterpriseInfoModel:NSObject{
     
     // 传真
     var fax:String = ""
+    
+    // 邮编
+    var zipCode:String = ""
+    
     
     /// 重写 description 的计算属性
     override var description: String{

@@ -37,6 +37,7 @@ class QZHBaseViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
         setupUI()
         loadData()
     }
