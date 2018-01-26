@@ -44,13 +44,13 @@ class QZGH_CYSQHomeListViewModel:NSObject{
     /// 加载产业商圈首页广告位
     ///
     /// - Parameter completion: 完成回调
-    func loadHomeData(completion:@escaping (_ isSuccess:Bool)->()){
+    func loadHomeData(completion:@escaping (_ isSuccess:Bool,_ shouldRefresh:Bool)->()){
         QZHNetworkManager.shared.statusList(url: "market/MarketData/getMarketData", params: [:]) { (result, isSuccess) in
             if !isSuccess{
-                completion(false)
+                completion(false, false)
             }else{
                 if result["status"]as! Int != 200{
-                    completion(false)
+                    completion(false, false)
                 }else{
                     let _data:[String:AnyObject] = result["data"] as! [String : AnyObject]
                     
@@ -128,7 +128,7 @@ class QZGH_CYSQHomeListViewModel:NSObject{
 
                     
                     //完成回调
-                    completion(isSuccess)
+                    completion(isSuccess, true)
                 }
             }
         }
@@ -154,9 +154,9 @@ class QZGH_CYSQHomeListViewModel:NSObject{
         }
         
         if pullup{
-            //QZHEnterprisePortalModel.pageNo += 1
+            QZGH_CYSQHomeModel_hotSell.pageNo += 1
         }else{
-            //QZHEnterprisePortalModel.pageNo = 1
+            QZGH_CYSQHomeModel_hotSell.pageNo = 1
         }
         
         QZHNetworkManager.shared.statusList(method:  .POST, url: "standard/productGoods/hotSell", params: ["pageNo":1 as AnyObject,"pageSize":16 as AnyObject]) { (result, isSuccess) in

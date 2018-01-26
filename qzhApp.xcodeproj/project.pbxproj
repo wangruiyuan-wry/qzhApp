@@ -77,8 +77,6 @@
 		6C42254F20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42254E20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift */; };
 		6C4225532019719000F1EEC0 /* QZH_CYSQHomeHotSell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4225512019719000F1EEC0 /* QZH_CYSQHomeHotSell.swift */; };
 		6C4225542019719000F1EEC0 /* QZH_CYSQHomeHotSell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C4225522019719000F1EEC0 /* QZH_CYSQHomeHotSell.xib */; };
-		6C4225592019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4225572019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift */; };
-		6C42255A2019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C4225582019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib */; };
 		6C4D77B81FFC5EF500581221 /* companyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D77B61FFC5EF500581221 /* companyInfo.swift */; };
 		6C4D77B91FFC5EF500581221 /* EnterprisePortalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D77B71FFC5EF500581221 /* EnterprisePortalController.swift */; };
 		6C4D77D51FFC63AC00581221 /* companyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D77D41FFC63AC00581221 /* companyInfoViewModel.swift */; };
@@ -442,8 +440,6 @@
 		6C42254E20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZGH_CYSQHomeViewModel.swift; sourceTree = "<group>"; };
 		6C4225512019719000F1EEC0 /* QZH_CYSQHomeHotSell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZH_CYSQHomeHotSell.swift; sourceTree = "<group>"; };
 		6C4225522019719000F1EEC0 /* QZH_CYSQHomeHotSell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QZH_CYSQHomeHotSell.xib; sourceTree = "<group>"; };
-		6C4225572019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZH_CYSQHomeTitleCell.swift; sourceTree = "<group>"; };
-		6C4225582019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QZH_CYSQHomeTitleCell.xib; sourceTree = "<group>"; };
 		6C4D77B61FFC5EF500581221 /* companyInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = companyInfo.swift; sourceTree = "<group>"; };
 		6C4D77B71FFC5EF500581221 /* EnterprisePortalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterprisePortalController.swift; sourceTree = "<group>"; };
 		6C4D77D41FFC63AC00581221 /* companyInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = companyInfoViewModel.swift; sourceTree = "<group>"; };
@@ -596,7 +592,6 @@
 		6C06E9D21FF36D700054B339 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6C42253B2018483500F1EEC0 /* CYSQ */,
 				6C4D9CDA2002FB0500F2D22F /* View */,
 				6C4D9CDC2002FB0500F2D22F /* ViewModel */,
 				6C4D9CDD2002FB0500F2D22F /* Model */,
@@ -831,7 +826,8 @@
 				6C4225402018483500F1EEC0 /* ViewModel */,
 				6C42253C2018483500F1EEC0 /* Model */,
 			);
-			path = CYSQ;
+			name = CYSQ;
+			path = ../CYSQ;
 			sourceTree = "<group>";
 		};
 		6C42253C2018483500F1EEC0 /* Model */ = {
@@ -854,7 +850,6 @@
 		6C42253E2018483500F1EEC0 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				6C4225562019AE3E00F1EEC0 /* 标题栏 */,
 				6C4225502019713C00F1EEC0 /* 热销产品  */,
 				6C42254820184E9E00F1EEC0 /* QZH_CYSQHomeViewController.swift */,
 			);
@@ -896,15 +891,6 @@
 			name = "热销产品 ";
 			sourceTree = "<group>";
 		};
-		6C4225562019AE3E00F1EEC0 /* 标题栏 */ = {
-			isa = PBXGroup;
-			children = (
-				6C4225572019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift */,
-				6C4225582019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib */,
-			);
-			name = "标题栏";
-			sourceTree = "<group>";
-		};
 		6C4D77B51FFC5EF500581221 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -917,6 +903,7 @@
 		6C4D9CDA2002FB0500F2D22F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6C42253B2018483500F1EEC0 /* CYSQ */,
 				6C42251D201724BA00F1EEC0 /* searchViewController */,
 				6C4D9CDF2002FBE900F2D22F /* Main */,
 				6C4D9CEA2003205000F2D22F /* Home */,
@@ -1431,7 +1418,6 @@
 				6C3DD2351FFB82200022E582 /* address.plist in Resources */,
 				6C06EAB91FF36D710054B339 /* Assets.xcassets in Resources */,
 				6C06EB6B1FF36D710054B339 /* LaunchScreen.storyboard in Resources */,
-				6C42255A2019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib in Resources */,
 				6C06EB6C1FF36D710054B339 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1539,7 +1525,6 @@
 				6C022155200848D100612728 /* QZHOAuthViewController.swift in Sources */,
 				6C4224E8201577BB00F1EEC0 /* QZHHomeViewModel.swift in Sources */,
 				6C122DAA1FF498BF0043EA67 /* labelView.swift in Sources */,
-				6C4225592019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift in Sources */,
 				6C4225532019719000F1EEC0 /* QZH_CYSQHomeHotSell.swift in Sources */,
 				6C98C3761FF4EE3B00F598CB /* EnterprisePortalView.swift in Sources */,
 				6C42254B20187A2E00F1EEC0 /* QZGH _CYSQHomeModel.swift in Sources */,

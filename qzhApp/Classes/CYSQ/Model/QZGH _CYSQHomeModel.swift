@@ -86,6 +86,9 @@ class QZGH_CYSQHomeModel_getPromotionMarketAd:NSObject{
     // 活动名称
     var productSellActivity:String = ""
     
+    // 产品单位
+    var productUnit:String = ""
+    
     /// 重写 description 的计算属性
     override var description: String{
         return yy_modelDescription()
@@ -111,6 +114,9 @@ class QZGH_CYSQHomeModel_getRecommendMarketAd:NSObject{
     
     // 活动名称
     var productSellActivity:String = ""
+    
+    // 产品单位
+    var productUnit:String = ""
     
     /// 重写 description 的计算属性
     override var description: String{

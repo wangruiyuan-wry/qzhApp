@@ -85,3 +85,49 @@ extension QZHEnterpriseDetailModel{
         }
     }
 }
+
+class QZHEnterpriseProModel: NSObject {
+    // 产品ID
+    var id:Int64 = 0
+    
+    // 产品图片
+    var pic:String = ""
+    
+    // 产品规格信息
+    var attribute:[String:AnyObject] = [:]
+    
+    // 价格
+    var fixedPrice:Double = 0.0
+    
+    // 产品名称
+    var goodsName:String = ""
+    
+    /// 重写 description 的计算属性
+    override var description: String{
+        return yy_modelDescription()
+    }
+    
+    struct paramers {
+        static var pageNo:Int? = 1
+        static var pageSize:Int? = 10
+    }
+}
+extension QZHEnterpriseProModel{
+    class var pageNo:Int {
+        get{
+            return paramers.pageNo!
+        }
+        set{
+            paramers.pageNo! = newValue
+        }
+    }
+    
+    class var pageSize:Int {
+        get{
+            return paramers.pageSize!
+        }
+        set{
+            paramers.pageSize! = newValue
+        }
+    }
+}

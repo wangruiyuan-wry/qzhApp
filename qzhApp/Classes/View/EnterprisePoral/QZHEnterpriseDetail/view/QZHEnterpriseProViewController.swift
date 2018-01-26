@@ -11,9 +11,30 @@ import UIKit
 private let cellId = "cellId"
 
 class QZHEnterpriseProViewController: QZHBaseViewController {
+    
+    //列表视图模型
+    lazy var listViewModel = QZHEnterpriseDetailViewModels()
+    
     override func loadData() {
+        
         //去掉单元格的分割线
         self.tabbelView?.separatorStyle = .none
+        
+        listViewModel.loadProList(pullup: self.isPulup) { (isSuccess,shouldRefresh) in
+            //结束刷新控件
+            self.refreahController?.endRefreshing()
+            
+            //恢复上拉刷新标记
+            self.isPulup = false
+            
+            //刷新表/Users/sbxmac/Documents/My Workspace/qzhApp/Podfile格
+            if shouldRefresh {
+                
+                self.tabbelView?.reloadData()
+                
+            }
+        }
+        
     }
 }
 
@@ -21,7 +42,7 @@ class QZHEnterpriseProViewController: QZHBaseViewController {
 // MARK: -  表格数据源方法，具体的数据源方法实现，不需要 super
 extension QZHEnterpriseProViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return listViewModel.proList.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -35,13 +56,20 @@ extension QZHEnterpriseProViewController{
         
         //2. 设置 cell
         
-        cell.proLogo.image = UIImage(named:"noPic")
+        cell.proName.text = listViewModel.proList[indexPath.row].status.goodsName
+
+        if listViewModel.proList[indexPath.row].status.pic != ""{
+            cell.proLogo.image = UIImage(data:PublicFunction().imgFromURL(listViewModel.proList[indexPath.row].status.pic))
+        }else{
+            cell.proLogo.image = UIImage(named:"noPic")
+        }
         
-        cell.proName.text = "全开 正度 厚／硬卡纸 背景纸 模型纸 250g 400g 大张色卡纸"
         
-        cell.proSpec.text = "颜色分类： 250g 浅灰 1卷"
+        let spec:[String:AnyObject] = listViewModel.proList[indexPath.row].status.attribute
         
-        cell.proPrice.text = "¥25.20"
+        cell.proSpec.text = "\(String(describing: spec["attributeName"])):\(String(describing: spec["optionName"]))"
+        
+        cell.proPrice.text = "¥\(listViewModel.proList[indexPath.row].status.fixedPrice)"
         
         
         

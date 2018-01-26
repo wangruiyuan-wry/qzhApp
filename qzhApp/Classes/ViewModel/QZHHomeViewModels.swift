@@ -28,15 +28,15 @@ class QZHHomeViewModels: NSObject {
     /// 加载首页广告数据
     ///
     /// - Parameter completion: 完成回调
-    func loadHomeAd(completion:@escaping (_ model1:[QZHHomeViewModel],_ model2:[QZHHomeViewModel],_ model3:[QZHHomeViewModel],_ model4:[QZHHomeViewModel],_ model5:[QZHHomeViewModel],_ isSuccess:Bool)->()){
+    func loadHomeAd(completion:@escaping (_ model1:[QZHHomeViewModel],_ model2:[QZHHomeViewModel],_ model3:[QZHHomeViewModel],_ model4:[QZHHomeViewModel],_ model5:[QZHHomeViewModel],_ isSuccess:Bool,_ shouldRefresh:Bool)->()){
         QZHNetworkManager.shared.statusList(url: "portal/homeAd", params: [:]) { (result, isSuccess) in
             if !isSuccess{
                 print("网络错误！！！")
-                completion([],[],[],[],[],false)
+                completion([],[],[],[],[],false,false)
             }else{
                 if result["status"] as! Int != 200{
                     print("数据异常！！！")
-                    completion([],[],[],[],[],false)
+                    completion([],[],[],[],[],false,false)
                 }else{
                     
                     let _data:Dictionary<String,AnyObject> = result["data"] as! Dictionary<String, AnyObject>
@@ -137,7 +137,7 @@ class QZHHomeViewModels: NSObject {
                     //2. FIXME 拼接数据
                     self.LBTList = lbtList
                     
-                    completion(self.LBTList, self.SQSCList, self.CYSQList, self.QYMHList, self.JFYGList, isSuccess)
+                    completion(self.LBTList, self.SQSCList, self.CYSQList, self.QYMHList, self.JFYGList, isSuccess,true)
                 }
             }
         }

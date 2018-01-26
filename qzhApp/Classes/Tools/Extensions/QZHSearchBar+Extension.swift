@@ -170,7 +170,7 @@ class SearchController:UIView{
         self.backgroundColor = UIColor.clear
         
         let titleLabel:QZHUILabelView = QZHUILabelView()
-        titleLabel.setLabelView(-35*PX, 12*PX, 130*PX, 37*PX, NSTextAlignment.center, UIColor.clear, titleColor, 30, title)
+        titleLabel.setLabelView(-30*PX, 12*PX, 130*PX, 37*PX, NSTextAlignment.center, UIColor.clear, titleColor, 30, title)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 30*PX)
         self.addSubview(titleLabel)
         
@@ -198,25 +198,25 @@ class SearchController:UIView{
         self.backgroundColor = UIColor.clear
         
         let titleLabel:QZHUILabelView = QZHUILabelView()
-        titleLabel.setLabelView(0*PX, 12*PX, 130*PX, 37*PX, NSTextAlignment.center, UIColor.clear, titleColor, 30, title)
+        titleLabel.setLabelView(-30*PX, 12*PX, 130*PX, 37*PX, NSTextAlignment.center, UIColor.clear, titleColor, 30, title)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 30*PX)
         self.addSubview(titleLabel)
         
-        let uiView:UIView = UIView(frame:CGRect(x:165*PX,y:10*PX,width:435*PX,height:60*PX))
-        uiView.backgroundColor = UIColor.white
+        let uiView:UIView = UIView(frame:CGRect(x:135*PX,y:0*PX,width:415*PX,height:60*PX))
+        uiView.backgroundColor = myColor().GrayF1F2F6()
         self.addSubview(uiView)
         uiView.layer.cornerRadius = 8*PX
         
         let icon1:UIImageView = UIImageView(frame:CGRect(x:18*PX,y:15*PX,width:30*PX,height:30*PX))
-        icon1.image = UIImage(named:"searchIcon3")
+        icon1.image = UIImage(named:"searchIcon2")
         uiView.addSubview(icon1)
         
         let label:QZHUILabelView = QZHUILabelView()
         label.setLabelView(65*PX, 10*PX, 356*PX, 40*PX, NSTextAlignment.left, UIColor.clear, myColor().grayA9(), 28, "搜索商品")
         uiView.addSubview(label)
         
-        let icon2:UIImageView = UIImageView(frame:CGRect(x:505*PX,y:10*PX,width:26*PX,height:40*PX))
-        icon2.image = UIImage(named:"morcoIcon3")
+        let icon2:UIImageView = UIImageView(frame:CGRect(x:342*PX,y:10*PX,width:26*PX,height:40*PX))
+        icon2.image = UIImage(named:"morcoIcon2")
         uiView.addSubview(icon2)
         
         return self
