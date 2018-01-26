@@ -48,6 +48,7 @@ class QZHHomeViewController: QZHBaseViewController {
                 //设置轮播图
                 var imgArray:[String] = []
                 for pic in StringAndDic().getJSONFromString(str: lbt[0].status.adPic){
+                    print(pic["pic"]as!String)
                     imgArray.append(pic["pic"]as!String)
                 }
                 self.cycleScrollView.serverImgArray = imgArray as? [String]
@@ -162,7 +163,7 @@ extension QZHHomeViewController{
         super.setupUI()
         // 修改状态栏字体颜色
         tabbelView?.backgroundColor = myColor().grayF0()
-
+    
         // 注册原型 cell
         tabbelView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tabbelView?.addSubview(cycleScrollView)
@@ -190,22 +191,17 @@ extension QZHHomeViewController{
     
     // 设置导航栏标题
     func setupNavTitle(){
-        var _searchBtn:QZHSearchBar = QZHSearchBar()
-        _searchBtn = QZHSearchBar(frame:CGRect(x:(navigationBar.width-540*PX)/2,y:0,width:540*PX,height:navigationBar.height))
-        _searchBtn.contentInset=UIEdgeInsets(top:13*PX,left:0,bottom:13*PX,right:0)
-        _searchBtn.style_search_white()
-        _searchBtn.backgroundColor = UIColor.clear
-        navItem.titleView = _searchBtn
+        let btn:SearchController = SearchController()
+        //btn.backgroundColor = UIColor.white
+        btn.addOnClickLister(target: self, action:#selector( goToSearch))
+        navItem.titleView = btn.SeacrchBtn2()
     }
     
     // 设置导航栏标题
     func setupNavTitle1(){
-        var _searchBtn:QZHSearchBar = QZHSearchBar()
-        _searchBtn = QZHSearchBar(frame:CGRect(x:(navigationBar.width-540*PX)/2,y:0,width:540*PX,height:navigationBar.height))
-        _searchBtn.contentInset=UIEdgeInsets(top:13*PX,left:0,bottom:13*PX,right:0)
-        _searchBtn.style_search_gray()
-        _searchBtn.barTintColor = UIColor(red: 198/255, green: 198/255, blue: 198/255, alpha: 1)
-        navItem.titleView = _searchBtn
+        let btn:SearchController = SearchController()
+        btn.addOnClickLister(target: self, action:#selector( goToSearch))
+        navItem.titleView = btn.SeacrchBtn1()
     }
     
     // 设置进入模块窗口
@@ -218,7 +214,7 @@ extension QZHHomeViewController{
         parentView.addSubview(icon1)
         
         let icon2:QZHUIView = QZHUIView()
-        self.setupModule(selfView: icon2, x: 242*PX, bg: "ICON2", img: "ICON_2", title: "产业商圈", action: #selector(goTosqsc(_:)))
+        self.setupModule(selfView: icon2, x: 242*PX, bg: "ICON2", img: "ICON_2", title: "产业商圈", action: #selector(QZH_CYSQHomePage))
         parentView.addSubview(icon2)
         
         let icon3:QZHUIView = QZHUIView()
@@ -415,6 +411,16 @@ extension QZHHomeViewController{
         present(nav, animated: true, completion: nil)
     }
     
+    func QZH_CYSQHomePage(){
+        let nav = QZH_CYSQMainViewController()
+        present(nav, animated: true, completion: nil)
+    }
+    
+    //搜索页面跳转
+    func goToSearch(){
+        let nav = QZHSearchViewController()
+        present(nav, animated: true, completion: nil)
+    }
     
     // 扫一扫
     func flickAction(){
@@ -432,6 +438,8 @@ extension QZHHomeViewController{
     func goTosqsc(_ sender:UITapGestureRecognizer){
         
     }
+    
+    
 }
 
 // MARK: - 设置轮播图

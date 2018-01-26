@@ -44,13 +44,33 @@ class myColor:UIColor{
         return UIColor(red:215/255,green:215/255,blue:215/255,alpha:1)
     }
 
+    //#c6c6c6
+    func GrayC6()->UIColor{
+        return  UIColor(red:198/255,green:198/255,blue:198/255,alpha:1)
+    }
+    //#aaaaaa
+    func GrayA()->UIColor{
+        return  UIColor(red:170/255,green:170/255,blue:170/255,alpha:1)
+    }
+    //#555555
+    func Gray5()->UIColor{
+        return  UIColor(red:85/255,green:85/255,blue:85/255,alpha:1)
+    }
+    //#f1f2f6
+    func GrayF1F2F6()->UIColor{
+        return  UIColor(red:241/255,green:242/255,blue:246/255,alpha:1)
+    }
     //#888
     func Gray8()->UIColor{
         return  UIColor(red:136/255,green:136/255,blue:136/255,alpha:1)
     }
-    //#666
+    //#666 grayB9
     func Gray6()->UIColor{
         return  UIColor(red:102/255,green:102/255,blue:102/255,alpha:1)
+    }
+    //#b9b9b9
+    func grayB9()->UIColor{
+        return  UIColor(red:185/255,green:185/255,blue:185/255,alpha:1)
     }
     //#e8e8e8
     func GrayE8()->UIColor{
@@ -60,9 +80,21 @@ class myColor:UIColor{
     func GrayD8()->UIColor{
         return  UIColor(red:216/255,green:216/255,blue:216/255,alpha:1)
     }
+    //#6c6ca1
+    func Gray6c6ca1()->UIColor{
+        return  UIColor(red:108/255,green:108/255,blue:161/255,alpha:1)
+    }
+    //#0d0d0d
+    func Gray0D()->UIColor{
+        return  UIColor(red:13/255,green:13/255,blue:13/255,alpha:1)
+    }
     //#eeeeee
     func grayE()->UIColor{
         return UIColor(red:238/255,green:238/255,blue:238/255,alpha:1)
+    }
+    //#444444
+    func gray4()->UIColor{
+        return UIColor(red:68/255,green:68/255,blue:68/255,alpha:1)
     }
     //#ebebeb
     func grayEB()->UIColor{

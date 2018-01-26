@@ -143,11 +143,9 @@ extension QZHEnterprisePortalViewController{
    
     //设置导航栏标题
     func setupNavTitle(){
-        var _searchBtn:QZHSearchBar = QZHSearchBar()
-        _searchBtn = QZHSearchBar(frame:CGRect(x:(navigationBar.width-540*PX)/2,y:0,width:540*PX,height:navigationBar.height))
-        _searchBtn.contentInset=UIEdgeInsets(top:13*PX,left:0,bottom:13*PX,right:0)
-        _searchBtn.style_search_gray()
-        navItem.titleView = _searchBtn
+        let btn:SearchController = SearchController()
+        btn.addOnClickLister(target: self, action:#selector( goToSearch))
+        navItem.titleView = btn.SeacrchBtn3()
     }
     
     //设置筛选头部
@@ -273,6 +271,12 @@ extension QZHEnterprisePortalViewController{
 
 //MARK: - 监听方法
 extension QZHEnterprisePortalViewController{
+    // 搜索页面跳转
+    func goToSearch(){
+        let nav = QZHSearchViewController()
+        present(nav, animated: true, completion: nil)
+    }
+    
     //／显示消息 好友列表
     func showFriends(){
         let vc = QZHDemoViewController()

@@ -20,7 +20,7 @@ extension QZHNetworkManager{
     ///   - pageNo: 加载数据的页码
     ///   - completion: 完成回调[list:千纸鹤数据字典／是否成功]
     func statusList(method:QZHHTTPMethod = .GET,url:String,params:[String:AnyObject],completion:@escaping (_ list:[String:AnyObject],_ isSuccess:Bool)->()){
-        let urlString = "http://192.168.100.73:81/\(url)"
+        let urlString = "http://192.168.100.71:8100/\(url)"
         request(method:method,URLString:urlString, parameters: params){
             (json,isSuccess) in
             if json == nil {

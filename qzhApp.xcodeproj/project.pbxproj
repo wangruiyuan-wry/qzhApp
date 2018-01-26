@@ -60,10 +60,25 @@
 		6C4224E220156DFD00F1EEC0 /* QZHHomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4224E120156DFD00F1EEC0 /* QZHHomeModel.swift */; };
 		6C4224E62015779300F1EEC0 /* QZHHomeViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4224E52015779300F1EEC0 /* QZHHomeViewModels.swift */; };
 		6C4224E8201577BB00F1EEC0 /* QZHHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4224E7201577BB00F1EEC0 /* QZHHomeViewModel.swift */; };
-		6C4224F020158EB600F1EEC0 /* WRCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4224EC20158EB600F1EEC0 /* WRCycleCell.swift */; };
-		6C4224F120158EB600F1EEC0 /* WRCycleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4224ED20158EB600F1EEC0 /* WRCycleScrollView.swift */; };
-		6C4224F220158EB600F1EEC0 /* WRPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4224EE20158EB600F1EEC0 /* WRPageControl.swift */; };
-		6C4224F320158EB600F1EEC0 /* WRProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4224EF20158EB600F1EEC0 /* WRProxy.swift */; };
+		6C42251F2017289900F1EEC0 /* QZHSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42251E2017289700F1EEC0 /* QZHSearchViewController.swift */; };
+		6C42252220172A5300F1EEC0 /* QZHSearchSQSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42252120172A5300F1EEC0 /* QZHSearchSQSC.swift */; };
+		6C42252620172AD000F1EEC0 /* QZHSearchCYSQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42252520172AD000F1EEC0 /* QZHSearchCYSQ.swift */; };
+		6C42252F20172AFF00F1EEC0 /* QZHSearchQYMH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42252E20172AFF00F1EEC0 /* QZHSearchQYMH.swift */; };
+		6C42253120172B1600F1EEC0 /* QZHSearchJFYG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42253020172B1600F1EEC0 /* QZHSearchJFYG.swift */; };
+		6C4225372018136F00F1EEC0 /* WRCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4225332018136F00F1EEC0 /* WRCycleCell.swift */; };
+		6C4225382018136F00F1EEC0 /* WRCycleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4225342018136F00F1EEC0 /* WRCycleScrollView.swift */; };
+		6C4225392018136F00F1EEC0 /* WRPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4225352018136F00F1EEC0 /* WRPageControl.swift */; };
+		6C42253A2018136F00F1EEC0 /* WRProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4225362018136F00F1EEC0 /* WRProxy.swift */; };
+		6C422543201848BD00F1EEC0 /* QZH_CYSQMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C422542201848BD00F1EEC0 /* QZH_CYSQMainViewController.swift */; };
+		6C42254520184B8500F1EEC0 /* QZH_CYSQBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42254420184B8500F1EEC0 /* QZH_CYSQBaseViewController.swift */; };
+		6C42254920184E9E00F1EEC0 /* QZH_CYSQHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42254820184E9E00F1EEC0 /* QZH_CYSQHomeViewController.swift */; };
+		6C42254B20187A2E00F1EEC0 /* QZGH _CYSQHomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42254A20187A2E00F1EEC0 /* QZGH _CYSQHomeModel.swift */; };
+		6C42254D2019667600F1EEC0 /* QZGH_CYSQHomeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42254C2019667600F1EEC0 /* QZGH_CYSQHomeListViewModel.swift */; };
+		6C42254F20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42254E20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift */; };
+		6C4225532019719000F1EEC0 /* QZH_CYSQHomeHotSell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4225512019719000F1EEC0 /* QZH_CYSQHomeHotSell.swift */; };
+		6C4225542019719000F1EEC0 /* QZH_CYSQHomeHotSell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C4225522019719000F1EEC0 /* QZH_CYSQHomeHotSell.xib */; };
+		6C4225592019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4225572019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift */; };
+		6C42255A2019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C4225582019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib */; };
 		6C4D77B81FFC5EF500581221 /* companyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D77B61FFC5EF500581221 /* companyInfo.swift */; };
 		6C4D77B91FFC5EF500581221 /* EnterprisePortalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D77B71FFC5EF500581221 /* EnterprisePortalController.swift */; };
 		6C4D77D51FFC63AC00581221 /* companyInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D77D41FFC63AC00581221 /* companyInfoViewModel.swift */; };
@@ -410,10 +425,25 @@
 		6C4224E120156DFD00F1EEC0 /* QZHHomeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHHomeModel.swift; sourceTree = "<group>"; };
 		6C4224E52015779300F1EEC0 /* QZHHomeViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHHomeViewModels.swift; sourceTree = "<group>"; };
 		6C4224E7201577BB00F1EEC0 /* QZHHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHHomeViewModel.swift; sourceTree = "<group>"; };
-		6C4224EC20158EB600F1EEC0 /* WRCycleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleCell.swift; sourceTree = "<group>"; };
-		6C4224ED20158EB600F1EEC0 /* WRCycleScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleScrollView.swift; sourceTree = "<group>"; };
-		6C4224EE20158EB600F1EEC0 /* WRPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRPageControl.swift; sourceTree = "<group>"; };
-		6C4224EF20158EB600F1EEC0 /* WRProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRProxy.swift; sourceTree = "<group>"; };
+		6C42251E2017289700F1EEC0 /* QZHSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHSearchViewController.swift; sourceTree = "<group>"; };
+		6C42252120172A5300F1EEC0 /* QZHSearchSQSC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHSearchSQSC.swift; sourceTree = "<group>"; };
+		6C42252520172AD000F1EEC0 /* QZHSearchCYSQ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHSearchCYSQ.swift; sourceTree = "<group>"; };
+		6C42252E20172AFF00F1EEC0 /* QZHSearchQYMH.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHSearchQYMH.swift; sourceTree = "<group>"; };
+		6C42253020172B1600F1EEC0 /* QZHSearchJFYG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHSearchJFYG.swift; sourceTree = "<group>"; };
+		6C4225332018136F00F1EEC0 /* WRCycleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleCell.swift; sourceTree = "<group>"; };
+		6C4225342018136F00F1EEC0 /* WRCycleScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleScrollView.swift; sourceTree = "<group>"; };
+		6C4225352018136F00F1EEC0 /* WRPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRPageControl.swift; sourceTree = "<group>"; };
+		6C4225362018136F00F1EEC0 /* WRProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRProxy.swift; sourceTree = "<group>"; };
+		6C422542201848BD00F1EEC0 /* QZH_CYSQMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZH_CYSQMainViewController.swift; sourceTree = "<group>"; };
+		6C42254420184B8500F1EEC0 /* QZH_CYSQBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZH_CYSQBaseViewController.swift; sourceTree = "<group>"; };
+		6C42254820184E9E00F1EEC0 /* QZH_CYSQHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZH_CYSQHomeViewController.swift; sourceTree = "<group>"; };
+		6C42254A20187A2E00F1EEC0 /* QZGH _CYSQHomeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QZGH _CYSQHomeModel.swift"; sourceTree = "<group>"; };
+		6C42254C2019667600F1EEC0 /* QZGH_CYSQHomeListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZGH_CYSQHomeListViewModel.swift; sourceTree = "<group>"; };
+		6C42254E20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZGH_CYSQHomeViewModel.swift; sourceTree = "<group>"; };
+		6C4225512019719000F1EEC0 /* QZH_CYSQHomeHotSell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZH_CYSQHomeHotSell.swift; sourceTree = "<group>"; };
+		6C4225522019719000F1EEC0 /* QZH_CYSQHomeHotSell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QZH_CYSQHomeHotSell.xib; sourceTree = "<group>"; };
+		6C4225572019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZH_CYSQHomeTitleCell.swift; sourceTree = "<group>"; };
+		6C4225582019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QZH_CYSQHomeTitleCell.xib; sourceTree = "<group>"; };
 		6C4D77B61FFC5EF500581221 /* companyInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = companyInfo.swift; sourceTree = "<group>"; };
 		6C4D77B71FFC5EF500581221 /* EnterprisePortalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterprisePortalController.swift; sourceTree = "<group>"; };
 		6C4D77D41FFC63AC00581221 /* companyInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = companyInfoViewModel.swift; sourceTree = "<group>"; };
@@ -566,6 +596,7 @@
 		6C06E9D21FF36D700054B339 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6C42253B2018483500F1EEC0 /* CYSQ */,
 				6C4D9CDA2002FB0500F2D22F /* View */,
 				6C4D9CDC2002FB0500F2D22F /* ViewModel */,
 				6C4D9CDD2002FB0500F2D22F /* Model */,
@@ -761,23 +792,117 @@
 			path = proCell;
 			sourceTree = "<group>";
 		};
-		6C4224EB20158EB600F1EEC0 /* WRCycleScrollView */ = {
+		6C42251D201724BA00F1EEC0 /* searchViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6C4224EC20158EB600F1EEC0 /* WRCycleCell.swift */,
-				6C4224ED20158EB600F1EEC0 /* WRCycleScrollView.swift */,
-				6C4224EE20158EB600F1EEC0 /* WRPageControl.swift */,
-				6C4224EF20158EB600F1EEC0 /* WRProxy.swift */,
+				6C422520201729F000F1EEC0 /* SearchCategories */,
+				6C42251E2017289700F1EEC0 /* QZHSearchViewController.swift */,
 			);
-			name = WRCycleScrollView;
-			path = "../../../../../../Downloads/WRCycleScrollView-master/WRCycleScrollView";
+			path = searchViewController;
 			sourceTree = "<group>";
 		};
-		6C42250220171E1000F1EEC0 /* searchViewController */ = {
+		6C422520201729F000F1EEC0 /* SearchCategories */ = {
 			isa = PBXGroup;
 			children = (
+				6C42252120172A5300F1EEC0 /* QZHSearchSQSC.swift */,
+				6C42252520172AD000F1EEC0 /* QZHSearchCYSQ.swift */,
+				6C42252E20172AFF00F1EEC0 /* QZHSearchQYMH.swift */,
+				6C42253020172B1600F1EEC0 /* QZHSearchJFYG.swift */,
 			);
-			name = searchViewController;
+			name = SearchCategories;
+			sourceTree = "<group>";
+		};
+		6C4225322018136F00F1EEC0 /* WRCycleScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				6C4225332018136F00F1EEC0 /* WRCycleCell.swift */,
+				6C4225342018136F00F1EEC0 /* WRCycleScrollView.swift */,
+				6C4225352018136F00F1EEC0 /* WRPageControl.swift */,
+				6C4225362018136F00F1EEC0 /* WRProxy.swift */,
+			);
+			name = WRCycleScrollView;
+			path = qzhApp/Classes/Tools/WRCycleScrollView;
+			sourceTree = SOURCE_ROOT;
+		};
+		6C42253B2018483500F1EEC0 /* CYSQ */ = {
+			isa = PBXGroup;
+			children = (
+				6C42253D2018483500F1EEC0 /* View */,
+				6C4225402018483500F1EEC0 /* ViewModel */,
+				6C42253C2018483500F1EEC0 /* Model */,
+			);
+			path = CYSQ;
+			sourceTree = "<group>";
+		};
+		6C42253C2018483500F1EEC0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C42254A20187A2E00F1EEC0 /* QZGH _CYSQHomeModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6C42253D2018483500F1EEC0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6C42253F2018483500F1EEC0 /* Main */,
+				6C42253E2018483500F1EEC0 /* Home */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6C42253E2018483500F1EEC0 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6C4225562019AE3E00F1EEC0 /* 标题栏 */,
+				6C4225502019713C00F1EEC0 /* 热销产品  */,
+				6C42254820184E9E00F1EEC0 /* QZH_CYSQHomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		6C42253F2018483500F1EEC0 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				6C4225412018484E00F1EEC0 /* 主控制器 */,
+				6C42254420184B8500F1EEC0 /* QZH_CYSQBaseViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		6C4225402018483500F1EEC0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6C42254C2019667600F1EEC0 /* QZGH_CYSQHomeListViewModel.swift */,
+				6C42254E20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6C4225412018484E00F1EEC0 /* 主控制器 */ = {
+			isa = PBXGroup;
+			children = (
+				6C422542201848BD00F1EEC0 /* QZH_CYSQMainViewController.swift */,
+			);
+			name = "主控制器";
+			sourceTree = "<group>";
+		};
+		6C4225502019713C00F1EEC0 /* 热销产品  */ = {
+			isa = PBXGroup;
+			children = (
+				6C4225512019719000F1EEC0 /* QZH_CYSQHomeHotSell.swift */,
+				6C4225522019719000F1EEC0 /* QZH_CYSQHomeHotSell.xib */,
+			);
+			name = "热销产品 ";
+			sourceTree = "<group>";
+		};
+		6C4225562019AE3E00F1EEC0 /* 标题栏 */ = {
+			isa = PBXGroup;
+			children = (
+				6C4225572019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift */,
+				6C4225582019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib */,
+			);
+			name = "标题栏";
 			sourceTree = "<group>";
 		};
 		6C4D77B51FFC5EF500581221 /* ViewController */ = {
@@ -792,7 +917,7 @@
 		6C4D9CDA2002FB0500F2D22F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6C42250220171E1000F1EEC0 /* searchViewController */,
+				6C42251D201724BA00F1EEC0 /* searchViewController */,
 				6C4D9CDF2002FBE900F2D22F /* Main */,
 				6C4D9CEA2003205000F2D22F /* Home */,
 				6C0C3CAD20049AB300AD40D9 /* EnterprisePoral */,
@@ -803,7 +928,7 @@
 		6C4D9CDB2002FB0500F2D22F /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				6C4224EB20158EB600F1EEC0 /* WRCycleScrollView */,
+				6C4225322018136F00F1EEC0 /* WRCycleScrollView */,
 				6C0C3CB020049EFD00AD40D9 /* Network */,
 				6C4D9D1B20033B5D00F2D22F /* Additions */,
 				6C4D9D3520033B5D00F2D22F /* Extensions */,
@@ -1299,12 +1424,14 @@
 			files = (
 				6C4D9CE72003024500F2D22F /* main.json in Resources */,
 				6C0C3D072005B74D00AD40D9 /* QZHEnterprisePortalStatusCell.xib in Resources */,
+				6C4225542019719000F1EEC0 /* QZH_CYSQHomeHotSell.xib in Resources */,
 				6C4224E02011A80500F1EEC0 /* QZHEnterpriseDetailProCell.xib in Resources */,
 				6C02216B200C5E9600612728 /* area.json in Resources */,
 				6C06EBB61FF370750054B339 /* Info.plist in Resources */,
 				6C3DD2351FFB82200022E582 /* address.plist in Resources */,
 				6C06EAB91FF36D710054B339 /* Assets.xcassets in Resources */,
 				6C06EB6B1FF36D710054B339 /* LaunchScreen.storyboard in Resources */,
+				6C42255A2019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.xib in Resources */,
 				6C06EB6C1FF36D710054B339 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1399,7 +1526,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C4D77B91FFC5EF500581221 /* EnterprisePortalController.swift in Sources */,
-				6C4224F320158EB600F1EEC0 /* WRProxy.swift in Sources */,
 				6C0F6D7420075DA200CA1509 /* NetWork.swift in Sources */,
 				6C28548B200DF37E00749A2C /* QZHEnterpriseDetail.swift in Sources */,
 				6C0C3CCC20049F8B00AD40D9 /* QZHNetworkManager.swift in Sources */,
@@ -1408,28 +1534,34 @@
 				6C4D9CF02003222100F2D22F /* QZHHomeViewController.swift in Sources */,
 				6C06EBEA1FF3750C0054B339 /* PublicFunc.swift in Sources */,
 				6C022167200C43CF00612728 /* QZHArea.swift in Sources */,
+				6C42254520184B8500F1EEC0 /* QZH_CYSQBaseViewController.swift in Sources */,
 				6C0C3D1C2005F40400AD40D9 /* QZHEnterprisePortalCompanyViewModel.swift in Sources */,
 				6C022155200848D100612728 /* QZHOAuthViewController.swift in Sources */,
 				6C4224E8201577BB00F1EEC0 /* QZHHomeViewModel.swift in Sources */,
 				6C122DAA1FF498BF0043EA67 /* labelView.swift in Sources */,
+				6C4225592019AE7100F1EEC0 /* QZH_CYSQHomeTitleCell.swift in Sources */,
+				6C4225532019719000F1EEC0 /* QZH_CYSQHomeHotSell.swift in Sources */,
 				6C98C3761FF4EE3B00F598CB /* EnterprisePortalView.swift in Sources */,
+				6C42254B20187A2E00F1EEC0 /* QZGH _CYSQHomeModel.swift in Sources */,
 				6C0C3CF82004C2AC00AD40D9 /* QZHEnterprisePortalViewModel.swift in Sources */,
 				6C4D9D3E20033B5D00F2D22F /* NSObject+CZRuntime.m in Sources */,
 				6C4D9D3D20033B5D00F2D22F /* NSAttributedString+CZAdditon.m in Sources */,
 				6C022161200895DF00612728 /* QZHUIButton+Extension.swift in Sources */,
 				6C06EBF41FF3792F0054B339 /* MyColor.swift in Sources */,
 				6C4224DF2011A80500F1EEC0 /* QZHEnterpriseDetailProCell.swift in Sources */,
+				6C42254D2019667600F1EEC0 /* QZGH_CYSQHomeListViewModel.swift in Sources */,
 				6C122DA81FF47D4B0043EA67 /* EnterprisePortalViewModel.swift in Sources */,
+				6C4225382018136F00F1EEC0 /* WRCycleScrollView.swift in Sources */,
 				6C06EBB91FF370830054B339 /* AppDelegate.swift in Sources */,
+				6C42252620172AD000F1EEC0 /* QZHSearchCYSQ.swift in Sources */,
 				6CDF02B31FF60B8D00EFB5A7 /* protocol.swift in Sources */,
 				6C4D9D4120033B5D00F2D22F /* NSString+CZPath.m in Sources */,
-				6C4224F020158EB600F1EEC0 /* WRCycleCell.swift in Sources */,
 				6C4D9D3C20033B5D00F2D22F /* NSArray+Log.m in Sources */,
 				6C4D9D4620033B5D00F2D22F /* UIView+CZAddition.m in Sources */,
 				6C4D9CEC2003215700F2D22F /* QZHNavigationCobtroller.swift in Sources */,
+				6C42254920184E9E00F1EEC0 /* QZH_CYSQHomeViewController.swift in Sources */,
 				6C0221592008584E00612728 /* QZHSearchBar+Extension.swift in Sources */,
 				6C4224E62015779300F1EEC0 /* QZHHomeViewModels.swift in Sources */,
-				6C4224F220158EB600F1EEC0 /* WRPageControl.swift in Sources */,
 				6C3DD2361FFB82200022E582 /* provincesThreeLevelCascade.swift in Sources */,
 				6C2854BA200EF73300749A2C /* QZHEnterpriseProViewController.swift in Sources */,
 				6C4D9D4520033B5D00F2D22F /* UIScreen+CZAddition.m in Sources */,
@@ -1437,9 +1569,12 @@
 				6C4D9D4720033B5D00F2D22F /* UIViewController+CZAddition.m in Sources */,
 				6C4D9CEE200321A600F2D22F /* QZHBaseViewController.swift in Sources */,
 				6CDF02B91FF61E2D00EFB5A7 /* Public.swift in Sources */,
+				6C42251F2017289900F1EEC0 /* QZHSearchViewController.swift in Sources */,
+				6C4225392018136F00F1EEC0 /* WRPageControl.swift in Sources */,
 				6C4224E220156DFD00F1EEC0 /* QZHHomeModel.swift in Sources */,
 				6CDF02AF1FF5ECC300EFB5A7 /* scrolliew.swift in Sources */,
 				6C0C3CAB200496D800AD40D9 /* QZHVisitorView.swift in Sources */,
+				6C42253120172B1600F1EEC0 /* QZHSearchJFYG.swift in Sources */,
 				6C06EBEE1FF376A40054B339 /* imgClass.swift in Sources */,
 				6C02215D20088A6E00612728 /* QZHUIView+Extension.swift in Sources */,
 				6C4D9D4020033B5D00F2D22F /* NSString+CZHash.m in Sources */,
@@ -1450,8 +1585,10 @@
 				6C4D9D4820033B5D00F2D22F /* Bundle+Extensions.swift in Sources */,
 				6CFD403B1FFCD93300B36D74 /* pickerView.swift in Sources */,
 				6C0C3D052005B72800AD40D9 /* QZHEnterprisePortalStatusCell.swift in Sources */,
+				6C42252220172A5300F1EEC0 /* QZHSearchSQSC.swift in Sources */,
 				6C285493200EDDDF00749A2C /* QZHEnterpriseDetailViewModels.swift in Sources */,
 				6C0C3CF62004C29F00AD40D9 /* QZHEnterprisePortalModel.swift in Sources */,
+				6C42253A2018136F00F1EEC0 /* WRProxy.swift in Sources */,
 				6C02216D200C686800612728 /* QZHUIScrollView+Extension.swift in Sources */,
 				6C285495200EDDEB00749A2C /* QZHEnterpriseDetailViewModel.swift in Sources */,
 				6CDF02931FF5E42400EFB5A7 /* tabelViewController.swift in Sources */,
@@ -1460,16 +1597,19 @@
 				6C0C3CD42004B19400AD40D9 /* QZHNetworkManager_Extension.swift in Sources */,
 				6C02215F20088D3400612728 /* QZHUILabelView+Extension.swift in Sources */,
 				6C0F6D6B200728E300CA1509 /* QZHCommon.swift in Sources */,
+				6C422543201848BD00F1EEC0 /* QZH_CYSQMainViewController.swift in Sources */,
 				6C4D9D5320035E2000F2D22F /* UIBarButtonItem+Extensions.swift in Sources */,
 				6C4D9D4320033B5D00F2D22F /* UIColor+CZAddition.m in Sources */,
 				6C4D9CF42003237B00F2D22F /* QZHMainViewController.swift in Sources */,
+				6C42252F20172AFF00F1EEC0 /* QZHSearchQYMH.swift in Sources */,
 				6C06EBEC1FF375F20054B339 /* CacheFunc.swift in Sources */,
 				6C4D9D4420033B5D00F2D22F /* UILabel+CZAddition.m in Sources */,
+				6C4225372018136F00F1EEC0 /* WRCycleCell.swift in Sources */,
 				6C2854B6200EF6F700749A2C /* QZHEnterpriseInfoViewController.swift in Sources */,
 				6C4D9D4220033B5D00F2D22F /* UIButton+CZAddition.m in Sources */,
+				6C42254F20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift in Sources */,
 				6C4D77B81FFC5EF500581221 /* companyInfo.swift in Sources */,
 				6C4D9D5120034D8800F2D22F /* QZHDemoViewController.swift in Sources */,
-				6C4224F120158EB600F1EEC0 /* WRCycleScrollView.swift in Sources */,
 				6C2854B8200EF71B00749A2C /* QZHEnterpriseContactViewController.swift in Sources */,
 				6C0C3CFA20059F0200AD40D9 /* QZHEnterprisePortalViewController.swift in Sources */,
 			);

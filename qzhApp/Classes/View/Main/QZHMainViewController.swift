@@ -68,7 +68,6 @@ extension QZHMainViewController:UITabBarControllerDelegate{
         
         //2.>判断索引是首页，同时idx也是首页，重复点击首页
         if selectedIndex == 0 && idx == selectedIndex{
-            print("点击首页")
             //3.>让表格滚到顶部
             //a> 获取控制器
             let nav = childViewControllers[0] as! UINavigationController

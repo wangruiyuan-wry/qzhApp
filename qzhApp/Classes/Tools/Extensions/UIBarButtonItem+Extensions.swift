@@ -23,15 +23,23 @@ extension UIBarButtonItem{
         var btn:UIButton=UIButton()
         if  img == "" && title == ""{
             btn = PublicFunction().btn_right_chat()
-        }else if img == "back_pageIcon" && title == ""{
-            btn.frame = CGRect(x:Int(30*PX),y:20,width:Int(PX*20),height:Int(PX*128)-20)
+        }else if img == "back_pageIcon" && title == ""{//back_pageIcon1
+            btn.frame = CGRect(x:Int(30*PX),y:20,width:Int(PX*20),height:Int(PX*35))
+            btn.setImage(UIImage(named:img), for:.normal)
+            btn.contentMode = .center
+        }else if img == "back_pageIcon1" && title == ""{
+            btn.frame = CGRect(x:Int(30*PX),y:20,width:Int(PX*20),height:Int(PX*35))
+            btn.setImage(UIImage(named:img), for:.normal)
+            btn.contentMode = .center
+        }else if img == "back_pageIcon2" && title == ""{
+            btn.frame = CGRect(x:Int(30*PX),y:20,width:Int(PX*20),height:Int(PX*35))
             btn.setImage(UIImage(named:img), for:.normal)
             btn.contentMode = .center
         }else if img==""{
-            btn.frame = CGRect(x:0,y:0,width:35*PX,height:20)
+            btn.frame = CGRect(x:0,y:0,width:55*PX,height:20)
             btn.setTitle(title, for: .normal)
             btn.setTitleColor(UIColor.gray, for: .normal)
-            btn.titleLabel?.font=UIFont.init(name: "Zapfino", size: 10)
+            btn.titleLabel?.font=UIFont.systemFont(ofSize: 26*PX)
         }else if title == ""{
             btn.frame = CGRect(x:0,y:0,width:20,height:20)
             var img=UIImage(named:img)

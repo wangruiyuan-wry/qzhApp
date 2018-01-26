@@ -167,7 +167,6 @@ extension  QZHBaseViewController: UITableViewDataSource,UITableViewDelegate{
 //MAKRK: - 访客视图监听方法
 extension QZHBaseViewController{
     @objc private func login(){
-
         //发送通知
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification), object: nil)
         
