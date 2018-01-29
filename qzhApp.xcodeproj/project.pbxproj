@@ -100,6 +100,8 @@
 		6C4D9D4820033B5D00F2D22F /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D9D3620033B5D00F2D22F /* Bundle+Extensions.swift */; };
 		6C4D9D5120034D8800F2D22F /* QZHDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D9D5020034D8800F2D22F /* QZHDemoViewController.swift */; };
 		6C4D9D5320035E2000F2D22F /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4D9D5220035E2000F2D22F /* UIBarButtonItem+Extensions.swift */; };
+		6C8A362E201B2DAD0055B48E /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A362C201B2DAD0055B48E /* ImageHelper.swift */; };
+		6C8A362F201B2DAD0055B48E /* ImageVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A362D201B2DAD0055B48E /* ImageVIewExtension.swift */; };
 		6C98C36A1FF4E23700F598CB /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C98C3411FF4E22900F598CB /* RxSwift.framework */; };
 		6C98C36B1FF4E23700F598CB /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C98C3411FF4E22900F598CB /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6C98C36E1FF4E25E00F598CB /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C98C3491FF4E22900F598CB /* RxCocoa.framework */; };
@@ -477,6 +479,8 @@
 		6C4D9D3620033B5D00F2D22F /* Bundle+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		6C4D9D5020034D8800F2D22F /* QZHDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHDemoViewController.swift; sourceTree = "<group>"; };
 		6C4D9D5220035E2000F2D22F /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
+		6C8A362C201B2DAD0055B48E /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		6C8A362D201B2DAD0055B48E /* ImageVIewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageVIewExtension.swift; sourceTree = "<group>"; };
 		6C98C3281FF4E22800F598CB /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = "RxSwift-rxswift-3.0/Rx.xcodeproj"; sourceTree = "<group>"; };
 		6C98C3751FF4EE3B00F598CB /* EnterprisePortalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterprisePortalView.swift; sourceTree = "<group>"; };
 		6C98C3771FF4F0CF00F598CB /* viewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = viewController.swift; sourceTree = "<group>"; };
@@ -915,6 +919,7 @@
 		6C4D9CDB2002FB0500F2D22F /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				6C8A362B201B2DAD0055B48E /* ImageHelper */,
 				6C4225322018136F00F1EEC0 /* WRCycleScrollView */,
 				6C0C3CB020049EFD00AD40D9 /* Network */,
 				6C4D9D1B20033B5D00F2D22F /* Additions */,
@@ -1032,6 +1037,16 @@
 			);
 			name = "主控制器";
 			sourceTree = "<group>";
+		};
+		6C8A362B201B2DAD0055B48E /* ImageHelper */ = {
+			isa = PBXGroup;
+			children = (
+				6C8A362C201B2DAD0055B48E /* ImageHelper.swift */,
+				6C8A362D201B2DAD0055B48E /* ImageVIewExtension.swift */,
+			);
+			name = ImageHelper;
+			path = qzhApp/Classes/Tools/ImageHelper;
+			sourceTree = SOURCE_ROOT;
 		};
 		6C98C3291FF4E22800F598CB /* Products */ = {
 			isa = PBXGroup;
@@ -1541,6 +1556,7 @@
 				6C42252620172AD000F1EEC0 /* QZHSearchCYSQ.swift in Sources */,
 				6CDF02B31FF60B8D00EFB5A7 /* protocol.swift in Sources */,
 				6C4D9D4120033B5D00F2D22F /* NSString+CZPath.m in Sources */,
+				6C8A362F201B2DAD0055B48E /* ImageVIewExtension.swift in Sources */,
 				6C4D9D3C20033B5D00F2D22F /* NSArray+Log.m in Sources */,
 				6C4D9D4620033B5D00F2D22F /* UIView+CZAddition.m in Sources */,
 				6C4D9CEC2003215700F2D22F /* QZHNavigationCobtroller.swift in Sources */,
@@ -1594,6 +1610,7 @@
 				6C4D9D4220033B5D00F2D22F /* UIButton+CZAddition.m in Sources */,
 				6C42254F20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift in Sources */,
 				6C4D77B81FFC5EF500581221 /* companyInfo.swift in Sources */,
+				6C8A362E201B2DAD0055B48E /* ImageHelper.swift in Sources */,
 				6C4D9D5120034D8800F2D22F /* QZHDemoViewController.swift in Sources */,
 				6C2854B8200EF71B00749A2C /* QZHEnterpriseContactViewController.swift in Sources */,
 				6C0C3CFA20059F0200AD40D9 /* QZHEnterprisePortalViewController.swift in Sources */,

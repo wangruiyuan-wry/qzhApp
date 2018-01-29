@@ -219,19 +219,19 @@ extension QZHHomeViewController{
         
         let icon1:QZHUIView = QZHUIView()
         
-        self.setupModule(selfView: icon1, x: 71*PX, img: "ICON_1", title: "社区商城", action: #selector(goTosqsc(_:)), colorArray: [UIColor(red:232/255,green:49/255,blue:78/255,alpha:0.92).cgColor,UIColor(red:255/255,green:113/255,blue:113/255,alpha:0.80).cgColor], loctions: [0.4,1.0], start: CGPoint(x: 0, y: 0.5), end: CGPoint(x: 1.0, y: 0.5))
+        self.setupModule(selfView: icon1, x: 71*PX, img: "ICON_1", title: "社区商城", action: #selector(goTosqsc(_:)), colorArray: [UIColor(red:232/255,green:49/255,blue:78/255,alpha:0.92).cgColor,UIColor(red:255/255,green:113/255,blue:113/255,alpha:0.80).cgColor], loctions: [0.4,1.0], start: CGPoint(x: 0.5, y: 0), end: CGPoint(x: 0.5, y: 1.0))
         parentView.addSubview(icon1)
         
         let icon2:QZHUIView = QZHUIView()
-        self.setupModule(selfView: icon2, x: 242*PX, img: "ICON_2", title: "产业商圈", action: #selector(QZH_CYSQHomePage), colorArray: [UIColor(red:175/255,green:173/255,blue:230/255,alpha:1).cgColor,UIColor(red:106/255,green:106/255,blue:158/255,alpha:1).cgColor], loctions: [0.0,1.0], start: CGPoint(x: 0, y: 0.5), end: CGPoint(x: 1.0, y: 0.5))
+        self.setupModule(selfView: icon2, x: 242*PX, img: "ICON_2", title: "产业商圈", action: #selector(QZH_CYSQHomePage), colorArray: [UIColor(red:175/255,green:173/255,blue:230/255,alpha:1).cgColor,UIColor(red:106/255,green:106/255,blue:158/255,alpha:1).cgColor], loctions: [0.0,1.0], start: CGPoint(x: 0.5, y: 0), end: CGPoint(x: 0.5, y: 1.0))
         parentView.addSubview(icon2)
         
         let icon3:QZHUIView = QZHUIView()
-        self.setupModule(selfView: icon3, x: 419*PX, img: "ICON_3", title: "企业门户", action: #selector(EnterprisePortalPage),colorArray: [UIColor(red:118/255,green:220/255,blue:174/255,alpha:1).cgColor,UIColor(red:66/255,green:159/255,blue:188/255,alpha:1).cgColor], loctions: [0.0,1.0], start: CGPoint(x: 0, y: 0.5), end: CGPoint(x: 1.0, y: 0.5))
+        self.setupModule(selfView: icon3, x: 419*PX, img: "ICON_3", title: "企业门户", action: #selector(EnterprisePortalPage),colorArray: [UIColor(red:118/255,green:220/255,blue:174/255,alpha:1).cgColor,UIColor(red:66/255,green:159/255,blue:188/255,alpha:1).cgColor], loctions: [0.0,1.0], start: CGPoint(x: 0.5, y: 0), end: CGPoint(x: 0.5, y: 1.0))
         parentView.addSubview(icon3)
         
         let icon4:QZHUIView = QZHUIView()//
-        self.setupModule(selfView: icon4, x: 594*PX, img: "ICON_4", title: "积分优购", action: #selector(goTosqsc(_:)),colorArray: [UIColor(red:255/255,green:88/255,blue:88/255,alpha:1).cgColor,UIColor(red:240/255,green:152/255,blue:25/255,alpha:0.90).cgColor], loctions: [0.0,1.0], start: CGPoint(x: 0, y: 0.5), end: CGPoint(x: 1.0, y: 0.5))
+        self.setupModule(selfView: icon4, x: 594*PX, img: "ICON_4", title: "积分优购", action: #selector(goTosqsc(_:)),colorArray: [UIColor(red:255/255,green:88/255,blue:88/255,alpha:1).cgColor,UIColor(red:240/255,green:152/255,blue:25/255,alpha:0.90).cgColor], loctions: [0.0,1.0], start: CGPoint(x: 0.5, y: 0), end: CGPoint(x: 0.5, y: 1.0))
         parentView.addSubview(icon4)
         
         tabbelView?.addSubview(parentView)
@@ -240,17 +240,22 @@ extension QZHHomeViewController{
     func setupModule(selfView:QZHUIView,x:CGFloat,img:String,title:String,action:Selector,colorArray:[CGColor],loctions:[NSNumber], start: CGPoint, end:CGPoint){
         selfView.setupViews(x: x, y: 11*PX, width: 88*PX, height: 127*PX, bgColor: UIColor.clear)
         let bgView:QZHUIView = QZHUIView()
-        let labelView:QZHUILabelView = QZHUILabelView()
-        labelView.frame = CGRect(x:0,y:0,width:88*PX,height:88*PX)
-        labelView.setupBgGradient(uiView: bgView, colorArray: colorArray, loctions: loctions, start: start, end:end)
-        selfView.addSubview(labelView)
         bgView.layer.cornerRadius = 44*PX
         bgView.clipsToBounds = true
-        bgView.setupViews(x:0,y:0,width:88*PX,height:88*PX, bgColor:UIColor.clear)
+        bgView.frame = CGRect(x:0,y:0,width:88*PX,height:88*PX)
+        let labelView:QZHUILabelView = QZHUILabelView()
+        
+        labelView.frame = CGRect(x:0,y:0,width:88*PX,height:88*PX)
+        labelView.layer.cornerRadius = 44*PX
+        labelView.clipsToBounds = true
+        labelView.setupBgGradient(uiView: bgView, colorArray: colorArray, loctions: loctions, start: start, end:end)
+        selfView.addSubview(labelView)
+        
         
         let iconView:UIImageView = UIImageView(frame:CGRect(x:17*PX,y:17*PX,width:54*PX,height:54*PX))
         iconView.image = UIImage(named:img)
-        labelView.addSubview(iconView)
+        bgView.addSubview(iconView)
+        print(labelView.subviews)
         
         let text:QZHUILabelView = QZHUILabelView()
         text.setLabelView(0, 97*PX, 88*PX, 30*PX, NSTextAlignment.center, UIColor.clear, myColor().Gray6(), 21, title)

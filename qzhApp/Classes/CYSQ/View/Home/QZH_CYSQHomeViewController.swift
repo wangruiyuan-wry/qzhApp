@@ -383,7 +383,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView1.addSubview(title7)
         
         let icon8:UIImageView = UIImageView(frame:CGRect(x:720*PX,y:5*PX,width:66*PX,height:66*PX))
-        icon8.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass8")!)
+        icon8.backgroundColor = UIColor(patternImage: setupImgBg(colors: [UIColor(red:255/255,green:88/255,blue:88/255,alpha:1),UIColor(red:240/255,green:152/255,blue:25/255,alpha:0.90)], size: CGSize(width:66*PX,height:66*PX)))
         icon8.tag = 1
         icon8.layer.cornerRadius = 33*PX
         icon8.clipsToBounds = true
@@ -394,6 +394,11 @@ extension QZH_CYSQHomeViewController{
         
         MarketClassView1.contentSize = CGSize(width:800*PX,height:105*PX)
         
+    }
+    
+    // 设置分类图标背景色
+    func setupImgBg(colors:[UIColor],size:CGSize)->UIImage{
+        return UIImage(gradientColors:colors,size:size)!
     }
     
     // 设置促销专区
