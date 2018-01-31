@@ -76,7 +76,7 @@ class QZHEnterpriseDetailViewModels:NSObject{
         }
         
         // 网络请求
-        QZHNetworkManager.shared.statusList(method: .POST, url: "standard/productGoods/hotSell", params: ["memberId":QZHEnterpriseDetailModel.memberId as AnyObject,"pageNo":QZHEnterpriseProModel.pageNo as AnyObject,"pageSize":QZHEnterpriseProModel.pageSize as AnyObject]) { (result, isSuccess) in
+        QZHNetworkManager.shared.statusList(method: .POST, url: "standard/productGoods/portalProduct", params: ["memberId":QZHEnterpriseDetailModel.memberId as AnyObject,"pageNo":QZHEnterpriseProModel.pageNo as AnyObject,"pageSize":QZHEnterpriseProModel.pageSize as AnyObject]) { (result, isSuccess) in
             if !isSuccess{
                 completion(false, false)
             }else{

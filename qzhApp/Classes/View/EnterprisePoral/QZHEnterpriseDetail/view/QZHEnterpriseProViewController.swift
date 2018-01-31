@@ -82,6 +82,7 @@ extension QZHEnterpriseProViewController{
 extension QZHEnterpriseProViewController{
     override func setupUI() {
         super.setupUI()
+        self.isPush = true
         navigationBar.isHidden = true
         tabbelView?.frame = CGRect(x:0, y: 1, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-210*PX-2)
         

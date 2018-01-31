@@ -225,7 +225,7 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
         return nil;
     }
 
-    self.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", nil];
+    self.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"image/png", @"text/javascript", nil];
 
     return self;
 }
@@ -313,7 +313,7 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
         return nil;
     }
 
-    self.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"application/xml", @"text/xml", nil];
+    self.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"application/xml",@"image/png", @"text/xml", nil];
 
     return self;
 }
@@ -358,7 +358,7 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
         return nil;
     }
 
-    self.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"application/xml", @"text/xml", nil];
+    self.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"application/xml",@"image/png", @"text/xml", nil];
 
     return self;
 }
@@ -441,7 +441,7 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
         return nil;
     }
 
-    self.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"application/x-plist", nil];
+    self.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"application/x-plist",@"image/png", nil];
 
     return self;
 }

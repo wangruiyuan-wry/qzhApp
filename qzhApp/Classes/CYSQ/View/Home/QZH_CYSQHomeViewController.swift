@@ -8,10 +8,10 @@
 
 import UIKit
 
-/// 定义全局常量,尽量使用 private 修饰，否则哪儿都可以访问
+/// 定义全局常量,尽量使用 private 修饰，否则哪儿都可以访问  QZH_CYSQBaseViewController
 private let cellId = "cellId"
 
-class QZH_CYSQHomeViewController: QZH_CYSQBaseViewController {
+class QZH_CYSQHomeViewController: QZHBaseViewController {
     
     // 产业商圈首页数据列表视图模型
     lazy var HomeList = QZGH_CYSQHomeListViewModel()
@@ -218,7 +218,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView.setupViews(x: 0, y: 478*PX, width: SCREEN_WIDTH, height: 299*PX, bgColor: UIColor.white)
         
         let icon1:UIImageView = UIImageView(frame:CGRect(x:49*PX,y:10*PX,width:88*PX,height:88*PX))
-        icon1.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass1")!)
+        icon1.backgroundColor = UIColor(patternImage:  setupImgBg(colors:[UIColor(red:232/255,green:49/255,blue:78/255,alpha:0.92),UIColor(red:255/255,green:113/255,blue:113/255,alpha:0.80)], size: CGSize(width:66*PX,height:66*PX)))
         icon1.tag = 1
         icon1.layer.cornerRadius = 44*PX
         icon1.clipsToBounds = true
@@ -228,7 +228,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView.addSubview(title1)
         
         let icon2:UIImageView = UIImageView(frame:CGRect(x:237*PX,y:10*PX,width:88*PX,height:88*PX))
-        icon2.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass2")!)
+        icon2.backgroundColor = UIColor(patternImage:setupImgBg(colors:[UIColor(red:175/255,green:173/255,blue:230/255,alpha:1),UIColor(red:106/255,green:106/255,blue:158/255,alpha:1)], size: CGSize(width:66*PX,height:66*PX)))
         icon2.tag = 1
         icon2.layer.cornerRadius = 44*PX
         icon2.clipsToBounds = true
@@ -238,7 +238,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView.addSubview(title2)
 
         let icon3:UIImageView = UIImageView(frame:CGRect(x:425*PX,y:10*PX,width:88*PX,height:88*PX))
-        icon3.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass3")!)
+        icon3.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:119/255,green:220/255,blue:174/255,alpha:1),UIColor(red:66/255,green:159/255,blue:188/255,alpha:1)], size: CGSize(width:66*PX,height:66*PX)))
         icon3.tag = 1
         icon3.layer.cornerRadius = 44*PX
         icon3.clipsToBounds = true
@@ -248,7 +248,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView.addSubview(title3)
 
         let icon4:UIImageView = UIImageView(frame:CGRect(x:613*PX,y:10*PX,width:88*PX,height:88*PX))
-        icon4.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass4")!)
+        icon4.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:255/255,green:88/255,blue:88/255,alpha:1),UIColor(red:240/255,green:152/255,blue:25/255,alpha:0.90)], size: CGSize(width:66*PX,height:66*PX)))
         icon4.tag = 1
         icon4.layer.cornerRadius = 44*PX
         icon4.clipsToBounds = true
@@ -258,7 +258,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView.addSubview(title4)
 
         let icon5:UIImageView = UIImageView(frame:CGRect(x:49*PX,y:161*PX,width:88*PX,height:88*PX))
-        icon5.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass5")!)
+        icon5.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:232/255,green:49/255,blue:78/255,alpha:0.92),UIColor(red:255/255,green:113/255,blue:113/255,alpha:0.80)], size: CGSize(width:66*PX,height:66*PX)))
         icon5.tag = 1
         icon5.layer.cornerRadius = 44*PX
         icon5.clipsToBounds = true
@@ -268,7 +268,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView.addSubview(title5)
 
         let icon6:UIImageView = UIImageView(frame:CGRect(x:237*PX,y:161*PX,width:88*PX,height:88*PX))
-        icon6.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass6")!)
+        icon6.backgroundColor = UIColor(patternImage:setupImgBg(colors:[UIColor(red:175/255,green:173/255,blue:230/255,alpha:1),UIColor(red:106/255,green:106/255,blue:158/255,alpha:1)], size: CGSize(width:66*PX,height:66*PX)))
         icon6.tag = 1
         icon6.layer.cornerRadius = 44*PX
         icon6.clipsToBounds = true
@@ -278,7 +278,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView.addSubview(title6)
 
         let icon7:UIImageView = UIImageView(frame:CGRect(x:425*PX,y:161*PX,width:88*PX,height:88*PX))
-        icon7.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass7")!)
+        icon7.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:118/255,green:220/255,blue:174/255,alpha:1),UIColor(red:66/255,green:159/255,blue:188/255,alpha:1)], size: CGSize(width:66*PX,height:66*PX)))
         icon7.tag = 1
         icon7.layer.cornerRadius = 44*PX
         icon7.clipsToBounds = true
@@ -288,7 +288,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView.addSubview(title7)
 
         let icon8:UIImageView = UIImageView(frame:CGRect(x:613*PX,y:161*PX,width:88*PX,height:88*PX))
-        icon8.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass8")!)
+        icon8.backgroundColor = UIColor(patternImage:  setupImgBg(colors: [UIColor(red:255/255,green:88/255,blue:88/255,alpha:1),UIColor(red:240/255,green:152/255,blue:25/255,alpha:0.90)], size: CGSize(width:66*PX,height:66*PX)))
         icon8.tag = 1
         icon8.layer.cornerRadius = 44*PX
         icon8.clipsToBounds = true
@@ -315,7 +315,7 @@ extension QZH_CYSQHomeViewController{
         let icon1:UIImageView = UIImageView(frame:CGRect(x:34*PX,y:5*PX,width:66*PX,height:66*PX))
         icon1.layer.cornerRadius = 33*PX
         icon1.clipsToBounds = true
-        icon1.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass1")!)
+        icon1.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:232/255,green:49/255,blue:78/255,alpha:0.92),UIColor(red:255/255,green:113/255,blue:113/255,alpha:0.80)], size: CGSize(width:66*PX,height:66*PX)))
         icon1.tag = 1
         MarketClassView1.addSubview(icon1)
         let title1:QZHUILabelView = QZHUILabelView()
@@ -323,7 +323,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView1.addSubview(title1)
         
         let icon2:UIImageView = UIImageView(frame:CGRect(x:132*PX,y:5*PX,width:66*PX,height:66*PX))
-        icon2.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass2")!)
+        icon2.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:175/255,green:173/255,blue:230/255,alpha:1),UIColor(red:106/255,green:106/255,blue:158/255,alpha:1)], size: CGSize(width:66*PX,height:66*PX)))
         icon2.tag = 1
         icon2.layer.cornerRadius = 33*PX
         icon2.clipsToBounds = true
@@ -333,7 +333,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView1.addSubview(title2)
         
         let icon3:UIImageView = UIImageView(frame:CGRect(x:230*PX,y:5*PX,width:66*PX,height:66*PX))
-        icon3.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass3")!)
+        icon3.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:119/255,green:220/255,blue:174/255,alpha:1),UIColor(red:66/255,green:159/255,blue:188/255,alpha:1)], size: CGSize(width:66*PX,height:66*PX)))
         icon3.tag = 1
         icon3.layer.cornerRadius = 33*PX
         icon3.clipsToBounds = true
@@ -343,7 +343,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView1.addSubview(title3)
         
         let icon4:UIImageView = UIImageView(frame:CGRect(x:328*PX,y:5*PX,width:66*PX,height:66*PX))
-        icon4.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass4")!)
+        icon4.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:255/255,green:88/255,blue:88/255,alpha:1),UIColor(red:240/255,green:152/255,blue:25/255,alpha:0.90)], size: CGSize(width:66*PX,height:66*PX)))
         icon4.tag = 1
         icon4.layer.cornerRadius = 33*PX
         icon4.clipsToBounds = true
@@ -353,7 +353,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView1.addSubview(title4)
         
         let icon5:UIImageView = UIImageView(frame:CGRect(x:426*PX,y:5*PX,width:66*PX,height:66*PX))
-        icon5.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass5")!)
+        icon5.backgroundColor = UIColor(patternImage:setupImgBg(colors:[UIColor(red:232/255,green:49/255,blue:78/255,alpha:0.92),UIColor(red:255/255,green:113/255,blue:113/255,alpha:0.80)], size: CGSize(width:66*PX,height:66*PX)))
         icon5.tag = 1
         icon5.layer.cornerRadius = 33*PX
         icon5.clipsToBounds = true
@@ -363,7 +363,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView1.addSubview(title5)
         
         let icon6:UIImageView = UIImageView(frame:CGRect(x:524*PX,y:5*PX,width:66*PX,height:66*PX))
-        icon6.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass6")!)
+        icon6.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:175/255,green:173/255,blue:230/255,alpha:1),UIColor(red:106/255,green:106/255,blue:158/255,alpha:1)], size: CGSize(width:66*PX,height:66*PX)))
         icon6.tag = 1
         icon6.layer.cornerRadius = 33*PX
         icon6.clipsToBounds = true
@@ -373,7 +373,7 @@ extension QZH_CYSQHomeViewController{
         MarketClassView1.addSubview(title6)
         
         let icon7:UIImageView = UIImageView(frame:CGRect(x:622*PX,y:5*PX,width:66*PX,height:66*PX))
-        icon7.backgroundColor = UIColor(patternImage: UIImage(named:"CYSQ_CLass7")!)
+        icon7.backgroundColor = UIColor(patternImage: setupImgBg(colors:[UIColor(red:118/255,green:220/255,blue:174/255,alpha:1),UIColor(red:66/255,green:159/255,blue:188/255,alpha:1)], size: CGSize(width:66*PX,height:66*PX)))
         icon7.tag = 1
         icon7.layer.cornerRadius = 33*PX
         icon7.clipsToBounds = true

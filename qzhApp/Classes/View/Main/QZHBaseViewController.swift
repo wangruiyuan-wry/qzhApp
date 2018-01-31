@@ -17,6 +17,8 @@ import UIKit
 
 class QZHBaseViewController: UIViewController{
     
+    
+    
     /// 访客视图字典信息
     var visitorInfoDictionary:[String:String]?
     
@@ -29,6 +31,9 @@ class QZHBaseViewController: UIViewController{
     //上拉刷新标记
     var isPulup = false
     
+    // 下拉刷新
+    var isPush = false
+    
     /// 自定义导航条
     lazy var navigationBar = UINavigationBar(frame:CGRect(x:0,y:0,width:SCREEN_WIDTH,height:PX*128))
     
@@ -39,7 +44,10 @@ class QZHBaseViewController: UIViewController{
         super.viewDidLoad()
          UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
         setupUI()
-        loadData()
+        if isPush{
+            loadData()
+        }
+        
     }
     
     override var title: String?{
@@ -75,6 +83,7 @@ extension QZHBaseViewController{
         
         //QZHNetworkManager.shared.userLogo?setupTabelView():setupVisitorView()
         
+        
     }
     
     /// 设置表格时图
@@ -102,13 +111,6 @@ extension QZHBaseViewController{
     
     }
     
-    /// 设置访客视图
-    private func setupVisitorView(){
-        let visitorView = UIView(frame:view.bounds)
-        
-        view.insertSubview(visitorView, belowSubview: navigationBar)
-    }
-    
     /// 设置导航条
     private func setupNavigation(){
         //添加导航条
@@ -118,10 +120,10 @@ extension QZHBaseViewController{
         
         // 设置 navBar 的渲染颜色
         navigationBar.frame = CGRect(x:0,y:20,width:750*PX,height:128*PX-20)
-        navigationBar.barTintColor = UIColor.cz_color(withHex: 0xF6F6F6)
         navigationBar.barTintColor = UIColor.white
-        navigationBar.tintColor=myColor().Gray6()
-        navigationBar.titleTextAttributes=[NSFontAttributeName:UIFont.boldSystemFont(ofSize: PX*36),NSForegroundColorAttributeName:myColor().Gray6()]
+        navigationBar.barTintColor = UIColor.white
+        navigationBar.tintColor=myColor().gray3()
+        navigationBar.titleTextAttributes=[NSFontAttributeName:UIFont.boldSystemFont(ofSize: PX*36),NSForegroundColorAttributeName:myColor().gray3()]
     }
 }
 
@@ -136,11 +138,14 @@ extension  QZHBaseViewController: UITableViewDataSource,UITableViewDelegate{
     //子类的数据源方法不需要 super
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //只是保证没有错误语法
+
         return UITableViewCell()
     }
     
     //在显示最后一行的时候，上拉刷新
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // 取消 cell 的选中事件
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         //1.判断 indexPath 是否是最后一行
         // 1> row
         let row = indexPath.row
@@ -166,7 +171,7 @@ extension  QZHBaseViewController: UITableViewDataSource,UITableViewDelegate{
 
 //MAKRK: - 访客视图监听方法
 extension QZHBaseViewController{
-    @objc private func login(){
+    @objc func login(){
         //发送通知
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification), object: nil)
         

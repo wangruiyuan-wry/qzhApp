@@ -105,6 +105,7 @@ class QZHEnterpriseContactViewController: QZHBaseViewController {
 extension QZHEnterpriseContactViewController{
     override func setupUI() {
         super.setupUI()
+        self.isPush = true
         tabbelView?.isHidden = true
         navigationBar.isHidden = true
         let line:QZHUILabelView = QZHUILabelView()

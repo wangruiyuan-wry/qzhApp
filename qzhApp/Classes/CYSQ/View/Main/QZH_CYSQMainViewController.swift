@@ -46,7 +46,7 @@ class QZH_CYSQMainViewController: UITabBarController {
      return .portrait
      }*/
     
-    //MARK: -监听方法
+    //MARK: -用户登录通知监听方法
     @objc private  func userLogin(n:Notification){
         
         //展现登录控制器 - 通常会和 UINavigationController 一起使用，方便返回
@@ -115,7 +115,7 @@ extension QZH_CYSQMainViewController{
             ["clsName":"QZH_CYSQHomeViewController","title":"分类","imageName":"sort"],
             ["clsName":"QZH_CYSQHomeViewController","title":"订单","imageName":"orderIcon"],
             ["clsName":"QZH_CYSQHomeViewController","title":"购物车","imageName":"shoppingCar"],
-            ["clsName":"QZHHomeViewController","title":"我的","imageName":"user"]
+            ["clsName":"QZHUserConcenterViewController","title":"我的","imageName":"user"]
         ]
         
         var arrayM = [UIViewController]()

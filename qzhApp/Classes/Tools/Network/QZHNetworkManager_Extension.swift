@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import AFNetworking
 // MARK: - 封装千纸鹤的网络请求
 extension QZHNetworkManager{
     
@@ -20,14 +20,32 @@ extension QZHNetworkManager{
     ///   - pageNo: 加载数据的页码
     ///   - completion: 完成回调[list:千纸鹤数据字典／是否成功]
     func statusList(method:QZHHTTPMethod = .GET,url:String,params:[String:AnyObject],completion:@escaping (_ list:[String:AnyObject],_ isSuccess:Bool)->()){
-        let urlString = "http://192.168.100.71:8100/\(url)"
+        let urlString = "\(httpURL)\(url)"
         request(method:method,URLString:urlString, parameters: params){
             (json,isSuccess) in
             if json == nil {
                 print("网络错误----")
             }else{
-                completion(json as! [String : AnyObject],isSuccess)
+                if  json?["status"]as!Int == 400{
+                    QZHBaseViewController().login()
+                }else{
+                   completion(json as! [String : AnyObject],isSuccess)
+                }
+                
             }
         }
     }
+    
+    func statusFile(method:QZHHTTPMethod = .GET,url:String,params:[String:AnyObject],completion:@escaping (_ list:AnyObject,_ isSuccess:Bool)->()){
+        let urlString = "\(httpURL)\(url)"
+        requestArray(method:method,URLString:urlString, parameters: params){
+            (json,isSuccess) in
+            if json == nil {
+                print("网络错误----11")
+            }else{
+                completion(json!,isSuccess)
+            }
+        }
+    }
+
 }

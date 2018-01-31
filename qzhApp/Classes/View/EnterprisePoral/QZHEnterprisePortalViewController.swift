@@ -116,6 +116,8 @@ extension QZHEnterprisePortalViewController{
     //重写父类方法
     override func setupUI() {
         super.setupUI()
+        self.isPush = true
+        
         //设置导航栏按钮
         navItem.rightBarButtonItem = UIBarButtonItem(title: "", img: "", target: self, action: #selector(showFriends))
         navItem.leftBarButtonItem = UIBarButtonItem(title: "", img: "back_pageIcon", target: self, action: #selector(close))

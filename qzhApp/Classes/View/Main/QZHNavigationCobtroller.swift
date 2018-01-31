@@ -29,7 +29,7 @@ class QZHNavigationController: UINavigationController {
         //判断控制器的类型
         if let _vc = viewController as? QZHBaseViewController{
             //取出自定义的 navItem
-            _vc.navItem.leftBarButtonItem = UIBarButtonItem(title: "", img: "back_pageIcon", target: self, action: #selector(popToParent))
+          //  _vc.navItem.leftBarButtonItem = UIBarButtonItem(title: "", img: "back_pageIcon", target: self, action: #selector(popToParent))
         }
         
         super.pushViewController(viewController, animated: true)

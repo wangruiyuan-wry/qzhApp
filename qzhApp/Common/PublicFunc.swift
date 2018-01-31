@@ -154,8 +154,9 @@ class PublicFunction:NSObject{
     
     //网络图片的url
     func imgFromURL(_ path:String)->Data{
-       // let imgPath:String="http://www.qzh360.com/\(path)"
-        return try! Data(contentsOf:URL(string:path)!)
+         let data = try! Data(contentsOf:URL(string:path)!)
+
+        return data
     }
     
     //将URL转换为Data
@@ -387,4 +388,12 @@ class StringAndDic{
     }
 }
 
+//扩展NSRange，添加转换成Range的方法
+extension NSRange {
+    func toRange(string: String) -> Range<String.Index> {
+      let startIndex = string.index(string.startIndex, offsetBy: self.location)
+      let endIndex = string.index(startIndex, offsetBy: self.length)
+      return startIndex..<endIndex
+  }
+}
     

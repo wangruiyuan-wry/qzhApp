@@ -80,6 +80,9 @@ extension QZHMainViewController:UITabBarControllerDelegate{
             })
         }
         
+        // 判断是否是主控制器标记
+        tabBarController.tabBar.tag = 1
+        
         //判断目标控制器是否是 UIViewController
         return !viewController.isMember(of: UIViewController.self)
     }
@@ -118,7 +121,7 @@ extension QZHMainViewController{
             ["clsName":"QZHHomeViewController","title":"首页","imageName":"home"],
             ["clsName":"QZHEnterprisePortalViewController","title":"分类","imageName":"sort"],
             ["clsName":"QZHHomeViewController","title":"购物车","imageName":"shoppingCar"],
-            ["clsName":"QZHHomeViewController","title":"我的","imageName":"user"]
+            ["clsName":"QZHUserConcenterViewController","title":"我的","imageName":"user"]
         ]
         
         var arrayM = [UIViewController]()

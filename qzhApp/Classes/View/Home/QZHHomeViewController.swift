@@ -60,7 +60,7 @@ class QZHHomeViewController: QZHBaseViewController {
                     imgArray.append(pic["pic"]as!String)
                 }
                 self.cycleScrollView.serverImgArray = imgArray as? [String]
-
+                
                 // 设置社区商城
                 let sqscArray:[UIView] = self.sqscView.subviews
                 for i in 0..<sqscArray.count {
@@ -169,7 +169,7 @@ extension QZHHomeViewController{
     // 重写父类方法
     override func setupUI() {
         super.setupUI()
-        // 修改状态栏字体颜色
+
         tabbelView?.backgroundColor = myColor().grayF0()
     
         // 注册原型 cell
@@ -255,7 +255,6 @@ extension QZHHomeViewController{
         let iconView:UIImageView = UIImageView(frame:CGRect(x:17*PX,y:17*PX,width:54*PX,height:54*PX))
         iconView.image = UIImage(named:img)
         bgView.addSubview(iconView)
-        print(labelView.subviews)
         
         let text:QZHUILabelView = QZHUILabelView()
         text.setLabelView(0, 97*PX, 88*PX, 30*PX, NSTextAlignment.center, UIColor.clear, myColor().Gray6(), 21, title)
