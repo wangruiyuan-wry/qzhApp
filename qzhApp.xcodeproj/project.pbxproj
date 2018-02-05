@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C01166520282B9100BE5F26 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C01166420282B9100BE5F26 /* Double+Extension.swift */; };
 		6C022155200848D100612728 /* QZHOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C022154200848D100612728 /* QZHOAuthViewController.swift */; };
 		6C0221592008584E00612728 /* QZHSearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0221582008584E00612728 /* QZHSearchBar+Extension.swift */; };
 		6C02215D20088A6E00612728 /* QZHUIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C02215C20088A6E00612728 /* QZHUIView+Extension.swift */; };
@@ -105,7 +106,15 @@
 		6C89968920204BBE009415D2 /* QZHRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89968820204BBE009415D2 /* QZHRegisterViewController.swift */; };
 		6C89968B2020513D009415D2 /* QZHRegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89968A2020513D009415D2 /* QZHRegisterModel.swift */; };
 		6C89968D202053B0009415D2 /* QZHRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89968C202053B0009415D2 /* QZHRegisterViewModel.swift */; };
-		6C8996972021A0AA009415D2 /* QZHForgetPWDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8996962021A0AA009415D2 /* QZHForgetPWDViewController.swift */; };
+		6C8996992021AD3A009415D2 /* QZHPWDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8996982021AD3A009415D2 /* QZHPWDModel.swift */; };
+		6C89969B2021ADA2009415D2 /* QZHPWDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89969A2021ADA2009415D2 /* QZHPWDViewController.swift */; };
+		6C89969D2021B441009415D2 /* QZHPWDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89969C2021B441009415D2 /* QZHPWDViewModel.swift */; };
+		6C89969F2021C495009415D2 /* QZHEditPWDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C89969E2021C495009415D2 /* QZHEditPWDViewController.swift */; };
+		6C8996A72022DC8E009415D2 /* QZHProductDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8996A62022DC8E009415D2 /* QZHProductDetailModel.swift */; };
+		6C8996A92022E0DB009415D2 /* Application+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8996A82022E0DB009415D2 /* Application+Extension.swift */; };
+		6C8996AB2022EB57009415D2 /* QZHProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8996AA2022EB57009415D2 /* QZHProductDetailViewController.swift */; };
+		6C8996AD202400E1009415D2 /* QZHProductDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8996AC202400E1009415D2 /* QZHProductDetailViewModel.swift */; };
+		6C8996AF2024015D009415D2 /* QZHProductDetailViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8996AE2024015D009415D2 /* QZHProductDetailViewModels.swift */; };
 		6C8A362E201B2DAD0055B48E /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A362C201B2DAD0055B48E /* ImageHelper.swift */; };
 		6C8A362F201B2DAD0055B48E /* ImageVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A362D201B2DAD0055B48E /* ImageVIewExtension.swift */; };
 		6C98C36A1FF4E23700F598CB /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C98C3411FF4E22900F598CB /* RxSwift.framework */; };
@@ -373,6 +382,7 @@
 
 /* Begin PBXFileReference section */
 		3A84509780FA264256C87F1E /* Pods_qzhApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_qzhApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C01166420282B9100BE5F26 /* Double+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		6C022154200848D100612728 /* QZHOAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHOAuthViewController.swift; sourceTree = "<group>"; };
 		6C0221582008584E00612728 /* QZHSearchBar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QZHSearchBar+Extension.swift"; sourceTree = "<group>"; };
 		6C02215C20088A6E00612728 /* QZHUIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QZHUIView+Extension.swift"; sourceTree = "<group>"; };
@@ -489,7 +499,15 @@
 		6C89968820204BBE009415D2 /* QZHRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHRegisterViewController.swift; sourceTree = "<group>"; };
 		6C89968A2020513D009415D2 /* QZHRegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHRegisterModel.swift; sourceTree = "<group>"; };
 		6C89968C202053B0009415D2 /* QZHRegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHRegisterViewModel.swift; sourceTree = "<group>"; };
-		6C8996962021A0AA009415D2 /* QZHForgetPWDViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHForgetPWDViewController.swift; sourceTree = "<group>"; };
+		6C8996982021AD3A009415D2 /* QZHPWDModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHPWDModel.swift; sourceTree = "<group>"; };
+		6C89969A2021ADA2009415D2 /* QZHPWDViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHPWDViewController.swift; sourceTree = "<group>"; };
+		6C89969C2021B441009415D2 /* QZHPWDViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHPWDViewModel.swift; sourceTree = "<group>"; };
+		6C89969E2021C495009415D2 /* QZHEditPWDViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHEditPWDViewController.swift; sourceTree = "<group>"; };
+		6C8996A62022DC8E009415D2 /* QZHProductDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHProductDetailModel.swift; sourceTree = "<group>"; };
+		6C8996A82022E0DB009415D2 /* Application+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Application+Extension.swift"; sourceTree = "<group>"; };
+		6C8996AA2022EB57009415D2 /* QZHProductDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHProductDetailViewController.swift; sourceTree = "<group>"; };
+		6C8996AC202400E1009415D2 /* QZHProductDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHProductDetailViewModel.swift; sourceTree = "<group>"; };
+		6C8996AE2024015D009415D2 /* QZHProductDetailViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QZHProductDetailViewModels.swift; sourceTree = "<group>"; };
 		6C8A362C201B2DAD0055B48E /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		6C8A362D201B2DAD0055B48E /* ImageVIewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageVIewExtension.swift; sourceTree = "<group>"; };
 		6C98C3281FF4E22800F598CB /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = "RxSwift-rxswift-3.0/Rx.xcodeproj"; sourceTree = "<group>"; };
@@ -906,6 +924,7 @@
 		6C4D9CDA2002FB0500F2D22F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6C8996A22022DB82009415D2 /* ProductDetail */,
 				6C8996922021A08A009415D2 /* PWD */,
 				6C89968420204AF9009415D2 /* Register */,
 				6C06B282201EBC63009E70EE /* UserConcenter */,
@@ -946,8 +965,8 @@
 		6C4D9CDD2002FB0500F2D22F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6C0C3CF52004C29F00AD40D9 /* QZHEnterprisePortalModel.swift */,
 				6C4224E120156DFD00F1EEC0 /* QZHHomeModel.swift */,
+				6C0C3CF52004C29F00AD40D9 /* QZHEnterprisePortalModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1020,6 +1039,8 @@
 				6C022166200C43CF00612728 /* QZHArea.swift */,
 				6C28547B200DD22F00749A2C /* QZHIndustryView.swift */,
 				6C899631202037D1009415D2 /* UIAlertController+Extension.swift */,
+				6C8996A82022E0DB009415D2 /* Application+Extension.swift */,
+				6C01166420282B9100BE5F26 /* Double+Extension.swift */,
 			);
 			name = Extensions;
 			path = qzhApp/Classes/Tools/Extensions;
@@ -1091,6 +1112,7 @@
 		6C8996932021A08A009415D2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6C8996982021AD3A009415D2 /* QZHPWDModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1098,6 +1120,7 @@
 		6C8996942021A08A009415D2 /* VieModel */ = {
 			isa = PBXGroup;
 			children = (
+				6C89969C2021B441009415D2 /* QZHPWDViewModel.swift */,
 			);
 			path = VieModel;
 			sourceTree = "<group>";
@@ -1105,9 +1128,45 @@
 		6C8996952021A08A009415D2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6C8996962021A0AA009415D2 /* QZHForgetPWDViewController.swift */,
+				6C89969A2021ADA2009415D2 /* QZHPWDViewController.swift */,
+				6C89969E2021C495009415D2 /* QZHEditPWDViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		6C8996A22022DB82009415D2 /* ProductDetail */ = {
+			isa = PBXGroup;
+			children = (
+				6C8996A42022DB82009415D2 /* View */,
+				6C8996A52022DB82009415D2 /* ViewModel */,
+				6C8996A32022DB82009415D2 /* Model */,
+			);
+			path = ProductDetail;
+			sourceTree = "<group>";
+		};
+		6C8996A32022DB82009415D2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C8996A62022DC8E009415D2 /* QZHProductDetailModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6C8996A42022DB82009415D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6C8996AA2022EB57009415D2 /* QZHProductDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6C8996A52022DB82009415D2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6C8996AC202400E1009415D2 /* QZHProductDetailViewModel.swift */,
+				6C8996AE2024015D009415D2 /* QZHProductDetailViewModels.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		6C8A362B201B2DAD0055B48E /* ImageHelper */ = {
@@ -1591,6 +1650,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C0F6D7420075DA200CA1509 /* NetWork.swift in Sources */,
+				6C8996992021AD3A009415D2 /* QZHPWDModel.swift in Sources */,
 				6C28548B200DF37E00749A2C /* QZHEnterpriseDetail.swift in Sources */,
 				6C0C3CCC20049F8B00AD40D9 /* QZHNetworkManager.swift in Sources */,
 				6C06EBF21FF3779A0054B339 /* MenuController.swift in Sources */,
@@ -1614,11 +1674,11 @@
 				6C42254D2019667600F1EEC0 /* QZGH_CYSQHomeListViewModel.swift in Sources */,
 				6C4225382018136F00F1EEC0 /* WRCycleScrollView.swift in Sources */,
 				6C1CDCA2201EF983007490EC /* CacheFunc.swift in Sources */,
+				6C8996AD202400E1009415D2 /* QZHProductDetailViewModel.swift in Sources */,
 				6C06EBB91FF370830054B339 /* AppDelegate.swift in Sources */,
 				6C42252620172AD000F1EEC0 /* QZHSearchCYSQ.swift in Sources */,
 				6CDF02B31FF60B8D00EFB5A7 /* protocol.swift in Sources */,
 				6C4D9D4120033B5D00F2D22F /* NSString+CZPath.m in Sources */,
-				6C8996972021A0AA009415D2 /* QZHForgetPWDViewController.swift in Sources */,
 				6C8A362F201B2DAD0055B48E /* ImageVIewExtension.swift in Sources */,
 				6C4D9D3C20033B5D00F2D22F /* NSArray+Log.m in Sources */,
 				6C4D9D4620033B5D00F2D22F /* UIView+CZAddition.m in Sources */,
@@ -1627,6 +1687,7 @@
 				6C1CDCAA201EFDE9007490EC /* LoginViewModels.swift in Sources */,
 				6C42254920184E9E00F1EEC0 /* QZH_CYSQHomeViewController.swift in Sources */,
 				6C0221592008584E00612728 /* QZHSearchBar+Extension.swift in Sources */,
+				6C01166520282B9100BE5F26 /* Double+Extension.swift in Sources */,
 				6C06B286201EBD5B009E70EE /* QZHUserConcenterViewController.swift in Sources */,
 				6C4224E62015779300F1EEC0 /* QZHHomeViewModels.swift in Sources */,
 				6C3DD2361FFB82200022E582 /* provincesThreeLevelCascade.swift in Sources */,
@@ -1648,12 +1709,14 @@
 				6C4D9D4020033B5D00F2D22F /* NSString+CZHash.m in Sources */,
 				6C28548D200DF3D400749A2C /* QZHEnterpriseDetailModel.swift in Sources */,
 				6C0F6D7320075DA200CA1509 /* HeaderController.swift in Sources */,
+				6C89969B2021ADA2009415D2 /* QZHPWDViewController.swift in Sources */,
 				6C06EBF01FF377070054B339 /* PublicButton.swift in Sources */,
 				6C06E9A51FF36C9C0054B339 /* ViewController.swift in Sources */,
 				6C4D9D4820033B5D00F2D22F /* Bundle+Extensions.swift in Sources */,
 				6CFD403B1FFCD93300B36D74 /* pickerView.swift in Sources */,
 				6C0C3D052005B72800AD40D9 /* QZHEnterprisePortalStatusCell.swift in Sources */,
 				6C42252220172A5300F1EEC0 /* QZHSearchSQSC.swift in Sources */,
+				6C89969D2021B441009415D2 /* QZHPWDViewModel.swift in Sources */,
 				6C285493200EDDDF00749A2C /* QZHEnterpriseDetailViewModels.swift in Sources */,
 				6C0C3CF62004C29F00AD40D9 /* QZHEnterprisePortalModel.swift in Sources */,
 				6C42253A2018136F00F1EEC0 /* WRProxy.swift in Sources */,
@@ -1663,10 +1726,14 @@
 				6C89968920204BBE009415D2 /* QZHRegisterViewController.swift in Sources */,
 				6CDF02931FF5E42400EFB5A7 /* tabelViewController.swift in Sources */,
 				6C89961620200FE6009415D2 /* TextField.swift in Sources */,
+				6C8996AF2024015D009415D2 /* QZHProductDetailViewModels.swift in Sources */,
 				6C98C3781FF4F0CF00F598CB /* viewController.swift in Sources */,
+				6C8996A92022E0DB009415D2 /* Application+Extension.swift in Sources */,
 				6C4D9D3F20033B5D00F2D22F /* NSString+CZBase64.m in Sources */,
+				6C8996AB2022EB57009415D2 /* QZHProductDetailViewController.swift in Sources */,
 				6C0C3CD42004B19400AD40D9 /* QZHNetworkManager_Extension.swift in Sources */,
 				6C02215F20088D3400612728 /* QZHUILabelView+Extension.swift in Sources */,
+				6C8996A72022DC8E009415D2 /* QZHProductDetailModel.swift in Sources */,
 				6C0F6D6B200728E300CA1509 /* QZHCommon.swift in Sources */,
 				6C422543201848BD00F1EEC0 /* QZH_CYSQMainViewController.swift in Sources */,
 				6C4D9D5320035E2000F2D22F /* UIBarButtonItem+Extensions.swift in Sources */,
@@ -1680,6 +1747,7 @@
 				6C42254F20196EDA00F1EEC0 /* QZGH_CYSQHomeViewModel.swift in Sources */,
 				6C1CDCA4201EFB16007490EC /* LoginModel.swift in Sources */,
 				6C8A362E201B2DAD0055B48E /* ImageHelper.swift in Sources */,
+				6C89969F2021C495009415D2 /* QZHEditPWDViewController.swift in Sources */,
 				6C4D9D5120034D8800F2D22F /* QZHDemoViewController.swift in Sources */,
 				6C2854B8200EF71B00749A2C /* QZHEnterpriseContactViewController.swift in Sources */,
 				6C0C3CFA20059F0200AD40D9 /* QZHEnterprisePortalViewController.swift in Sources */,

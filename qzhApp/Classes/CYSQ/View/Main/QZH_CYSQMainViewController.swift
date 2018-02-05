@@ -58,7 +58,7 @@ class QZH_CYSQMainViewController: UITabBarController {
 
 // MARK: - UITabBarControllerDelegate
 extension QZH_CYSQMainViewController:UITabBarControllerDelegate{
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+    /*func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
         //1.>获取控制器在数组中的索引
         let idx = (childViewControllers as NSArray).index(of: viewController)
@@ -79,7 +79,7 @@ extension QZH_CYSQMainViewController:UITabBarControllerDelegate{
         
         //判断目标控制器是否是 UIViewController
         return !viewController.isMember(of: UIViewController.self)
-    }
+    }*/
 }
 
 

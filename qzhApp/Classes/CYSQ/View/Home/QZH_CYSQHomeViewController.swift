@@ -29,7 +29,7 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
     
     // 头部轮播图容器
     lazy var cycleScrollView:WRCycleScrollView = {
-        let frame = CGRect(x: 0, y:0, width: SCREEN_WIDTH, height: 468*PX)
+        let frame = CGRect(x: 0, y:0, width: SCREEN_WIDTH, height: 340*PX)
         let cycleView = WRCycleScrollView(frame: frame, type: .SERVER, imgs: nil, descs: nil)
         return cycleView
     }()
@@ -43,8 +43,9 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
     
     override func loadData() {
         HomeList.loadHomeData { (isSuccess,shouldRefresh) in
+
             //结束刷新控件
-            self.refreahController?.endRefreshing()
+            //self.refreahController?.endRefreshing()
             
             //刷新表
             if shouldRefresh {
@@ -134,13 +135,13 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
                 }
             }
         }
-        
        getHotSell()
     }
     
     // 加载热销产品
     func getHotSell(){
         HomeList.loadHotSell(pullup: self.isPulup) { (isSuccess,shouldRefresh) in
+
             //结束刷新控件
             self.refreahController?.endRefreshing()
             
@@ -163,7 +164,6 @@ extension QZH_CYSQHomeViewController{
     override func setupUI() {
         super.setupUI()
         setupvarMarketClassView1()
-        
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         
         // 去掉 tableview 分割线
@@ -171,10 +171,11 @@ extension QZH_CYSQHomeViewController{
         
         // 修改状态栏字体颜色
         tabbelView?.backgroundColor = myColor().grayF0()
+        tabbelView?.height = SCREEN_HEIGHT - 98*PX
         
         // 注册原型 cell
         tabbelView?.register(UINib(nibName:"QZH_CYSQHomeHotSell",bundle:nil), forCellReuseIdentifier: cellId)
-        let top:UIImageView = UIImageView(frame:CGRect(x: 0, y:0, width: SCREEN_WIDTH, height: 468*PX))
+        let top:UIImageView = UIImageView(frame:CGRect(x: 0, y:0, width: SCREEN_WIDTH, height: 340*PX))
         top.image = UIImage(named:"loadPic")
         tabbelView?.addSubview(top)
         
@@ -191,11 +192,11 @@ extension QZH_CYSQHomeViewController{
         setupvarMarketClassView()
         
         
-        tabbelView?.addSubview(self.setupTitles(y: 777*PX, text: "促销专区", icons: "CYSQ_promotion"))
+        tabbelView?.addSubview(self.setupTitles(y: 649*PX, text: "促销专区", icons: "CYSQ_promotion"))
         setupPromotionView()
-        tabbelView?.addSubview(self.setupTitles(y: 1187*PX, text: "今日推荐", icons: "CYSQ_recommend"))
+        tabbelView?.addSubview(self.setupTitles(y: 1059*PX, text: "今日推荐", icons: "CYSQ_recommend"))
         setupRecommendView()
-        tabbelView?.addSubview(self.setupTitles(y: 2108*PX, text: "热销产品", icons: "CYSQ_hot"))
+        tabbelView?.addSubview(self.setupTitles(y: 1980*PX, text: "热销产品", icons: "CYSQ_hot"))
         
     }
     
@@ -215,7 +216,7 @@ extension QZH_CYSQHomeViewController{
     
     // 设置分类图片列表
     func setupvarMarketClassView(){
-        MarketClassView.setupViews(x: 0, y: 478*PX, width: SCREEN_WIDTH, height: 299*PX, bgColor: UIColor.white)
+        MarketClassView.setupViews(x: 0, y: 350*PX, width: SCREEN_WIDTH, height: 299*PX, bgColor: UIColor.white)
         
         let icon1:UIImageView = UIImageView(frame:CGRect(x:49*PX,y:10*PX,width:88*PX,height:88*PX))
         icon1.backgroundColor = UIColor(patternImage:  setupImgBg(colors:[UIColor(red:232/255,green:49/255,blue:78/255,alpha:0.92),UIColor(red:255/255,green:113/255,blue:113/255,alpha:0.80)], size: CGSize(width:66*PX,height:66*PX)))
@@ -403,7 +404,7 @@ extension QZH_CYSQHomeViewController{
     
     // 设置促销专区
     func setupPromotionView(){
-        prmotionView.setupScrollerView(x: 0, y: 857*PX, width: SCREEN_WIDTH, height: 330*PX, background: UIColor.white)
+        prmotionView.setupScrollerView(x: 0, y: 729*PX, width: SCREEN_WIDTH, height: 330*PX, background: UIColor.white)
         prmotionView.contentSize = CGSize(width:SCREEN_WIDTH,height:330*PX)
         var paddingX = 20*PX
         for i in 0..<4{
@@ -415,7 +416,11 @@ extension QZH_CYSQHomeViewController{
     // 促销专区产品样式
     func setupProPromotion(x:CGFloat,img:String,name:String,newprice:Double,old:Double,id:Int64,sellTypes:String,unit:String)->CGFloat{
         let selfView:QZHUIView = QZHUIView()
-        selfView.restorationIdentifier = "\(id)"
+        selfView.tag = Int(id)
+        if id != -1 {
+            selfView.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
+        }
+        
         selfView.setupViews(x: x, y: 0, width: 220*PX, height: 330*PX, bgColor: UIColor.white)
         prmotionView.addSubview(selfView)
         
@@ -480,7 +485,7 @@ extension QZH_CYSQHomeViewController{
     
     // 设置今日推荐
     func setupRecommendView(){
-        recommendView.setupViews(x: 0, y: 1267*PX, width: SCREEN_WIDTH, height: 841*PX, bgColor: myColor().grayF0())
+        recommendView.setupViews(x: 0, y: 1139*PX, width: SCREEN_WIDTH, height: 841*PX, bgColor: myColor().grayF0())
         tabbelView?.addSubview(recommendView)
         
         let lunbo = UIImageView(frame:CGRect(x:2*PX,y:0,width:248*PX,height:420*PX))
@@ -500,6 +505,10 @@ extension QZH_CYSQHomeViewController{
     func setupRecommendProView(x:CGFloat,y:CGFloat,img:String,name:String,price:Double,unit:String,id:Int64){
         let selfView:QZHUIView = QZHUIView()
         selfView.setupViews(x: x, y: y, width: 248*PX, height: 420*PX, bgColor: UIColor.white)
+        selfView.tag = Int(id)
+        if id != -1 {
+            selfView.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
+        }
         recommendView.addSubview(selfView)
         
         let imgView:UIImageView = UIImageView(frame:CGRect(x:20*PX,y:30*PX,width:208*PX,height:208*PX))
@@ -565,13 +574,12 @@ extension QZH_CYSQHomeViewController{
         if HomeList.hotSellList.count%2>0{
             count = count+1
         }
-        
         return count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0{
-            return 2188*PX
+            return 2060*PX
         }else{
             return 471*PX
         }
@@ -620,8 +628,11 @@ extension QZH_CYSQHomeViewController{
                 cell.img2.image = UIImage(named:"noPic")
             }
             
-
+            cell.view1.tag = Int(HomeList.hotSellList[_index-2].status.id)
+            cell.view2.tag = Int(HomeList.hotSellList[_index-1].status.id)
             
+            cell.view1.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
+            cell.view2.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
         }
         return cell
     }
@@ -630,7 +641,7 @@ extension QZH_CYSQHomeViewController{
     ///
     /// - Parameter scrollView:
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 340*PX{
+        if scrollView.contentOffset.y > 212*PX{
             UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
             UIApplication.shared.statusBarview?.backgroundColor = UIColor.white
             setupNav1()
@@ -642,7 +653,7 @@ extension QZH_CYSQHomeViewController{
             navigationBar.isTranslucent = false
             //MarketClassView1.isHidden = false
             //MarketClassView1line.isHidden = false
-            if scrollView.contentOffset.y > 600*PX{
+            if scrollView.contentOffset.y > 340*PX{
                 MarketClassView1.isHidden = false
                 MarketClassView1line.isHidden = false
             }else{
@@ -694,7 +705,13 @@ extension QZH_CYSQHomeViewController{
         present(nav, animated: true, completion: nil)
     }
     
-    //
+    // 跳转产品详情页
     func goToProDetail(_ sender:UITapGestureRecognizer){
+        let this = sender.view
+        QZHProductDetailModel.goodsId = (this?.tag)!
+        
+        let nav = QZHProductDetailViewController()
+        present(nav, animated: true, completion: nil)
+        
     }
 }

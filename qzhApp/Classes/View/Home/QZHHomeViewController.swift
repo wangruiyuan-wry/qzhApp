@@ -44,15 +44,16 @@ class QZHHomeViewController: QZHBaseViewController {
         
         
         statusList.loadHomeAd { (lbt, sqsc, cysq, qymh, jfyg, isSuccess,shouldRefresh) in
-            //结束刷新控件
-            self.refreahController?.endRefreshing()
-            
             //刷新表
             if shouldRefresh {
                 
                 self.tabbelView?.reloadData()
                 
             }
+            //结束刷新控件
+            self.refreahController?.endRefreshing()
+            
+           
             if isSuccess{
                 //设置轮播图
                 var imgArray:[String] = []
@@ -428,7 +429,7 @@ extension QZHHomeViewController{
         let nav = QZHEnterprisePortalViewController()
         present(nav, animated: true, completion: nil)
     }
-    
+    // 跳转至产业商圈首页
     func QZH_CYSQHomePage(){
         let nav = QZH_CYSQMainViewController()
         present(nav, animated: true, completion: nil)
@@ -457,16 +458,9 @@ extension QZHHomeViewController{
         
     }
     
-    
-}
-
-// MARK: - 设置轮播图
-extension QZHHomeViewController{
-    
-}
-
-extension UIApplication{
-    var statusBarview:UIView?{
-        return value(forKey: "statusBar") as? UIView
+    // 进入产品详情页
+    func goToProDetail(_ sender:UITapGestureRecognizer){
+        
     }
+    
 }

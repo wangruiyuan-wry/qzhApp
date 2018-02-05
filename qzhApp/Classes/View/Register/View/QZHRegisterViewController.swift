@@ -142,11 +142,11 @@ extension QZHRegisterViewController{
     func setupInfo(){
         
        let phoneView = self.setupListView(y: 239, title: "手机号", placeholder: "请输入手机号码", inputName: phoneLabel, inputWidth: 330)
-        getAuthBtn.setupButton(500*PX, 20*PX, 190*PX, 60*PX, UIColor.white, myColor().blue2088ff(), "获取验证码", 30, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
+        getAuthBtn.setupButton(500*PX, 20*PX, 195*PX, 60*PX, UIColor.white, myColor().blue2088ff(), "获取验证码", 30, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
         getAuthBtn.frame = CGRect(x:500*PX,y:20*PX,width:190*PX,height:60*PX)
         getAuthBtn.addTarget(self, action: #selector(self.getAuthCode), for: .touchUpInside)
         getAuthBtn.layer.cornerRadius = 5*PX
-        getAuthBtn1.setupButton(500*PX, 20*PX, 190*PX, 60*PX, myColor().gray9(), myColor().grayF0(), "60S重新获取", 30, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
+        getAuthBtn1.setupButton(500*PX, 20*PX, 195*PX, 60*PX, myColor().gray9(), myColor().grayF0(), "60S重新获取", 30, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
         getAuthBtn1.frame = CGRect(x:500*PX,y:20*PX,width:190*PX,height:60*PX)
         getAuthBtn1.layer.cornerRadius = 5*PX
         getAuthBtn1.isHidden = true
@@ -336,6 +336,7 @@ extension QZHRegisterViewController{
         return true
     }
 }
+
 // MARK: - 监听方法
 extension QZHRegisterViewController{
     //MARK: - 监听方法

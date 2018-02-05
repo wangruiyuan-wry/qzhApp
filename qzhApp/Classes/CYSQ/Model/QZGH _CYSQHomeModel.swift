@@ -156,7 +156,7 @@ class QZGH_CYSQHomeModel_hotSell:NSObject{
         return yy_modelDescription()
     }
     struct paramers {
-        static var pageNo:Int = 1
+        static var pageNo:Int = 0
         static var pageSize:Int = 16
     }
 }

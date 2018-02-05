@@ -25,8 +25,9 @@ public let PX=SCREEN_WIDTH/750
 
 public let pageFlag:Bool = false
 
-public let httpURL = "http://192.168.100.71:8100/"
-//public let httpURL = "http://192.168.120.28:8100/"
+public let httpURL = "https://www.sceo360.com/api/"
+//public let httpURL = "http://192.168.100.71:8100/"
+//public let httpURL = "http://192.168.120.14:8100/"
 
 public extension UIView {
     

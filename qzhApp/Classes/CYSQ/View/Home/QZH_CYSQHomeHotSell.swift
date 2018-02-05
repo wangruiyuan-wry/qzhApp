@@ -9,6 +9,8 @@
 import UIKit
 
 class QZH_CYSQHomeHotSell: UITableViewCell {
+    @IBOutlet weak var view1: QZHUIView!
+    @IBOutlet weak var view2: QZHUIView!
     @IBOutlet weak var icon1: QZHUILabelView!
     @IBOutlet weak var icon2: QZHUILabelView!
     @IBOutlet weak var zy1: QZHUILabelView!
@@ -77,6 +79,9 @@ class QZH_CYSQHomeHotSell: UITableViewCell {
         
         unit1.setLabelView(price1.x+price1.width, 418*PX,  unit1.autoLabelWidth(unit1.text!, font: 20, height: 28*PX), 28*PX, NSTextAlignment.center, UIColor.clear, myColor().Gray6(), 20, "")
         unit2.setLabelView(price2.x+price2.width, 418*PX,  unit2.autoLabelWidth(unit2.text!, font: 20, height: 28*PX), 28*PX, NSTextAlignment.center, UIColor.clear, myColor().Gray6(), 20, "")
+        
+        view1.setupViews(x: 20*PX, y: 10*PX, width: 342*PX, height: 470*PX, bgColor: UIColor.clear)
+        view2.setupViews(x: 388*PX, y: 10*PX, width: 342*PX, height: 470*PX, bgColor: UIColor.clear)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

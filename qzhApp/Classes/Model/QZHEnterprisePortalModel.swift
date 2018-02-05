@@ -75,7 +75,7 @@ class QZHEnterprisePortalModel: NSObject {
         static var enterpriceType: String? = ""
         static var industryType:String? = ""
         static var order:String? = ""
-        static var pageNo :Int? = 1
+        static var pageNo :Int? = 0
         //一级行业key
         static var superKey:String? = ""
     }

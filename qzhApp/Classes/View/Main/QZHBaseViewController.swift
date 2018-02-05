@@ -34,6 +34,9 @@ class QZHBaseViewController: UIViewController{
     // 下拉刷新
     var isPush = false
     
+    // 页面跳转标示
+    var pageIsOpen = true
+    
     /// 自定义导航条
     lazy var navigationBar = UINavigationBar(frame:CGRect(x:0,y:0,width:SCREEN_WIDTH,height:PX*128))
     
@@ -44,6 +47,7 @@ class QZHBaseViewController: UIViewController{
         super.viewDidLoad()
          UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
         setupUI()
+        
         if isPush{
             loadData()
         }
@@ -146,6 +150,7 @@ extension  QZHBaseViewController: UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // 取消 cell 的选中事件
         cell.selectionStyle = UITableViewCellSelectionStyle.none
+
         //1.判断 indexPath 是否是最后一行
         // 1> row
         let row = indexPath.row

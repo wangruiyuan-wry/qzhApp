@@ -110,6 +110,16 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36q-bO-MJ3" customClass="QZHUIView" customModule="qzhApp" customModuleProvider="target">
+                        <rect key="frame" x="8" y="210" width="240" height="128"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S0r-Fa-KXu" customClass="QZHUIView" customModule="qzhApp" customModuleProvider="target">
+                        <rect key="frame" x="284" y="210" width="240" height="128"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -125,6 +135,8 @@
                 <outlet property="price2" destination="Tea-1D-NR8" id="Wf9-an-aDR"/>
                 <outlet property="unit1" destination="d0G-IX-ZBq" id="H4O-0V-JHo"/>
                 <outlet property="unit2" destination="T5G-l7-64C" id="o0L-nQ-BB3"/>
+                <outlet property="view1" destination="36q-bO-MJ3" id="aKI-hC-kbx"/>
+                <outlet property="view2" destination="S0r-Fa-KXu" id="pZz-YZ-8P8"/>
                 <outlet property="zy1" destination="eUc-dE-BN5" id="9A2-hB-bKb"/>
                 <outlet property="zy2" destination="XxO-Wk-8f8" id="wW0-Ta-0SA"/>
             </connections>

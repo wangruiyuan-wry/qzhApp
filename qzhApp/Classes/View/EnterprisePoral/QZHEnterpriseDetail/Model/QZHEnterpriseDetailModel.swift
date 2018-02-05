@@ -108,7 +108,7 @@ class QZHEnterpriseProModel: NSObject {
     }
     
     struct paramers {
-        static var pageNo:Int? = 1
+        static var pageNo:Int? = 0
         static var pageSize:Int? = 10
     }
 }

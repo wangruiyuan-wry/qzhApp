@@ -142,7 +142,7 @@ extension QZHOAuthViewController{
         authCode.resignFirstResponder()
         _autoCode.addSubview(authCode)
         
-        authImg.frame = CGRect(x:563*PX,y:25*PX,width:127*PX,height:50*PX)
+        authImg.frame = CGRect(x:510*PX,y:0,width:180*PX,height:100*PX)
         authImg.layer.borderWidth = 0
         authImg.addOnClickLister(target: self, action: #selector(self.getAuthCode))
         _autoCode.addSubview(authImg)
@@ -299,7 +299,7 @@ extension QZHOAuthViewController{
     
     // 跳转忘记密码
     func goToForgetPWD(){
-        let nav = QZHForgetPWDViewController()
+        let nav = QZHPWDViewController()
         present(nav, animated: true, completion: nil)
     }
 }
