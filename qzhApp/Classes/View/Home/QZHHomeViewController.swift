@@ -13,7 +13,7 @@ private let cellId = "cellId"
 
 class QZHHomeViewController: QZHBaseViewController {
 
-    lazy var statusList=QZHHomeViewModels()
+    lazy var statusList = QZHHomeViewModels()
     
     // 轮播图容器
     lazy var cycleScrollView:WRCycleScrollView = {
@@ -464,3 +464,18 @@ extension QZHHomeViewController{
     }
     
 }
+
+extension QZHHomeViewController: WRCycleScrollViewDelegate
+{
+    /// 点击图片事件
+    func cycleScrollViewDidSelect(at index:Int, cycleScrollView:WRCycleScrollView)
+    {
+        print("点击了第\(index+1)个图片")
+    }
+    /// 图片滚动事件
+    func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView)
+    {
+        print("滚动到了第\(index+1)个图片")
+    }
+}
+

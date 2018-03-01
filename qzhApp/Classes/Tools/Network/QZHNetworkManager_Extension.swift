@@ -21,7 +21,6 @@ extension QZHNetworkManager{
     ///   - completion: 完成回调[list:千纸鹤数据字典／是否成功]
     func statusList(method:QZHHTTPMethod = .GET,url:String,params:[String:AnyObject],completion:@escaping (_ list:[String:AnyObject],_ isSuccess:Bool)->()){
         let urlString = "\(httpURL)\(url)"
-        //print(urlString)
         request(method:method,URLString:urlString, parameters: params){
             (json,isSuccess) in
             if json == nil {

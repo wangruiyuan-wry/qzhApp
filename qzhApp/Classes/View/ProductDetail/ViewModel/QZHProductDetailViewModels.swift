@@ -61,7 +61,7 @@ class QZHProductDetail_PRORecommendViewModel:CustomStringConvertible{
     }
 }
 
-class QZHProductDetail_PROAttributeOptionViewModel：CustomStringConvertible{
+class QZHProductDetail_PROAttributeOptionViewModel:CustomStringConvertible{
     // 产品属性模型
     var status:QZHProductDetail_PROAttributeOptionModel
     
@@ -85,8 +85,8 @@ class QZHProductDetail_PROSpecOptionViewModel:CustomStringConvertible{
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业类型模型
-    /// - return: 企业类型的视图模型
+    /// - Parameter model: 模型
+    /// - return: 视图模型
     init(model:QZHProductDetail_PROSpecOptionModel) {
         self.status=model
     }
@@ -102,8 +102,8 @@ class QZHProductDetail_PROShopStatisticsViewModel:CustomStringConvertible{
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业类型模型
-    /// - return: 企业类型的视图模型
+    /// - Parameter model: 模型
+    /// - return: 视图模型
     init(model:QZHProductDetail_PROShopStatisticsModel) {
         self.status=model
     }
@@ -119,8 +119,8 @@ class QZHProductDetail_PROListCommentViewModel:CustomStringConvertible{
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业类型模型
-    /// - return: 企业类型的视图模型
+    /// - Parameter model: 模型
+    /// - return: 视图模型
     init(model:QZHProductDetail_PROListCommentModel) {
         self.status=model
     }
@@ -136,8 +136,8 @@ class QZHProductDetail_PROPrice2StockByIdViewModel:CustomStringConvertible{
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业类型模型
-    /// - return: 企业类型的视图模型
+    /// - Parameter model: 模型
+    /// - return: 视图模型
     init(model:QZHProductDetail_PROPrice2StockByIdModel) {
         self.status=model
     }
@@ -147,4 +147,37 @@ class QZHProductDetail_PROPrice2StockByIdViewModel:CustomStringConvertible{
     }
 }
  
+class QZHProductDetail_AttentionCollectViewModel:CustomStringConvertible{
+    // 产品模型
+    var status:QZHProductDetail_AttentionCollectModel
+    
+    /// 构造函数
+    ///
+    /// - Parameter model: 模型
+    /// - return: 视图模型
+    init(model:QZHProductDetail_AttentionCollectModel) {
+        self.status=model
+    }
+    
+    var description: String{
+        return status.description
+    }
+}
+
+class QZHProductDetail_PRODeatailViewModel:CustomStringConvertible{
+    // 产品模型
+    var status:QZHProductDetail_PRODeatailModel
+    
+    /// 构造函数
+    ///
+    /// - Parameter model: 产品模型
+    /// - return: 产品的视图模型
+    init(model:QZHProductDetail_PRODeatailModel) {
+        self.status=model
+    }
+    
+    var description: String{
+        return status.description
+    }
+}
 

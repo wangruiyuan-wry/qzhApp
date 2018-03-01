@@ -169,7 +169,6 @@ extension QZH_CYSQHomeViewController{
         // 去掉 tableview 分割线
         self.tabbelView?.separatorStyle = .none
         
-        // 修改状态栏字体颜色
         tabbelView?.backgroundColor = myColor().grayF0()
         tabbelView?.height = SCREEN_HEIGHT - 98*PX
         
@@ -713,5 +712,19 @@ extension QZH_CYSQHomeViewController{
         let nav = QZHProductDetailViewController()
         present(nav, animated: true, completion: nil)
         
+    }
+}
+
+extension QZH_CYSQHomeViewController: WRCycleScrollViewDelegate
+{
+    /// 点击图片事件
+    func cycleScrollViewDidSelect(at index:Int, cycleScrollView:WRCycleScrollView)
+    {
+        print("点击了第\(index+1)个图片")
+    }
+    /// 图片滚动事件
+    func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView)
+    {
+        print("滚动到了第\(index+1)个图片")
     }
 }

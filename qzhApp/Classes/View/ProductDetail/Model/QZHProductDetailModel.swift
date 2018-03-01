@@ -39,6 +39,24 @@ class QZHProductDetailModel: NSObject {
     // 产品单位
     var unit:String = ""
     
+    // 货品条形码
+    var barCode:String = ""
+    
+    // 货品分类ID
+    var categoryId:String = ""
+    
+    // 货品收藏数目
+    var collectNum:Int = 0
+    
+    // 货品创建时间
+    var createDate:String = ""
+    
+    // 货品自定义分类
+    var  customCategory:String = ""
+    
+    // 商品编码
+    var productCode:String = ""
+    
     /// 重写 description 的计算属性
     override var description: String{
         return yy_modelDescription()
@@ -76,6 +94,21 @@ extension QZHProductDetailModel{
         set{
             paramers.commentNum = newValue
         }
+    }
+}
+
+// 产品详情数据模型
+class QZHProductDetail_PRODeatailModel:NSObject{
+    
+    // 货品Id
+    var goodsId:Int = 0
+    
+    // 产品详情
+    var productDetailsApp:String = ""
+    
+    /// 重写 description 的计算属性
+    override var description: String{
+        return yy_modelDescription()
     }
 }
 
@@ -122,7 +155,7 @@ class QZHProductDetail_PRORecommendModel: NSObject{
     var fixedPrice:Double = 0
     
     // 产品图片
-    //var pic:[String:AnyObject] = [:]
+    var pic:[String:AnyObject] = [:]
     
     
     /// 重写 description 的计算属性
@@ -188,10 +221,10 @@ class QZHProductDetail_PROSpecOptionModel:NSObject{
 class QZHProductDetail_PROShopStatisticsModel:NSObject{
     
     // 店铺简称
-    var nickName:String = ""
+    var short_name:String = ""
     
     // 店铺图片
-    var logo:String = ""
+    var storeLogo:String = ""
     
     // 全部商品数量
     var goodsNum:Int = 0
@@ -208,6 +241,12 @@ class QZHProductDetail_PROShopStatisticsModel:NSObject{
     // 收藏人数
     var collectionNum:Int = 0
     
+    // 店铺Id
+    var memberId:Int = 0
+    
+    // 会员等级
+    var memberLevel:String = ""
+    
     /// 重写 description 的计算属性
     override var description: String{
         return yy_modelDescription()
@@ -216,11 +255,18 @@ class QZHProductDetail_PROShopStatisticsModel:NSObject{
 
 // 评论列表数据模型
 class QZHProductDetail_PROListCommentModel:NSObject{
+    struct counts {
+        static var count:Int = 0
+    }
+    
     // 评论ID
     var _id:Int = 0
     
+    // 货品Id
+    var goodsId:Int = 0
+    
     // 评论内容
-    var conten:String = ""
+    var content:String = ""
     
     // 创建时间
     var createTime:String = ""
@@ -231,15 +277,34 @@ class QZHProductDetail_PROListCommentModel:NSObject{
     // 评论者Id
     var accountId:Int64 = 0
     
+    // 服务评价
+    var service_evaluation:String = ""
+    
+    // 商品评价
+    var goods_evaluation:String = ""
+    
     //  头像
     var avatar:String = ""
     
     // 回复
     var replies:[AnyObject] = []
     
+    // 几颗星
+    var starNum:Int = 0
+    
     /// 重写 description 的计算属性
     override var description: String{
         return yy_modelDescription()
+    }
+}
+extension QZHProductDetail_PROListCommentModel{
+    class var count:Int{
+        get{
+            return counts.count
+        }
+        set{
+            counts.count = newValue
+        }
     }
 }
 
@@ -256,7 +321,7 @@ class QZHProductDetail_PROPrice2StockByIdModel:NSObject{
     var salesVolume:Int = 0
     
     // 促销价
-    var promotionPrice:Double = 0
+    var promotionPrice:Double = 0.0
     
     // 是否是新品 是：1
     var isNew:Int = 0
@@ -288,6 +353,20 @@ class QZHProductDetail_PROPrice2StockByIdModel:NSObject{
     // 产品创建时间
     var createDate:String = ""
     
+    /// 重写 description 的计算属性
+    override var description: String{
+        return yy_modelDescription()
+    }
+}
+
+// 关注收藏信息
+class QZHProductDetail_AttentionCollectModel:NSObject{
+    
+    // 该商品是否收藏
+    var collentProduct:Int = 0
+    
+    // 该店铺是否收藏
+    var attentionStore:Int = 0
     /// 重写 description 的计算属性
     override var description: String{
         return yy_modelDescription()

@@ -213,6 +213,10 @@ class myColor:UIColor{
     func blue02a7f9()->UIColor{
         return UIColor(red:2/255,green:167/255,blue:249/255,alpha:1)
     }
+    //#1a87ff
+    func blue1a87ff()->UIColor{
+        return UIColor(red:26/255,green:135/255,blue:235/255,alpha:1)
+    }
     //#0eb0b1
     func blue0eb0b1()->UIColor{
         return UIColor(red:14/255,green:176/255,blue:177/255,alpha:1)

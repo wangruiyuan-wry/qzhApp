@@ -12,7 +12,7 @@ class QZHUIScrollView: UIScrollView,UIScrollViewDelegate{
 
     func setupScrollerView(x:CGFloat,y:CGFloat,width:CGFloat,height:CGFloat,background:UIColor){
         self.frame=CGRect(x:x,y:y,width:width,height:height)
-        self.backgroundColor = backgroundColor
+        self.backgroundColor = background
         self.delegate=self
         self.alwaysBounceVertical=false
         self.bounces=true

@@ -64,7 +64,6 @@ class QZHNetworkManager: AFHTTPSessionManager {
            get(URLString, parameters: parameters, progress: nil, success: { (_, json) in
             completion(json as AnyObject, true)
            }, failure: { (task, error) in
-            print(error)
             //处理用户 token 过期
             self.tokenOver(task: task!)
             

@@ -21,8 +21,8 @@ class QZGH_CYSQHomeHotSellViewModel:CustomStringConvertible{
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业模型
-    /// - return: 企业的视图模型
+    /// - Parameter model: 热销产品模型
+    /// - return: 热销产品的视图模型
     init(model:QZGH_CYSQHomeModel_hotSell) {
         self.status=model
     }
@@ -39,8 +39,8 @@ class QZGH_CYSQHomeSildeHeadViewModel: CustomStringConvertible {
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业模型
-    /// - return: 企业的视图模型
+    /// - Parameter model: 头部轮播图模型
+    /// - return: 头部轮播图的视图模型
     init(model:QZGH_CYSQHomeModel_sildeHead) {
         self.status=model
     }
@@ -57,8 +57,8 @@ class QZGH_CYSQHomeSildeTodayRecommendViewModel: CustomStringConvertible {
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业模型
-    /// - return: 企业的视图模型
+    /// - Parameter model: 今日推荐轮播图模型
+    /// - return: 今日推荐轮播图的视图模型
     init(model:QZGH_CYSQHomeModel_sildeTodayRecommend) {
         self.status=model
     }
@@ -74,8 +74,8 @@ class QZGH_CYSQHomeGetMarketClassViewModel:CustomStringConvertible{
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业模型
-    /// - return: 企业的视图模型
+    /// - Parameter model: 分类图片模型
+    /// - return: 分类图片的视图模型
     init(model:QZGH_CYSQHomeModel_getMarketClass) {
         self.status=model
     }
@@ -91,8 +91,8 @@ class QZGH_CYSQHomeGetPromotionMarketAdViewModel:CustomStringConvertible{
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业模型
-    /// - return: 企业的视图模型
+    /// - Parameter model: 促销产品模型
+    /// - return: 促销产品的视图模型
     init(model:QZGH_CYSQHomeModel_getPromotionMarketAd) {
         self.status=model
     }
@@ -109,8 +109,8 @@ class QZGH_CYSQHomeGetRecommendMarketAdViewModel:CustomStringConvertible{
     
     /// 构造函数
     ///
-    /// - Parameter model: 企业模型
-    /// - return: 企业的视图模型
+    /// - Parameter model: 今日推荐模型
+    /// - return: 今日推荐的视图模型
     init(model:QZGH_CYSQHomeModel_getRecommendMarketAd) {
         self.status=model
     }

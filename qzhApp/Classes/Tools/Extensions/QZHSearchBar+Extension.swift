@@ -222,6 +222,31 @@ class SearchController:UIView{
         return self
     }
     
+    
+    /// 设置页面搜索 （无返回按钮）
+    ///
+    /// - Parameters:
+    /// - Returns: 返回一个按钮
+    func SeacrchTitleBtn3()->UIView{
+        self.initFrame()
+        self.backgroundColor = UIColor.clear
+        
+        let uiView:UIView = UIView(frame:CGRect(x:0,y:0*PX,width:623*PX,height:60*PX))
+        uiView.backgroundColor = myColor().GrayF1F2F6()
+        self.addSubview(uiView)
+        uiView.layer.cornerRadius = 8*PX
+        
+        let icon1:UIImageView = UIImageView(frame:CGRect(x:18*PX,y:15*PX,width:30*PX,height:30*PX))
+        icon1.image = UIImage(named:"searchIcon3")
+        uiView.addSubview(icon1)
+        
+        let label:QZHUILabelView = QZHUILabelView()
+        label.setLabelView(66*PX, 10*PX, 623*PX, 40*PX, NSTextAlignment.left, UIColor.clear, myColor().GrayA(), 28, "搜索商品")
+        uiView.addSubview(label)
+        
+        return self
+    }
+    
 }
 
 // MARK: - 跳转搜索页面的监听方法

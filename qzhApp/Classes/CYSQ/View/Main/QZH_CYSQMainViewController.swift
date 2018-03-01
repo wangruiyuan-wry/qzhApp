@@ -112,7 +112,7 @@ extension QZH_CYSQMainViewController{
     func setupChildControllers(){
         let array = [
             ["clsName":"QZH_CYSQHomeViewController","title":"首页","imageName":"home"],
-            ["clsName":"QZH_CYSQHomeViewController","title":"分类","imageName":"sort"],
+            ["clsName":"QZH_CYSQSortViewController","title":"分类","imageName":"sort"],
             ["clsName":"QZH_CYSQHomeViewController","title":"订单","imageName":"orderIcon"],
             ["clsName":"QZH_CYSQHomeViewController","title":"购物车","imageName":"shoppingCar"],
             ["clsName":"QZHUserConcenterViewController","title":"我的","imageName":"user"]
