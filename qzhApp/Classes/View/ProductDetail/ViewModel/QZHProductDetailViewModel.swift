@@ -43,7 +43,7 @@ class QZHProductDetailViewModel:NSObject{
     
     // 获取产品详情
     func getProductGoodsDetail(completion:@escaping (_ result:[QZHProductDetail_GoodsViewModel],_ pic:[QZHProductDetail_PROPicViewModel],_ proPrice:[QZHProductDetail_PROPrice2StockByIdViewModel],_ proSpacep:[QZHProductDetail_PROSpecOptionViewModel],_ attr:[QZHProductDetail_PROAttributeOptionViewModel],_ shop:[QZHProductDetail_PROShopStatisticsViewModel],_ attention:[QZHProductDetail_AttentionCollectViewModel],_ comment:[QZHProductDetail_PROListCommentViewModel],_ detail:[QZHProductDetail_PRODeatailViewModel],_ isSuccess:Bool)->(),getPro:@escaping (_ isSuccess:Bool)->()){
-        QZHProductDetailModel.goodsId = 1
+        //QZHProductDetailModel.goodsId = 1
         QZHNetworkManager.shared.statusList(method: .POST, url: "standard/productGoods/proDetail", params: ["goodsId":QZHProductDetailModel.goodsId as AnyObject]) { (result, isSuccess) in
             if !isSuccess{
                 completion(self.goodsStatus, self.picStatus, self.proPriceStatus, self.proSpaceStatus, self.proAttOptionsStatus, self.shopStatus, self.attentionCollectStatus, self.commentStatus, self.proDeatailStatus, false)
@@ -85,7 +85,7 @@ class QZHProductDetailViewModel:NSObject{
                         let _att:[Dictionary<String,AnyObject>] = _data["attOptions"] as![ Dictionary<String, AnyObject>]
                         var attList = [QZHProductDetail_PROAttributeOptionViewModel]()
                         
-                        for dict in _att ?? []{
+                        for dict in _att {
                             //对字典进行处理
                             let newDict = PublicFunction().setNULLInDIC(dict)
                             //a）创建企业模型
@@ -293,6 +293,50 @@ class QZHProductDetailViewModel:NSObject{
                     }
                 }
             }
+        }
+    }
+    
+    /// 获取产品规格
+    ///
+    /// - Parameter completion: 回调
+    func getProSpec(completion:@escaping (_ isSuccess:Bool)->()){
+        QZHNetworkManager.shared.statusList(method: .POST, url: "standard/productSpec/productGoodsSpecOption", params: ["goodsId":QZHProductDetailModel.goodsId as AnyObject]) { (result, isSuccess) in
+            if !isSuccess{
+                completion(false)
+            }else{
+                if result["status"] as!Int == 200{
+                    // 产品规格
+                    if result["data"] is NSNull{
+                        
+                    }else{
+                        let _spec:[Dictionary<String,AnyObject>] = result["data"] as! [Dictionary<String, AnyObject>]
+                        var specList = [QZHProductDetail_PROSpecOptionViewModel]()
+                        
+                        for dict in _spec ?? []{
+                            //对字典进行处理
+                            let newDict = PublicFunction().setNULLInDIC(dict)
+                            //a）创建企业模型
+                            guard let models = QZHProductDetail_PROSpecOptionModel.yy_model(with:newDict) else{
+                                continue
+                            }
+                            //b）将model添加到数组
+                            specList.append(QZHProductDetail_PROSpecOptionViewModel(model:models))
+                        }
+                        self.proSpaceStatus = specList
+                        
+                    }
+                    completion(isSuccess)
+                }
+            }
+        }
+    }
+    
+    /// 加入购物车
+    ///
+    /// - Parameter completion: 回调方法
+    func addToCar(completion:@escaping (_ isSuccess:Bool,_ message:String)->()){
+        QZHNetworkManager.shared.statusList(method: .POST, url: "order/shopCart/insert", params: ["info":["productId":QZHProductDetailModel.productId,"specOptionName":QZHProductDetailModel.specOptionName,"specOptionId":QZHProductDetailModel.specOptionId,"proCount":QZHProductDetailModel.proCount,"goodsId":QZHProductDetailModel.goodsId,"sellMemberId":QZHProductDetailModel.sellMemberId] as AnyObject]) { (result, isSuccess) in
+            completion(isSuccess, result["data"] as! String)
         }
     }
 }

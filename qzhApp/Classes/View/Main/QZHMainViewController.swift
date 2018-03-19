@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 
 //主控制器
 class QZHMainViewController: UITabBarController {
@@ -51,10 +51,30 @@ class QZHMainViewController: UITabBarController {
     //MARK: -监听方法
     @objc private  func userLogin(n:Notification){
         
-        //展现登录控制器 - 通常会和 UINavigationController 一起使用，方便返回
-        let nav = UINavigationController(rootViewController:QZHOAuthViewController())
-        present(nav, animated: true, completion: nil)
+        print("用户登录通知 \(n)")
         
+        var when = DispatchTime.now()
+        
+        // 判断 n.object 是否有值 -> token 过期，提示用户重新登录
+        if n.object != nil {
+            
+            // 设置指示器渐变样式
+            SVProgressHUD.setDefaultMaskType(.gradient)
+            
+            SVProgressHUD.showInfo(withStatus: "用户登录已经超时，需要重新登录")
+            
+            // 修改延迟时间
+            when = DispatchTime.now() + 2
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            SVProgressHUD.setDefaultMaskType(.clear)
+            
+            // 展现登录控制器 - 通常会和 UINavigationController 连用，方便返回
+            let nav = UINavigationController(rootViewController: QZHOAuthViewController())
+            
+            self.present(nav, animated: true, completion: nil)
+        }
     }
 }
 
@@ -120,7 +140,7 @@ extension QZHMainViewController{
         let array = [
             ["clsName":"QZHHomeViewController","title":"首页","imageName":"home"],
             ["clsName":"QZHEnterprisePortalViewController","title":"分类","imageName":"sort"],
-            ["clsName":"QZHHomeViewController","title":"购物车","imageName":"shoppingCar"],
+            ["clsName":"QZH_CYSQCarViewController","title":"购物车","imageName":"shoppingCar"],
             ["clsName":"QZHUserConcenterViewController","title":"我的","imageName":"user"]
         ]
         

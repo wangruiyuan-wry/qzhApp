@@ -100,6 +100,7 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
     var ggContent:QZHUIScrollView = QZHUIScrollView()
     var buyNum:QZHUILabelView = QZHUILabelView()
     var KCNum:Int = 0
+    var specOptionIds:String = ""
     
     // 背景遮罩层
     var blackBG:QZHUIView = QZHUIView()
@@ -121,7 +122,7 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
         // 获取产品详情
         productDetailStatus.getProductGoodsDetail(completion: { (goods, pic, price, space, attrtion, shop, attentionClloect, comment, goodDetail, isSuccess) in
             if isSuccess{
-                QZHProductDetailModel.productId = goods[0].status.id
+                QZHProductDetailModel.goodsId = Int(goods[0].status.id)
                 QZHProductDetailModel.memberId = Int64(shop[0].status.memberId)
                 self.topSroller.contentSize.width = 0
                 if pic[0].status.videoPath != ""{
@@ -194,7 +195,6 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                     
                     var starNums = 0
                     var commentNum = Double.init(comment[0].status.goods_evaluation)! + Double.init(comment[0].status.service_evaluation)!
-                    print(commentNum)
                     if commentNum == 0.0{
                         starNums = 0
                     }else if commentNum < 2.0 {
@@ -217,6 +217,7 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                 if shop_logo == ""{
                     shop_logo = "noPic"
                 }
+                QZHStoreInfoModel.memberID = shop[0].status.memberId
                 self.tabbelView?.addSubview(self.setupShopView(y: self.shopView.y, photo: shop_logo, shopName: shop[0].status.short_name, Vip: shop[0].status.memberLevel, proCount: shop[0].status.goodsNum, sale: shop[0].status.monthSales, scCount: shop[0].status.collectionNum, proComment: CGFloat(shop[0].status.goodsEvalution.roundTo(places: 1)), sComment: CGFloat(shop[0].status.serviceEvalution.roundTo(places: 1))))
                 
                 if goodDetail.count > 0{
@@ -310,6 +311,9 @@ extension QZHProductDetailViewController{
         //tabbelView?.register(QZHProductDetailCell.self, forCellReuseIdentifier: cellId)
         tabbelView?.register(UINib(nibName:"QZHProductDetailCell",bundle:nil), forCellReuseIdentifier: cellId)
         tabbelView?.height = SCREEN_HEIGHT - 100*PX
+        
+        // 设置cell高度自适应
+        //tabbelView?.rowHeight = UITableViewAutomaticDimension
         
         // 设置导航栏按钮
         self.navigationBar.isHidden = true
@@ -651,7 +655,7 @@ extension QZHProductDetailViewController{
         
         // 进店逛逛
         let btn2:QZHUIButton = QZHUIButton()
-        btn2.setupButton(410*PX, 301*PX, 160*PX, 60*PX, myColor().blue007aff(), UIColor.white, "店铺分类", 24, 1*PX, myColor().blue007aff(), "", UIControlState.normal, 0, UIViewContentMode.center)
+        btn2.setupButton(410*PX, 301*PX, 160*PX, 60*PX, myColor().blue007aff(), UIColor.white, "进店逛逛", 24, 1*PX, myColor().blue007aff(), "", UIControlState.normal, 0, UIViewContentMode.center)
         btn2.frame = CGRect(x:410*PX,y:301*PX,width:160*PX,height:60*PX)
         btn2.layer.cornerRadius = 8*PX
         btn2.addTarget(self, action: #selector(self.gotToShop), for: .touchUpInside)
@@ -871,7 +875,12 @@ extension QZHProductDetailViewController{
             listBtn.isUserInteractionEnabled = true
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.checkComment(_:)))
             listBtn.addGestureRecognizer(tapGesture)
-
+            
+            let idView:QZHUILabelView = QZHUILabelView()
+            idView.tag = 3
+            idView.isHidden = true
+            idView.setLabelView(left, marginTop, widthBtn+60*PX, 60*PX, NSTextAlignment.center, UIColor.white, myColor().gray3(), 26, "\(commentArray[i]["optionId"]!)")
+            listBtn.addSubview(idView)
             
             commentView.addSubview(listBtn)
            left = left + widthBtn + 80*PX
@@ -948,7 +957,7 @@ extension QZHProductDetailViewController{
     }
 }
 
-// MARK: - 设置 UIWebView 数据源方法
+// MARK: - 设置 tableView 数据源方法
 extension QZHProductDetailViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if productDetailStatus.proRecommendStatus.count > 0{
@@ -967,8 +976,6 @@ extension QZHProductDetailViewController{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0{
-            print("DetailTitle:\(DetailTitle.y+DetailTitle.height)")
-            print("pullTitle:\(pullTitle.y+pullTitle.height)")
             return pullTitle.y+80*PX
         }else if indexPath.row != self.cellCount-1 {
             return 471*PX
@@ -1110,6 +1117,9 @@ extension QZHProductDetailViewController{
     
     // 进入店铺
     func gotToShop(){
+        let vc = QZHStoreIndexViewController()
+        
+         present(vc, animated: true, completion: nil)
     }
     
     // 店铺分类
@@ -1127,9 +1137,29 @@ extension QZHProductDetailViewController{
     
     }
     
+    /*
+     {
+     "productId":2,
+     "specOptionId":"1;2",
+     "specOptionName":"200g;蓝色",
+     "proCount":1,
+     "goodsId":1,
+     "sellMemberId":50
+     }
+     */
+    
     // 加入购物车
     func addToCar(){
-        print("加入购物车")
+        if proIds.components(separatedBy: ",").count == 1 && proIds != ""{
+            QZHProductDetailModel.productId = Int64.init(proIds)!
+            QZHProductDetailModel.specOptionId = specOptionIds
+            QZHProductDetailModel.specOptionName = ggGG.text!
+            QZHProductDetailModel.proCount = Double.init(self.buyNum.text!)!
+            QZHProductDetailModel.sellMemberId = Int(QZHProductDetailModel.memberId)
+            self.productDetailStatus.addToCar { (isSuccess, result) in
+                UIAlertController.showAlert(message: result, in: self)
+            }
+        }
     }
     
     // 立即购买
@@ -1210,6 +1240,7 @@ extension QZHProductDetailViewController{
                 _this.layer.borderColor = myColor().blue007aff().cgColor
                 productIds = _this.restorationIdentifier!
                 ggGG.text = _this.text!
+                specOptionIds = (_this.viewWithTag(3)as! QZHUILabelView).text!
                 proIds = productIds
                 productIdCount = productIdCount + 1
             }else{
@@ -1218,6 +1249,7 @@ extension QZHProductDetailViewController{
                 if result != ""{
                     ggGG.text = "\(ggGG.text!),\(_this.text!)"
                     productIds = "\(productIds);\(_this.restorationIdentifier!)"
+                    specOptionIds = "\(specOptionIds),\((_this.viewWithTag(3)as! QZHUILabelView).text)"
                     _this.tag = 2
                     _this.textColor = myColor().blue1a87ff()
                     _this.layer.borderColor = myColor().blue007aff().cgColor

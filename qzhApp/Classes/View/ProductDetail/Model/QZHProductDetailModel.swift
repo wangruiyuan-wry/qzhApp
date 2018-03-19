@@ -16,6 +16,10 @@ class QZHProductDetailModel: NSObject {
         static var productId:Int64 = 0
         static var memberId:Int64 = 0
         static var commentNum:Int = 0
+        static var specOptionId:String = ""
+        static var specOptionName:String = ""
+        static var proCount:Double = 0.0
+        static var sellMemberId:Int = 0
     }
     
     // 产品Id
@@ -31,7 +35,7 @@ class QZHProductDetailModel: NSObject {
     var salesVolume:Int = 0
     
     // 总库存
-    var stock:Int = 0
+    var stock:Double = 0
     
     // 产品商家Id
     var eipMemberId:Int64 = 0
@@ -93,6 +97,39 @@ extension QZHProductDetailModel{
         }
         set{
             paramers.commentNum = newValue
+        }
+    }
+    
+    class var specOptionName:String{
+        get{
+            return paramers.specOptionName
+        }
+        set{
+            paramers.specOptionName = newValue
+        }
+    }
+    class var specOptionId:String{
+        get{
+            return paramers.specOptionId
+        }
+        set{
+            paramers.specOptionId = newValue
+        }
+    }
+    class var proCount:Double{
+        get{
+            return paramers.proCount
+        }
+        set{
+            paramers.proCount = newValue
+        }
+    }
+    class var sellMemberId:Int{
+        get{
+            return paramers.sellMemberId
+        }
+        set{
+            paramers.sellMemberId = newValue
         }
     }
 }
@@ -339,7 +376,7 @@ class QZHProductDetail_PROPrice2StockByIdModel:NSObject{
     var intro:String = ""
     
     // 产品库存
-    var stock:Int = 0
+    var stock:Double = 0
     
     // 产品分类ID
     var categoryId: Int64 = 0

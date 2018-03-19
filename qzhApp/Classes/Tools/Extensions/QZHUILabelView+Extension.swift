@@ -63,6 +63,7 @@ class QZHUILabelView: UILabel {
         self.textColor=txtColor
         self.text=texts
         self.font = UIFont.systemFont(ofSize: size*PX)
+
     }
     
     // 分割线

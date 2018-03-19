@@ -36,9 +36,9 @@ extension UIBarButtonItem{
             btn.setImage(UIImage(named:img), for:.normal)
             btn.contentMode = .center
         }else if img==""{
-            btn.frame = CGRect(x:0,y:0,width:55*PX,height:20)
+            btn.frame = CGRect(x:0,y:0,width:90*PX,height:20)
             btn.setTitle(title, for: .normal)
-            btn.setTitleColor(UIColor.gray, for: .normal)
+            btn.setTitleColor(myColor().gray3(), for: .normal)
             btn.titleLabel?.font=UIFont.systemFont(ofSize: 26*PX)
         }else if title == ""{
             btn.frame = CGRect(x:0,y:0,width:20,height:20)

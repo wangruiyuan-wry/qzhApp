@@ -28,3 +28,52 @@ class QZHUIView: UIView {
         self.isHidden=true
     }
 }
+
+func getCurrentViewController() -> UIViewController {
+    var result = UIViewController()
+    
+    var window = UIApplication.shared.keyWindow
+    if window?.windowLevel != UIWindowLevelNormal {
+        let windows = UIApplication.shared.windows
+        for temp in windows {
+            if temp.windowLevel == UIWindowLevelNormal {
+                window = temp
+                break
+            }
+        }
+    }
+    
+    if let appRootVC = window?.rootViewController {
+        if let frontView = window?.subviews.first {
+            if var nextResponder = frontView.next  {
+                if let _ = appRootVC.presentedViewController {
+                    nextResponder = appRootVC.presentedViewController!
+                }
+                
+                if nextResponder is UITabBarController {
+                    let tabbar = nextResponder as! UITabBarController
+                    let nav = tabbar.viewControllers![tabbar.selectedIndex] as! UINavigationController
+                    result = nav.childViewControllers.last!
+                } else if nextResponder is UINavigationController {
+                    let nav = nextResponder as! UINavigationController
+                    result = nav.childViewControllers.last!
+                } else {
+                    result = nextResponder as! UIViewController
+                }
+            }
+        }
+    }
+    return result
+}
+
+extension UIView {
+    //返回该view所在的父view
+    func superView<T: UIView>(of: T.Type) -> T? {
+        for view in sequence(first: self.superview, next: { $0?.superview }) {
+            if let father = view as? T {
+                return father
+            }
+        }
+        return nil
+    }
+}

@@ -138,6 +138,15 @@ extension  QZHBaseViewController: UITableViewDataSource,UITableViewDelegate{
         return 0
     }
     
+    /*func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 0
+    }*/
+    
+    
     //基类只是准备方法，子类负责具体的实现
     //子类的数据源方法不需要 super
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -174,13 +183,20 @@ extension  QZHBaseViewController: UITableViewDataSource,UITableViewDelegate{
 }
 
 
-//MAKRK: - 访客视图监听方法
+//MAKRK: - 登录监听方法
 extension QZHBaseViewController{
-    @objc func login(){
+    @objc func login1(){
         //发送通知
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification), object: nil)
         
     }
+    
+    @objc func login(){
+        //getCurrentViewController().present(QZHOAuthViewController(), animated: true, completion: nil)
+        //发送通知
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification), object: nil)
+    }
+
     @objc private func register(){
         print("用户注册")
     }

@@ -42,18 +42,17 @@ class CacheFunc: NSObject{
     }
     
     //获取缓存文件数据
-    func getCahceData(fileName:String,folderName:String)->NSDictionary{
-        var userInfo:NSDictionary!=NSDictionary()
+    func getCahceData(fileName:String,folderName:String)->[String:AnyObject]{
+        var userInfo:[String:AnyObject]=[:]
         let fileManager=FileManager.default
         
         //缓存路径
         let cachePath=userExclusiveFolder(folderName:folderName)+fileName
+
         let exist=fileManager.fileExists(atPath:cachePath)
-        
-        if !exist{
-            userInfo=nil
-        }else{
-            userInfo=NSDictionary(contentsOfFile:cachePath)
+
+        if exist == true{
+            userInfo=NSDictionary(contentsOfFile:cachePath) as! [String : AnyObject]
         }
         return userInfo
     }
@@ -74,7 +73,7 @@ class CacheFunc: NSObject{
     
     //直接缓存文件至cache文件夹中
     func setFileInCache(fileName:String){
-        let folder:String!=NSHomeDirectory()+"/Library/Caches/qzh_ios／"
+        let folder:String!=NSHomeDirectory()+"/Library/Caches/qzh_App／"
         //文件夹如果不存在则新建
         let fileManager=FileManager.default
         try! fileManager.createDirectory(atPath: folder, withIntermediateDirectories: true, attributes: nil)
@@ -97,7 +96,7 @@ class CacheFunc: NSObject{
     }
     //创建(用户)缓存文件夹
     func userExclusiveFolder(folderName:String)->String{
-        let folder:String!=NSHomeDirectory()+"/Library/Caches/qzh_ios／"+folderName
+        let folder:String!=NSHomeDirectory()+"/Library/Caches/qzh_App／"+folderName
         //文件夹如果不存在则新建
         let fileManager=FileManager.default
         try! fileManager.createDirectory(atPath: folder, withIntermediateDirectories: true, attributes: nil)
@@ -176,7 +175,7 @@ class CacheFunc: NSObject{
     //清除本地缓存
     func cleanCahche()->Bool{
         var result=true
-        let basePath=NSHomeDirectory()+"/Library/Caches/qzh_ios／"
+        let basePath=NSHomeDirectory()+"/Library/Caches/qzh_App／"
         let fileManager=FileManager.default
         if fileManager.fileExists(atPath: basePath){
             let fileArr=fileManager.subpaths(atPath: basePath)
@@ -196,7 +195,7 @@ class CacheFunc: NSObject{
     
     //计算缓存大小
     func caculateCache()->String{
-        let basePath=NSHomeDirectory()+"/Library/Caches/qzh_ios／"
+        let basePath=NSHomeDirectory()+"/Library/Caches/qzh_App／"
         let fileManager=FileManager.default
         var total=0
         if fileManager.fileExists(atPath: basePath){

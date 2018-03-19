@@ -139,7 +139,7 @@ class SearchController:UIView{
         let label:QZHUILabelView = QZHUILabelView()
         label.setLabelView(64*PX, 11*PX, 150*PX, 40*PX, NSTextAlignment.left, UIColor.clear, UIColor.white, 28, "搜索商品")
         self.addSubview(label)
-        
+
         let icon2:UIImageView = UIImageView(frame:CGRect(x:505*PX,y:10*PX,width:26*PX,height:40*PX))
         icon2.image = UIImage(named:"morcoIcon1")
         self.addSubview(icon2)
@@ -156,6 +156,7 @@ class SearchController:UIView{
         let label:UITextField = UITextField(frame:CGRect(x:64*PX,y:10*PX,width:529*PX,height:40*PX))
         label.placeholder = "搜索产品"
         label.font = UIFont.systemFont(ofSize: 28*PX)
+        label.clearButtonMode = .always
         self.addSubview(label)
         
         let icon2:UIImageView = UIImageView(frame:CGRect(x:505*PX,y:10*PX,width:26*PX,height:40*PX))
@@ -164,6 +165,24 @@ class SearchController:UIView{
         
         return self
     }
+
+    func SeacrchBtn5() ->UIView{
+        self.initFrame()
+        self.backgroundColor = myColor().GrayF1F2F6()
+        let icon1:UIImageView = UIImageView(frame:CGRect(x:18*PX,y:15*PX,width:30*PX,height:30*PX))
+        icon1.image = UIImage(named:"searchIcon3")
+        self.addSubview(icon1)
+        
+        let label:UITextField = UITextField(frame:CGRect(x:66*PX,y:10*PX,width:484*PX,height:40*PX))
+        label.placeholder = "搜索产品"
+        label.tag = 1
+        label.font = UIFont.systemFont(ofSize: 28*PX)
+        label.clearButtonMode = .always
+        self.addSubview(label)
+        self.width = 550*PX
+        return self
+    }
+
     
     func SeacrchTitleBtn1(title:String,titleColor:UIColor)->UIView{
         self.initFrame()
@@ -247,6 +266,55 @@ class SearchController:UIView{
         return self
     }
     
+    /// 设置页面搜索 （包含返回按钮）
+    ///
+    /// - Parameters:
+    /// - Returns: 返回一个按钮
+    func SeacrchTitleBtn4()->UIView{
+        self.initFrame()
+        self.backgroundColor = UIColor.clear
+        
+        let uiView:UIView = UIView(frame:CGRect(x:0,y:0*PX,width:550*PX,height:60*PX))
+        uiView.backgroundColor = myColor().GrayF1F2F6()
+        self.addSubview(uiView)
+        uiView.layer.cornerRadius = 8*PX
+        
+        let icon1:UIImageView = UIImageView(frame:CGRect(x:18*PX,y:15*PX,width:30*PX,height:30*PX))
+        icon1.image = UIImage(named:"searchIcon3")
+        uiView.addSubview(icon1)
+        
+        let label:QZHUILabelView = QZHUILabelView()
+        label.setLabelView(66*PX, 10*PX, 516*PX, 40*PX, NSTextAlignment.left, UIColor.clear, myColor().GrayA(), 28, "搜索商品")
+        uiView.addSubview(label)
+        
+        return self
+    }
+    
+    /// 设置页面搜索 （包含返回按钮 右边两个摁钮）
+    ///
+    /// - Parameters:
+    /// - Returns: 返回一个按钮
+    func SeacrchTitleBtn5()->UIView{
+        self.initFrame()
+        self.backgroundColor = UIColor.clear
+        
+        let uiView:UIView = UIView(frame:CGRect(x:15*PX,y:0*PX,width:520*PX,height:60*PX))
+        uiView.backgroundColor = myColor().GrayF1F2F6()
+        self.addSubview(uiView)
+        uiView.layer.cornerRadius = 8*PX
+        
+        let icon1:UIImageView = UIImageView(frame:CGRect(x:18*PX,y:15*PX,width:30*PX,height:30*PX))
+        icon1.image = UIImage(named:"searchIcon3")
+        uiView.addSubview(icon1)
+        
+        let label:QZHUILabelView = QZHUILabelView()
+        label.tag = 1
+        label.setLabelView(66*PX, 10*PX, 454*PX, 40*PX, NSTextAlignment.left, UIColor.clear, myColor().GrayA(), 28, "搜索商品")
+        uiView.addSubview(label)
+        
+        return self
+    }
+
 }
 
 // MARK: - 跳转搜索页面的监听方法

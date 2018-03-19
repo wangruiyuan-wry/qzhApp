@@ -216,3 +216,13 @@ class textInput:UITextField{
     }
 }
 
+extension UITextField{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()//1这里是一种收键盘的方法,逼格稍微高点
+        
+        //view.endEditing(true)//2这是另外一种收键盘的方法,比较通用
+        return true
+    }
+    
+}
