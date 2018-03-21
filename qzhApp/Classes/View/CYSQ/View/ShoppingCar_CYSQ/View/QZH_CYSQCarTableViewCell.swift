@@ -57,7 +57,7 @@ class QZH_CYSQCarTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         priceIcon.setLabelView(0*PX,138*PX,20*PX,28*PX, NSTextAlignment.left, UIColor.white, myColor().redFf4300(), 20, "¥")
         
-        price1.setLabelView(20*PX, 129*PX, price1.autoLabelWidth(price1.text!, font: 40, height: 40*PX), 40*PX, NSTextAlignment.left, UIColor.white, myColor().redFf4300(), 28, "")
+        price1.setLabelView(20*PX, 129*PX, price1.autoLabelWidth(price1.text!, font: 44, height: 40*PX), 40*PX, NSTextAlignment.left, UIColor.white, myColor().redFf4300(), 28, "")
         
         price2.setLabelView(30*PX+price1.width, 139*PX, price2.autoLabelWidth(price2.text!, font: 30, height: 28*PX), 28*PX, NSTextAlignment.left, UIColor.white, myColor().gray9(), 20, "")
 

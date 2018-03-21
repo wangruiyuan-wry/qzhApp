@@ -69,6 +69,7 @@ class QZH_CYSQCarListViewModel:NSObject{
                         listArray.append(QZH_CYSQCarViewModel(model:model!))
                         
                         let proList:[[String:AnyObject]] = dic["list"] as! [[String : AnyObject]]
+                        print("proList:\(proList)")
                         var proListView = [QZH_CYSQCarProViewModel]()
                         for proDic in proList{
                             //let newProDic = PublicFunction().setNULLInDIC(proDic)

@@ -60,6 +60,7 @@ class QZHNetworkManager: AFHTTPSessionManager {
     func request(method:QZHHTTPMethod = .GET,URLString: String,parameters:[String:AnyObject],completion: @escaping (_ json:AnyObject?,_ isSubccess:Bool)->()){
         QZHNetworkManager.shared.requestSerializer.setValue(accessToken, forHTTPHeaderField: "QZH_TOKEN")
         QZHNetworkManager.shared.responseSerializer = AFJSONResponseSerializer()
+        print("request:\(QZHNetworkManager.shared.requestSerializer.httpRequestHeaders)")
         if method == .GET{
            get(URLString, parameters: parameters, progress: nil, success: { (_, json) in
             completion(json as AnyObject, true)
@@ -71,7 +72,7 @@ class QZHNetworkManager: AFHTTPSessionManager {
            })
 
         }else{
-            post(URLString, parameters: parameters, progress: nil, success:{(_, json) in
+            post(URLString, parameters: parameters, progress: nil, success:{(hesder, json) in
                 completion(json as AnyObject, true)
             }, failure: { (task, error) in
                 print(error)

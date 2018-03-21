@@ -139,7 +139,7 @@ extension QZHMainViewController{
     func setupChildControllers(){
         let array = [
             ["clsName":"QZHHomeViewController","title":"首页","imageName":"home"],
-            ["clsName":"QZHEnterprisePortalViewController","title":"分类","imageName":"sort"],
+            ["clsName":"QZH_CYSQCarSettlementViewController","title":"分类","imageName":"sort"],
             ["clsName":"QZH_CYSQCarViewController","title":"购物车","imageName":"shoppingCar"],
             ["clsName":"QZHUserConcenterViewController","title":"我的","imageName":"user"]
         ]

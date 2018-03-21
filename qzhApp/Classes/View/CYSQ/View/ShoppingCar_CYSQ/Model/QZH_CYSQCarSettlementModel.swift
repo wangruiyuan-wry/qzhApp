@@ -12,9 +12,49 @@ import Foundation
 class QZH_CYSQCarSettlementModel:NSObject{
     struct  param {
         static var ids:String = ""
+        // 收货人姓名
+        static var person:String = ""
+        // 收货人电话
+        static var phone:String = ""
+        // 收货地址
+        static var address:String = ""
+        // 收收货地址id
+        static var addressId:Int = 0
     }
 }
 extension QZH_CYSQCarSettlementModel{
+    class var phone:String{
+        set{
+            param.phone = newValue
+        }
+        get{
+            return param.phone
+        }
+    }
+    class var address:String{
+        set{
+            param.address = newValue
+        }
+        get{
+            return param.address
+        }
+    }
+    class var addressId:Int{
+        set{
+            param.addressId = newValue
+        }
+        get{
+            return param.addressId
+        }
+    }
+    class var person:String{
+        set{
+            param.person = newValue
+        }
+        get{
+            return param.person
+        }
+    }
     class var ids:String{
         set{
             param.ids = newValue

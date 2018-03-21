@@ -43,12 +43,14 @@ class QZHProductDetailViewModel:NSObject{
     
     // 获取产品详情
     func getProductGoodsDetail(completion:@escaping (_ result:[QZHProductDetail_GoodsViewModel],_ pic:[QZHProductDetail_PROPicViewModel],_ proPrice:[QZHProductDetail_PROPrice2StockByIdViewModel],_ proSpacep:[QZHProductDetail_PROSpecOptionViewModel],_ attr:[QZHProductDetail_PROAttributeOptionViewModel],_ shop:[QZHProductDetail_PROShopStatisticsViewModel],_ attention:[QZHProductDetail_AttentionCollectViewModel],_ comment:[QZHProductDetail_PROListCommentViewModel],_ detail:[QZHProductDetail_PRODeatailViewModel],_ isSuccess:Bool)->(),getPro:@escaping (_ isSuccess:Bool)->()){
+        print("QZHProductDetailModel.goodsId:\(QZHProductDetailModel.goodsId)")
         //QZHProductDetailModel.goodsId = 1
         QZHNetworkManager.shared.statusList(method: .POST, url: "standard/productGoods/proDetail", params: ["goodsId":QZHProductDetailModel.goodsId as AnyObject]) { (result, isSuccess) in
             if !isSuccess{
                 completion(self.goodsStatus, self.picStatus, self.proPriceStatus, self.proSpaceStatus, self.proAttOptionsStatus, self.shopStatus, self.attentionCollectStatus, self.commentStatus, self.proDeatailStatus, false)
                 getPro(false)
             }else{
+                print(result)
                 if result["status"] as!Int == 200{
                     let _data:Dictionary<String,AnyObject> = result["data"] as! Dictionary<String, AnyObject>
                     if _data["goods"] is NSNull{}else{
@@ -335,8 +337,13 @@ class QZHProductDetailViewModel:NSObject{
     ///
     /// - Parameter completion: 回调方法
     func addToCar(completion:@escaping (_ isSuccess:Bool,_ message:String)->()){
-        QZHNetworkManager.shared.statusList(method: .POST, url: "order/shopCart/insert", params: ["info":["productId":QZHProductDetailModel.productId,"specOptionName":QZHProductDetailModel.specOptionName,"specOptionId":QZHProductDetailModel.specOptionId,"proCount":QZHProductDetailModel.proCount,"goodsId":QZHProductDetailModel.goodsId,"sellMemberId":QZHProductDetailModel.sellMemberId] as AnyObject]) { (result, isSuccess) in
-            completion(isSuccess, result["data"] as! String)
+        QZHNetworkManager.shared.statusList(method: .POST, url: "order/shopCart/insert", params: ["info":"{\"productId\":\(QZHProductDetailModel.productId),\"specOptionId\":\"\(QZHProductDetailModel.specOptionId)\",\"specOptionName\":\"\(QZHProductDetailModel.specOptionName)\",\"proCount\": \(QZHProductDetailModel.proCount),\"goodsId\":\(QZHProductDetailModel.goodsId),\"sellMemberId\":\(QZHProductDetailModel.sellMemberId)}" as AnyObject]) { (result, isSuccess) in
+            
+            if result["status"] as!Int == 200{
+                completion(isSuccess, "加入成功！！")
+            }else{
+                completion(isSuccess, "加入失败！！")
+            }
         }
     }
 }

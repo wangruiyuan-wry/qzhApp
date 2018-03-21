@@ -119,6 +119,10 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
     
     
     override func loadData() {
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         // 获取产品详情
         productDetailStatus.getProductGoodsDetail(completion: { (goods, pic, price, space, attrtion, shop, attentionClloect, comment, goodDetail, isSuccess) in
             if isSuccess{
@@ -140,7 +144,7 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                     self.webView.loadRequest(request)
                     self.webView.allowsInlineMediaPlayback = true
                     self.webView.mediaPlaybackRequiresUserAction = false
-
+                    
                     self.topSroller.addSubview(self.webView)
                     self.topSroller.contentSize = CGSize(width:self.topSroller.contentSize.width + 750*PX,height:750*PX)
                     
@@ -208,7 +212,7 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                     }else{
                         starNums = 5
                     }
-
+                    
                     
                     self.setupComment(y: self.commentView.y, count: QZHProductDetail_PROListCommentModel.count, photo: avatar_logo,photoFlag:avatar_logoFlag, userName: comment[0].status.createName, date: comment[0].status.createTime, star: starNums, content: comment[0].status.content)
                 }
@@ -238,7 +242,7 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                     ggTop = self.setupCommentList(y: ggTop, title: space[i].status.specName, commentArray: space[i].status.option as! [[String : AnyObject]])
                 }
                 
-               self.getPro()
+                self.getPro()
             }
         }) { (isSuccess) in
             if isSuccess{
@@ -1150,6 +1154,7 @@ extension QZHProductDetailViewController{
     
     // 加入购物车
     func addToCar(){
+        print("加入购物车")
         if proIds.components(separatedBy: ",").count == 1 && proIds != ""{
             QZHProductDetailModel.productId = Int64.init(proIds)!
             QZHProductDetailModel.specOptionId = specOptionIds
@@ -1159,6 +1164,8 @@ extension QZHProductDetailViewController{
             self.productDetailStatus.addToCar { (isSuccess, result) in
                 UIAlertController.showAlert(message: result, in: self)
             }
+        }else{
+            UIAlertController.showAlert(message: "您还为选择规格，请先选择规格", in: self)
         }
     }
     
@@ -1247,9 +1254,9 @@ extension QZHProductDetailViewController{
                 setComment(_this)
                 let result = getproIDs(ids: _this.restorationIdentifier!)
                 if result != ""{
-                    ggGG.text = "\(ggGG.text!),\(_this.text!)"
+                    ggGG.text = "\(ggGG.text!);\(_this.text!)"
                     productIds = "\(productIds);\(_this.restorationIdentifier!)"
-                    specOptionIds = "\(specOptionIds),\((_this.viewWithTag(3)as! QZHUILabelView).text)"
+                    specOptionIds = "\(specOptionIds);\((_this.viewWithTag(3)as! QZHUILabelView).text!)"
                     _this.tag = 2
                     _this.textColor = myColor().blue1a87ff()
                     _this.layer.borderColor = myColor().blue007aff().cgColor

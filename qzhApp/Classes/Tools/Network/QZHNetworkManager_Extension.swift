@@ -33,7 +33,6 @@ extension QZHNetworkManager{
                     //QZHBaseViewController().login()
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification),                    object: nil)
                 }else{
-                    print("json:\(json)")
                    completion(json as! [String : AnyObject],isSuccess)
                 }
                 

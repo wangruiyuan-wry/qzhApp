@@ -712,6 +712,10 @@ extension QZH_CYSQCarViewController{
     
     // 结算
     func settlermentClick(_ sender:QZHUIButton){
+        print("self.delIds-------\(self.delIds)")
+        
+        QZH_CYSQCarSettlementModel.ids = self.delIds
+        
         let nav = QZH_CYSQCarSettlementViewController()
         present(nav, animated: true, completion: nil)
     }
@@ -820,7 +824,7 @@ extension QZH_CYSQCarViewController{
         carList.carProList[(indexPath?.section)!][(indexPath?.row)!].status.specOptionId = cell.proSpec.restorationIdentifier!
         carList.carProList[(indexPath?.section)!][(indexPath?.row)!].status.specOptionName = cell.specText.text!
         carList.carProList[(indexPath?.section)!][(indexPath?.row)!].status.productInfo["originalPrice"] = Double.init(cell.price1.text!)! as AnyObject
-        carList.carProList[(indexPath?.section)!][(indexPath?.row)!].status.productInfo["promotionPrice"] = Double.init(cell.price2.text!)! as AnyObject
+        //carList.carProList[(indexPath?.section)!][(indexPath?.row)!].status.productInfo["promotionPrice"] = Double.init(cell.price2.text!)! as AnyObject
         carList.carProList[(indexPath?.section)!][(indexPath?.row)!].status.productId = cell.tag
         
         QZH_CYSQCarProModel.ids = carList.carProList[(indexPath?.section)!][(indexPath?.row)!].status.id

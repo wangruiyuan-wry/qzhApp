@@ -70,12 +70,14 @@ class QZHUILabelView: UILabel {
     func divider(_ x:Int,y:Int,width:Int,height:Int,color:UIColor){
         self.frame=CGRect(x:x,y:y,width:width,height:height)
         self.backgroundColor = color
+        self.text = ""
     }
     
     // 分割线
     func dividers(_ x:CGFloat,y:CGFloat,width:CGFloat,height:CGFloat,color:UIColor){
         self.frame=CGRect(x:x,y:y,width:width,height:height)
         self.backgroundColor = color
+        self.text = ""
     }
     
     // 自适应高度

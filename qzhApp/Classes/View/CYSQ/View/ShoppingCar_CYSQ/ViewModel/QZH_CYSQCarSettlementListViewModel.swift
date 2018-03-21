@@ -22,11 +22,11 @@ class QZH_CYSQCarSettlementListViewModel: NSObject {
     /// 获取结算页信息
     ///
     /// - Parameter completion: 回调方法
-    func getOrderList(completion:@escaping (_ isSuccess:Bool)->()){
+    func getOrderList(completion:@escaping (_ isSuccess:Bool,_ totalMoney:Double)->()){
         QZHNetworkManager.shared.statusList(method: .POST, url: "order/settlement/list", params: ["ids":QZH_CYSQCarSettlementModel.ids as AnyObject]) { (result, isSuccess) in
             if isSuccess{
                 if result["status"] as! Int != 200{
-                    completion(false)
+                    completion(false,0.0)
                 }else{
                     let _data:[String:AnyObject] = result["data"] as! [String : AnyObject]
                     
@@ -66,7 +66,7 @@ class QZH_CYSQCarSettlementListViewModel: NSObject {
                     }
                     self.storeStatus = listStore
                     self.proStatus = proArray
-                    completion(isSuccess)
+                    completion(isSuccess,_data["totalMoney"] as! Double)
                 }
             }
         }
