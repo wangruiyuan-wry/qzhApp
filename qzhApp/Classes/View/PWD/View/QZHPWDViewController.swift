@@ -11,7 +11,7 @@ import UIKit
 /// 定义全局常量,尽量使用 private 修饰，否则哪儿都可以访问
 private let cellId = "cellId"
 
-class QZHPWDViewController: QZHBaseViewController,UITextFieldDelegate{
+class QZHPWDViewController: QZHBaseViewController{
     
     // 视图模型初始化
     lazy var pwdData = QZHPWDViewModel()
@@ -211,10 +211,6 @@ extension QZHPWDViewController{
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         nextBtn.isHidden = false
         nextBtn1.isHidden = true
-        return true
-    }
-    // 输入框按下键盘 return 收回键盘
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }
     // 该方法当文本框内容出现变化时 及时获取文本最新内容

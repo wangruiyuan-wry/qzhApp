@@ -12,7 +12,7 @@ import UIKit
 private let cellId = "cellId"
 
 // 加载千纸鹤登录控制器
-class QZHOAuthViewController: QZHBaseViewController,UITextFieldDelegate {
+class QZHOAuthViewController: QZHBaseViewController {
     
     var nameText = ""
     var pwdText = ""
@@ -113,7 +113,6 @@ extension QZHOAuthViewController{
         userName.tag = 1
         userName.restorationIdentifier = "name"
         userName.clearButtonMode = UITextFieldViewMode.always
-        userName.keyboardType = UIKeyboardType.numberPad
         userName.delegate = self
         _userView.addSubview(userName)
         
@@ -221,11 +220,6 @@ extension QZHOAuthViewController{
             loginBtn1.isHidden = true
             loginBtn.isHidden = false
         }
-        return true
-    }
-    // 输入框按下键盘 return 收回键盘
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
         return true
     }
     // 该方法当文本框内容出现变化时 及时获取文本最新内容

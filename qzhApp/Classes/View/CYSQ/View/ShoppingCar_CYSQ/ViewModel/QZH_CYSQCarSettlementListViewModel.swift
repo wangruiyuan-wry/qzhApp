@@ -28,6 +28,7 @@ class QZH_CYSQCarSettlementListViewModel: NSObject {
                 if result["status"] as! Int != 200{
                     completion(false,0.0)
                 }else{
+                    print(result)
                     let _data:[String:AnyObject] = result["data"] as! [String : AnyObject]
                     
                     // 地址信息

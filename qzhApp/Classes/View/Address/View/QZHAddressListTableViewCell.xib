@@ -32,13 +32,6 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ggy-eE-tTD" customClass="QZHUILabelView" customModule="qzhApp" customModuleProvider="target">
-                        <rect key="frame" x="23" y="29" width="42" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEf-jU-qCI" customClass="QZHUILabelView" customModule="qzhApp" customModuleProvider="target">
                         <rect key="frame" x="23" y="73" width="42" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -56,12 +49,9 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="address" destination="Jds-yA-Zgq" id="x3c-JN-iUX"/>
                 <outlet property="addressLabel" destination="Jds-yA-Zgq" id="OyV-CH-10K"/>
-                <outlet property="isDefault" destination="Ggy-eE-tTD" id="oRf-Ay-TG5"/>
                 <outlet property="line" destination="GEf-jU-qCI" id="VAF-5G-K4X"/>
                 <outlet property="nameLabel" destination="PtO-wv-wwc" id="2Gj-pI-YrW"/>
-                <outlet property="phone" destination="aRb-YK-5HM" id="WHq-2g-UGA"/>
                 <outlet property="phoneLabel" destination="aRb-YK-5HM" id="drJ-7e-dDf"/>
             </connections>
             <point key="canvasLocation" x="-86" y="81.5"/>

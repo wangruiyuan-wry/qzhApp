@@ -128,6 +128,11 @@ class myColor:UIColor{
     func grayD9()->UIColor{
         return UIColor(red:217/255,green:217/255,blue:217/255,alpha:1)
     }
+    //#dadada
+    func grayDa()->UIColor{
+        return UIColor(red:218/255,green:218/255,blue:218/255,alpha:1)
+    }
+
     //#d0d0d0
     func grayD0()->UIColor{
         return UIColor(red:208/255,green:208/255,blue:208/255,alpha:1)

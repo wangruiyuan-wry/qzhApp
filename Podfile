@@ -10,6 +10,7 @@ target 'qzhApp' do
   pod "pop"
   pod "PagingMenuController"
   pod "Kingfisher"
-  pod "MobileVLCKit"
-  
+
+  pod "ZWPlaceHolder"
 end
+#  pod "MobileVLCKit"

@@ -15,7 +15,7 @@ import UIKit
 //1. extension 中不能有属性
 //2. extension 中不能重写父类方法，重写父类方法是子类的的职责，扩展是对类的扩展
 
-class QZHBaseViewController: UIViewController{
+class QZHBaseViewController: UIViewController,UITextFieldDelegate{
     
     
     
@@ -59,11 +59,15 @@ class QZHBaseViewController: UIViewController{
             navItem.title = title
         }
     }
-    
     // 加载数据的方法 - 具体实现又由子类负责
     func loadData(){
         //如果子类不实现任何方法，默认关闭刷新控件
         refreahController?.endRefreshing()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.tabbelView?.endEditing(true)
+        self.view.endEditing(true)
     }
 }
 
@@ -185,6 +189,14 @@ extension  QZHBaseViewController: UITableViewDataSource,UITableViewDelegate{
 
 //MAKRK: - 登录监听方法
 extension QZHBaseViewController{
+    // 输入框按下键盘 return 收回键盘
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
     @objc func login1(){
         //发送通知
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification), object: nil)

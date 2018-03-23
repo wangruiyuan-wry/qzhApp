@@ -19,6 +19,15 @@ class QZHSelAddressViewController: QZHBaseViewController {
     override func loadData() {
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.addressStatus.getAddressList { (isSuccess) in
+            if isSuccess{
+                self.tabbelView?.reloadData()
+            }
+        }
+    }
 }
 
 // MARK: - 页面 UI 样式设置
@@ -31,11 +40,18 @@ extension QZHSelAddressViewController{
         tabbelView?.register(UINib(nibName:"QZHAddressListTableViewCell",bundle:nil), forCellReuseIdentifier: cellId)
         
         tabbelView?.y = 128*PX
-        tabbelView?.height = SCREEN_HEIGHT - 128*PX
+        tabbelView?.height = SCREEN_HEIGHT - 228*PX
         tabbelView?.separatorStyle = .none
         
         setupNav()
-
+        
+        let addBtn:UIButton = UIButton(frame:CGRect(x:0,y:SCREEN_HEIGHT-100*PX,width:SCREEN_WIDTH,height:100*PX))
+        addBtn.setTitle("添加新地址", for: .normal)
+        addBtn.titleLabel?.font = UIFont.systemFont(ofSize: 28*PX)
+        addBtn.backgroundColor = myColor().blue007aff()
+        addBtn.tintColor = UIColor.white
+        addBtn.addTarget(self, action: #selector(self.addAddress), for: .touchUpInside)
+        self.view.addSubview(addBtn)
     }
     
     // 设置导航条
@@ -58,7 +74,21 @@ extension QZHSelAddressViewController{
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! QZHAddressListTableViewCell
-        //cell.nameLabel.text = self.add
+        cell.nameLabel.text = self.addressStatus.addressListStatus[indexPath.row].status.personName
+        cell.phoneLabel.text = self.addressStatus.addressListStatus[indexPath.row].status.phone
+        if self.addressStatus.addressListStatus[indexPath.row].status.isDefault == 1{
+            cell.addressLabel.text = "[默认地址]\(self.addressStatus.addressListStatus[indexPath.row].status.areaInfo)\(self.addressStatus.addressListStatus[indexPath.row].status.detailedAddress)"
+            var myMutableString = NSMutableAttributedString(string:cell.addressLabel.text!)
+            myMutableString.addAttribute(NSForegroundColorAttributeName, value:myColor().blue007aff(), range:NSRange(location:0,length:5))
+            cell.addressLabel.attributedText = myMutableString
+            //cell.addressLabel.setTextColor(cell.addressLabel.text!, textColor: myColor().blue007aff(), oldColor: myColor().blue007aff(), fg: "]")
+        }else{
+            cell.addressLabel.text = "\(self.addressStatus.addressListStatus[indexPath.row].status.areaInfo)\(self.addressStatus.addressListStatus[indexPath.row].status.detailedAddress)"
+        }
+        cell.addressLabel.restorationIdentifier = "\(self.addressStatus.addressListStatus[indexPath.row].status.areaInfo)\(self.addressStatus.addressListStatus[indexPath.row].status.detailedAddress)"
+        
+        
+        cell.addOnClickLister(target: self, action: #selector(self.checkAddress(_:)))
         
         return cell
     }
@@ -81,7 +111,24 @@ extension QZHSelAddressViewController{
     
     // 管理
     func manageAction(){
-        
+        let nav = QZHAddressManageViewController()
+        present(nav, animated: true, completion: nil)
     }
-
+    
+    // 新增地址
+    func addAddress(){
+        let nav = QZHAddAdressViewController()
+        present(nav, animated: true, completion: nil)
+    }
+    
+    // 选择地址
+    func checkAddress(_ sender:UITapGestureRecognizer){
+        let this = sender.view as!QZHAddressListTableViewCell
+        QZH_CYSQCarSettlementModel.addressId = this.tag
+        QZH_CYSQCarSettlementModel.address = "收货地址：\(this.addressLabel.restorationIdentifier!)"
+        QZH_CYSQCarSettlementModel.person = "收货人：\(this.nameLabel.text!)"
+        QZH_CYSQCarSettlementModel.phone = this.phoneLabel.text!
+        
+        dismiss(animated: true, completion: nil)
+    }
 }

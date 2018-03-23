@@ -11,7 +11,7 @@ import UIKit
 /// 定义全局常量,尽量使用 private 修饰，否则哪儿都可以访问
 private let cellId = "cellId"
 
-class QZHRegisterViewController: QZHBaseViewController,UITextFieldDelegate {
+class QZHRegisterViewController: QZHBaseViewController {
     
     let registerData:QZHRegisterViewModel = QZHRegisterViewModel()
     
@@ -211,6 +211,8 @@ extension QZHRegisterViewController{
         inputName.frame = CGRect(x:166*PX,y:28*PX,width:inputWidth*PX,height:45*PX)
         inputName.textColor = myColor().gray3()
         inputName.delegate = self
+        inputName.resignFirstResponder()
+        
         selfView.addSubview(inputName)
         
         tabbelView?.addSubview(selfView)
@@ -258,7 +260,6 @@ extension QZHRegisterViewController{
 
 //MARK:- 设置 UITextFieldDelegate 代理方法
 extension QZHRegisterViewController{
-    
     // 输入框询问是否可以编辑 true 可以编辑  false 不能编辑
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
@@ -285,10 +286,6 @@ extension QZHRegisterViewController{
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         submitBtn.isHidden = false
         submitBtn1.isHidden = true
-        return true
-    }
-    // 输入框按下键盘 return 收回键盘
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }
     // 该方法当文本框内容出现变化时 及时获取文本最新内容

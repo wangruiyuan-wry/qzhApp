@@ -160,12 +160,27 @@ class QZHUILabelView: UILabel {
         }
     }
     //设置字体颜色
-    func setTextColor(_ txt:String,textColor:UIColor,oldColor:UIColor,fg:Character){
+    func setTextColors(_ txt:String,textColor:UIColor,oldColor:UIColor,fg:Character){
         let txts=PublicFunction().flattenHTML(txt)
-        if let idx=txts.characters.index(of: fg){
+        if let idx=txt.characters.index(of: fg){
             self.textColor=textColor
-            let indexTxt:Int=txts.characters.distance(from: txts.startIndex, to: idx)
-            let txtAttr=NSMutableAttributedString(string:txts)
+            let indexTxt:Int=txt.characters.distance(from: txt.startIndex, to: idx)
+            let txtAttr=NSMutableAttributedString(string:txt)
+            txtAttr.addAttribute(NSForegroundColorAttributeName,value: UIColor.black,range:NSMakeRange(0, indexTxt))
+            let txtLength:Int=txt.characters.count
+            self.attributedText=txtAttr
+        }else{
+            self.textColor=oldColor
+        }
+        
+    }
+    
+    //设置地址字体颜色
+    func setTextColor(_ txt:String,textColor:UIColor,oldColor:UIColor,fg:Character){
+        if let idx=txt.characters.index(of: fg){
+            self.textColor=textColor
+            let indexTxt:Int=txt.characters.distance(from: txt.startIndex, to: idx) + 1
+            let txtAttr=NSMutableAttributedString(string:txt)
             txtAttr.addAttribute(NSForegroundColorAttributeName,value: UIColor.black,range:NSMakeRange(0, indexTxt))
             let txtLength:Int=txt.characters.count
             self.attributedText=txtAttr

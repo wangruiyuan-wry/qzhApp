@@ -11,7 +11,6 @@ import UIKit
 class QZHAddressListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: QZHUILabelView!
-    @IBOutlet weak var isDefault: QZHUILabelView!
     @IBOutlet weak var addressLabel: QZHUILabelView!
     @IBOutlet weak var line: QZHUILabelView!
     @IBOutlet weak var phoneLabel: QZHUILabelView!
@@ -25,11 +24,10 @@ class QZHAddressListTableViewCell: UITableViewCell {
         // 收货人电话
         phoneLabel.setLabelView(430*PX, 25*PX, 303*PX, 37*PX, NSTextAlignment.right, UIColor.white, myColor().gray3(), 26, "")
         
-        // 默认地址
-        isDefault.isHidden = true
-        
         // 地址
-        addressLabel.setLabelView(20*PX, 25*PX, 713*PX, 70*PX, NSTextAlignment.left, UIColor.white, myColor().gray3(), 26, "")
+        addressLabel.setLabelView(20*PX, 77*PX, 713*PX, 70*PX, NSTextAlignment.left, UIColor.white, myColor().gray3(), 26, "")
+        addressLabel.numberOfLines = 2
+        addressLabel.lineBreakMode = .byWordWrapping
         
         // 分割线
         line.dividers(0, y: 164*PX, width:750*PX, height: 1*PX, color: myColor().grayF0())

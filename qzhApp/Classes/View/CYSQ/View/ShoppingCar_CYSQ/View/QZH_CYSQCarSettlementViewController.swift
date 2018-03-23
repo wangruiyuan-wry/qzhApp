@@ -36,6 +36,9 @@ class QZH_CYSQCarSettlementViewController: QZHBaseViewController {
     var bgView:QZHUIView = QZHUIView()
     var paySel:[String:AnyObject] = [:]
     
+    // 支付方式
+    var  payMoneyType:QZHUILabelView = QZHUILabelView()
+    
     override func loadData() {
         self.listStatus.getOrderList { (isSuccess,totalMoney) in
             self.tabbelView?.reloadData()
@@ -118,8 +121,8 @@ extension QZH_CYSQCarSettlementViewController{
         editAddress.setupViews(x: 690*PX, y: 30*PX, width: 60*PX, height: 100*PX, bgColor: UIColor.white)
         editAddress.addOnClickLister(target: self, action: #selector(self.editAddress(_:)))
         addressView.addSubview(editAddress)
-        let editImg:UIImageView = UIImageView(frame:CGRect(x:14*PX,y:40*PX,width:12*PX,height:21*PX))
-        editImg.image = UIImage(named:"proRightOpen")
+        let editImg:UIImageView = UIImageView(frame:CGRect(x:11*PX,y:35*PX,width:18*PX,height:30*PX))
+        editImg.image = UIImage(named:"rightOpen1")
         editAddress.addSubview(editImg)
     }
     
@@ -198,7 +201,7 @@ extension QZH_CYSQCarSettlementViewController{
         var top = y
         
         let btnView:QZHUIView = QZHUIView()
-        btnView.setupViews(x: 0, y: y, width: SCREEN_WIDTH, height: 81*PX, bgColor: UIColor.white)
+        btnView.setupViews(x: 0, y: y, width: SCREEN_WIDTH, height: 82*PX, bgColor: UIColor.white)
         btnView.tag = payType["TypeId"] as! Int
         parent.addSubview(btnView)
         btnView.restorationIdentifier = "btn"
@@ -212,11 +215,13 @@ extension QZH_CYSQCarSettlementViewController{
         let img:UIImageView = UIImageView(frame:CGRect(x:691*PX,y:28*PX,width:38*PX,height:24*PX))
         img.image = UIImage(named:"hookIcon")
         img.isHidden = true
+        img.restorationIdentifier = "img"
         img.restorationIdentifier = typeView.text
         btnView.addSubview(img)
         
         let line:QZHUILabelView = QZHUILabelView()
         line.dividers(20*PX, y: 80*PX, width: 730*PX, height: 1*PX, color: myColor().grayF0())
+        line.restorationIdentifier = "line"
         btnView.addSubview(line)
         
         if num == 0{
@@ -412,7 +417,7 @@ extension QZH_CYSQCarSettlementViewController{
                         if (views as! QZHUILabelView).text == payTypeLabel.text{
                             (views as! QZHUILabelView).textColor = myColor().blue007aff()
                         }
-                    }else {
+                    }else if views.restorationIdentifier != "line"{
                         views.isHidden = true
                         if views.restorationIdentifier == payTypeLabel.text{
                             views.isHidden = false
@@ -427,14 +432,14 @@ extension QZH_CYSQCarSettlementViewController{
     // 点击选择付款方式
     func payTypeAction(_ sender:UITapGestureRecognizer){
         let _this = sender.view
-        let children = _this?.superview?.subviews
-        for child in children!{
+        let children = payWayView.subviews
+        for child in children{
             if child.restorationIdentifier == "btn"{
                 let viewArray = child.subviews
                 for views in viewArray{
                     if views.restorationIdentifier == "label"{
                         (views as! QZHUILabelView).textColor = myColor().gray3()
-                    }else if views.restorationIdentifier == "img"{
+                    }else if views.restorationIdentifier != "line"{
                         views.isHidden = true
                     }
                 }

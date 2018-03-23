@@ -119,7 +119,7 @@ class QZH_CYSQCarListViewModel:NSObject{
     ///
     /// - Parameter completion: 回调方法
     func editCar(completion:@escaping (_ isSuccess:Bool,_ response:String)->()){
-        QZHNetworkManager.shared.statusList(method: .POST, url: "store/shopCart/update", params: ["id":QZH_CYSQCarProModel.ids as AnyObject,"info":["proCount":QZH_CYSQCarProModel.proCounts,"specOptionName":QZH_CYSQCarProModel.specOptionNames,"productId":QZH_CYSQCarProModel.productIds] as AnyObject]) { (result, isSuccess) in
+        QZHNetworkManager.shared.statusList(method: .POST, url: "order/shopCart/update", params: ["id":QZH_CYSQCarProModel.ids as AnyObject,"info":"{\"proCount\":\(QZH_CYSQCarProModel.proCounts),\"specOptionName\":\"\(QZH_CYSQCarProModel.specOptionNames)\",\"productId\":\(QZH_CYSQCarProModel.productIds)}" as AnyObject]) { (result, isSuccess) in
             if isSuccess{
                 if result["status"] as! Int == 200{
                     completion(isSuccess,result["data"] as!String)

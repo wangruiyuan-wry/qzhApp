@@ -171,5 +171,15 @@ class QZHArea: QZHUIView {
         
         return pcaStr
     }
+    
+    /// 返回地址选择的三级联动
+    ///
+    /// - Returns: 三级联动控件
+    /*func returnAreaSelect(ownself:UIViewController){
+        PublicFunction().addressAction(ownself) { ([Dictionary<String, AnyObject>]) in
+            <#code#>
+        }
+        
+    }*/
 }
 
