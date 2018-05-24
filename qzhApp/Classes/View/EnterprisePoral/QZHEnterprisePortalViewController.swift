@@ -97,8 +97,13 @@ extension QZHEnterprisePortalViewController{
         cell.contactTEL?.text = "联系电话：\(viewModel.status.mobile)"
         cell.address?.text = viewModel.status.address
         
+        print("viewModel.status.logo:\(viewModel.status.logo)")
         if viewModel.status.logo != ""{
-            cell.logoImg?.image = UIImage(data:PublicFunction().imgFromURL(viewModel.status.logo))
+            if let url = URL(string: viewModel.status.logo) {
+                cell.logoImg?.downloadedFrom(url: url)
+            }else{
+                cell.logoImg?.image = UIImage(named:"noPic")
+            }
         }else{
             cell.logoImg?.image = UIImage(named:"noPic")
         }
@@ -124,6 +129,14 @@ extension QZHEnterprisePortalViewController{
         setupNavTitle()
         
         tabbelView?.frame = CGRect(x:0, y: 210*PX, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-210*PX)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                tabbelView?.frame = CGRect(x:0, y: 258*PX, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-258*PX)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         //注册原型 cell
         //tabbelView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
@@ -156,6 +169,14 @@ extension QZHEnterprisePortalViewController{
         let tabArray = ["不限地区","不限行业","不限类型","综合排序"]
         
         viewTab = QZHUIView(frame:CGRect(x:0,y:128*PX+1,width:navigationBar.width,height:80*PX+1))
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                viewTab = QZHUIView(frame:CGRect(x:0,y:176*PX+1,width:navigationBar.width,height:80*PX+1))
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         viewTab.backgroundColor = myColor().grayF0()
         
         //追加选贤卡内容
@@ -275,6 +296,8 @@ extension QZHEnterprisePortalViewController{
 extension QZHEnterprisePortalViewController{
     // 搜索页面跳转
     func goToSearch(){
+        QZHCYSQSearchProListParamModel.categoryId = ""
+        QZHBrandModel.categoryId = 0
         let nav = QZHSearchViewController()
         present(nav, animated: true, completion: nil)
     }
@@ -283,7 +306,7 @@ extension QZHEnterprisePortalViewController{
     func showFriends(){
         let vc = QZHDemoViewController()
         
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     //返回

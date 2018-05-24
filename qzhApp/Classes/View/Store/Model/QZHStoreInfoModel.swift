@@ -61,6 +61,8 @@ class QZHStoreInfoModel:NSObject{
     
     struct paramer {
         static var memberID:Int = 0
+        
+        static var storeId:Int = 0
     }
 }
 extension QZHStoreInfoModel{
@@ -72,6 +74,15 @@ extension QZHStoreInfoModel{
             paramer.memberID = newValue
         }
     }
+    class var storeId: Int {
+        get{
+            return paramer.storeId
+        }
+        set{
+            paramer.storeId = newValue
+        }
+    }
+
 }
 
 // 店铺产品数据模型
@@ -111,6 +122,12 @@ class QZHStoreProModel:NSObject{
     
     // 产品单位
     var unit:String = ""
+    
+    // 货品名称
+    var goodsName:String = ""
+    
+    // 一口价
+    var fixedPrice:Double = 0.0
     
     struct paramer {
         static var q:String = ""

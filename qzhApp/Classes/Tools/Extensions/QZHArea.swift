@@ -69,7 +69,7 @@ class QZHArea: QZHUIView {
         for i in 0..<getCityData(code: parentCode).count{
             scrollerView.addSubview(setupButton(0, 61*PX+61*PX*CGFloat(i), getCityData(code: parentCode)[i]["city"] as! String, getCityData(code: parentCode)[i]["cityCode"] as! Int64, bgcolor:myColor().grayF6(), action: action, ownself: ownself))
         }
-        scrollerView.contentSize = CGSize(width:scrollerView.width,height:61*PX*CGFloat(addressJSON.count+1))
+        scrollerView.contentSize = CGSize(width:scrollerView.width,height:61*PX*CGFloat(getCityData(code: parentCode).count+1))
         scrollerView.restorationIdentifier = "city"
         scrollerView.tag = 1
         self.addSubview(scrollerView)
@@ -91,7 +91,7 @@ class QZHArea: QZHUIView {
             scrollerView.addSubview(setupButton(0, 61*PX+61*PX*CGFloat(i), getAreaData(provinceCode: provinceCode, cityCode: cityCode)[i]["county"] as! String, getAreaData(provinceCode: provinceCode, cityCode: cityCode)[i]["countyCode"] as! Int64, bgcolor:myColor().grayE6(), action: action, ownself: ownself))
         }
 
-        scrollerView.contentSize = CGSize(width:scrollerView.width,height:61*PX*CGFloat(addressJSON.count+1))
+        scrollerView.contentSize = CGSize(width:scrollerView.width,height:61*PX*CGFloat(getAreaData(provinceCode: provinceCode, cityCode: cityCode).count+1))
         scrollerView.restorationIdentifier = "area"
         scrollerView.tag = 2
         print(scrollerView.subviews)

@@ -87,6 +87,7 @@ extension QZHSearchBar{
 }
 
 class SearchController:UIView{
+    var uiView_CYSQ:UIView = UIView(frame:CGRect(x:135*PX,y:0,width:415*PX,height:60*PX))
     func initFrame(){
         self.frame = CGRect(x:0,y:13*PX,width:550*PX,height:60*PX)
         self.layer.cornerRadius = 8*PX
@@ -105,7 +106,7 @@ class SearchController:UIView{
         label.setLabelView(64*PX, 11*PX, 150*PX, 40*PX, NSTextAlignment.left, UIColor.clear, myColor().grayA9(), 28, "搜索商品")
         self.addSubview(label)
         
-        let icon2:UIImageView = UIImageView(frame:CGRect(x:505*PX,y:10*PX,width:26*PX,height:40*PX))
+        let icon2:UIImageView = UIImageView(frame:CGRect(x:495*PX,y:10*PX,width:26*PX,height:40*PX))
         icon2.image = UIImage(named:"morcoIcon2")
         self.addSubview(icon2)
         return self
@@ -129,6 +130,24 @@ class SearchController:UIView{
         return self
     }
     
+    func SeacrchBtn31(_ title:String) ->UIView{
+        self.initFrame()
+        self.backgroundColor = myColor().GrayF1F2F6()
+        let icon1:UIImageView = UIImageView(frame:CGRect(x:18*PX,y:15*PX,width:30*PX,height:30*PX))
+        icon1.image = UIImage(named:"searchIcon3")
+        self.addSubview(icon1)
+        
+        let label:QZHUILabelView = QZHUILabelView()
+        label.setLabelView(64*PX, 11*PX, 400*PX, 40*PX, NSTextAlignment.left, UIColor.clear, myColor().GrayA(), 28, title)
+        self.addSubview(label)
+
+        let icon2:UIImageView = UIImageView(frame:CGRect(x:505*PX,y:10*PX,width:26*PX,height:40*PX))
+        icon2.image = UIImage(named:"morcoIcon3")
+        self.addSubview(icon2)
+        
+        return self
+    }
+    
     func SeacrchBtn3() ->UIView{
         self.initFrame()
         self.backgroundColor = myColor().grayD()
@@ -139,13 +158,14 @@ class SearchController:UIView{
         let label:QZHUILabelView = QZHUILabelView()
         label.setLabelView(64*PX, 11*PX, 150*PX, 40*PX, NSTextAlignment.left, UIColor.clear, UIColor.white, 28, "搜索商品")
         self.addSubview(label)
-
+        
         let icon2:UIImageView = UIImageView(frame:CGRect(x:505*PX,y:10*PX,width:26*PX,height:40*PX))
         icon2.image = UIImage(named:"morcoIcon1")
         self.addSubview(icon2)
         
         return self
     }
+    
     func SeacrchBtn4() ->UIView{
         self.initFrame()
         self.backgroundColor = myColor().GrayF1F2F6()
@@ -182,6 +202,22 @@ class SearchController:UIView{
         self.width = 550*PX
         return self
     }
+    func SeacrchBtn6(_ title:String) ->UIView{
+        self.initFrame()
+        self.backgroundColor = myColor().GrayF1F2F6()
+        let icon1:UIImageView = UIImageView(frame:CGRect(x:18*PX,y:15*PX,width:30*PX,height:30*PX))
+        icon1.image = UIImage(named:"searchIcon3")
+        self.addSubview(icon1)
+        
+        let label:UITextField = UITextField(frame:CGRect(x:66*PX,y:10*PX,width:484*PX,height:40*PX))
+        label.placeholder = title
+        label.tag = 1
+        label.font = UIFont.systemFont(ofSize: 28*PX)
+        label.clearButtonMode = .always
+        self.addSubview(label)
+        self.width = 550*PX
+        return self
+    }
 
     
     func SeacrchTitleBtn1(title:String,titleColor:UIColor)->UIView{
@@ -193,22 +229,21 @@ class SearchController:UIView{
         titleLabel.font = UIFont.boldSystemFont(ofSize: 30*PX)
         self.addSubview(titleLabel)
         
-        let uiView:UIView = UIView(frame:CGRect(x:135*PX,y:0,width:415*PX,height:60*PX))
-        uiView.backgroundColor = UIColor.white
-        self.addSubview(uiView)
-        uiView.layer.cornerRadius = 8*PX
+        uiView_CYSQ.backgroundColor = UIColor.white
+        self.addSubview(uiView_CYSQ)
+        uiView_CYSQ.layer.cornerRadius = 8*PX
         
         let icon1:UIImageView = UIImageView(frame:CGRect(x:18*PX,y:15*PX,width:30*PX,height:30*PX))
         icon1.image = UIImage(named:"searchIcon2")
-        uiView.addSubview(icon1)
+        uiView_CYSQ.addSubview(icon1)
         
         let label:QZHUILabelView = QZHUILabelView()
         label.setLabelView(65*PX, 10*PX, 356*PX, 40*PX, NSTextAlignment.left, UIColor.clear, myColor().grayA9(), 28, "搜索商品")
-        uiView.addSubview(label)
+        uiView_CYSQ.addSubview(label)
         
         let icon2:UIImageView = UIImageView(frame:CGRect(x:342*PX,y:10*PX,width:26*PX,height:40*PX))
         icon2.image = UIImage(named:"morcoIcon2")
-        uiView.addSubview(icon2)
+        uiView_CYSQ.addSubview(icon2)
         return self
     }
     
@@ -221,22 +256,22 @@ class SearchController:UIView{
         titleLabel.font = UIFont.boldSystemFont(ofSize: 30*PX)
         self.addSubview(titleLabel)
         
-        let uiView:UIView = UIView(frame:CGRect(x:135*PX,y:0*PX,width:415*PX,height:60*PX))
-        uiView.backgroundColor = myColor().GrayF1F2F6()
-        self.addSubview(uiView)
-        uiView.layer.cornerRadius = 8*PX
+        //let uiView:UIView = UIView(frame:CGRect(x:135*PX,y:0*PX,width:415*PX,height:60*PX))
+        uiView_CYSQ.backgroundColor = myColor().GrayF1F2F6()
+        self.addSubview(uiView_CYSQ)
+        uiView_CYSQ.layer.cornerRadius = 8*PX
         
         let icon1:UIImageView = UIImageView(frame:CGRect(x:18*PX,y:15*PX,width:30*PX,height:30*PX))
         icon1.image = UIImage(named:"searchIcon2")
-        uiView.addSubview(icon1)
+        uiView_CYSQ.addSubview(icon1)
         
         let label:QZHUILabelView = QZHUILabelView()
         label.setLabelView(65*PX, 10*PX, 356*PX, 40*PX, NSTextAlignment.left, UIColor.clear, myColor().grayA9(), 28, "搜索商品")
-        uiView.addSubview(label)
+        uiView_CYSQ.addSubview(label)
         
         let icon2:UIImageView = UIImageView(frame:CGRect(x:342*PX,y:10*PX,width:26*PX,height:40*PX))
         icon2.image = UIImage(named:"morcoIcon2")
-        uiView.addSubview(icon2)
+        uiView_CYSQ.addSubview(icon2)
         
         return self
     }

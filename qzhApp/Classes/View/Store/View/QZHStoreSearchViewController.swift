@@ -40,7 +40,14 @@ extension QZHStoreSearchViewController{
         
         history.setupScrollerView(x: 0, y: 186*PX, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-186*PX, background: UIColor.white)
         self.view.addSubview(history)
-        
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                history.setupScrollerView(x: 0, y: 234*PX, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-302*PX, background: UIColor.white)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         
         setupTitleLabel()
@@ -64,9 +71,25 @@ extension QZHStoreSearchViewController{
     func setupTitleLabel(){
         let label:QZHUILabelView = QZHUILabelView()
         label.setLabelView(20*PX, 158*PX, 150*PX, 37*PX, NSTextAlignment.left, UIColor.white,myColor().gray3(), 26, "历史搜索")
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                label.setLabelView(20*PX, 206*PX, 150*PX, 37*PX, NSTextAlignment.left, UIColor.white,myColor().gray3(), 26, "历史搜索")
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         view.addSubview(label)
         
         let icon:UIImageView = UIImageView(frame:CGRect(x:683*PX,y:155*PX,width:30*PX,height:30*PX))
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                icon.y = 203*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         icon.image = UIImage(named:"trashIcon")
         icon.addOnClickLister(target: self, action: #selector(self.clanerHistory))
         view.addSubview(icon)
@@ -160,7 +183,9 @@ extension QZHStoreSearchViewController{
         }
         _cache.updateValue(_array as AnyObject, forKey: "history")
         CacheFunc().setCahceData(fileName: "searchHistoryText.plist", folderName: "Store", cacheDatas: _cache as NSDictionary)
+        QZHStoreSearchProModel.q = textStr.trimmingCharacters(in: .whitespaces)
         QZHStoreProModel.q = textStr.trimmingCharacters(in: .whitespaces)
+        print(textStr.trimmingCharacters(in: .whitespaces))
         QZHStoreSearchProModel.fromPage = 0
         
         let nav = QZHStore_SearchList_ViewController()
@@ -188,6 +213,7 @@ extension QZHStoreSearchViewController{
         _cache.updateValue(_array as AnyObject, forKey: "history")
         CacheFunc().setCahceData(fileName: "searchHistoryText.plist", folderName: "Store", cacheDatas: _cache as NSDictionary)
         QZHStoreProModel.q = textStr.trimmingCharacters(in: .whitespaces)
+        QZHStoreSearchProModel.fromPage = 0
         let nav = QZHStore_SearchList_ViewController()
         present(nav, animated: true, completion: nil)
     }

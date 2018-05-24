@@ -46,58 +46,56 @@ class QZHProductDetailCell: UITableViewCell {
         super.awakeFromNib()
         // 设置产品遮罩层
         pro1.setupViews(x: 0, y: 0, width: 374*PX, height: 470*PX, bgColor: UIColor.clear)
-        pro2.setupViews(x: 0, y: 376*PX, width: 374*PX, height: 470*PX, bgColor: UIColor.clear)
+        pro2.setupViews(x: 376*PX, y: 0, width: 374*PX, height: 470*PX, bgColor: UIColor.clear)
         
         // 设置边框线
         line.text = ""
-        line.dividers(0, y: 470*PX, width: SCREEN_WIDTH, height: 1*PX, color: myColor().grayF0())
+        line.dividers(0, y: 500*PX, width: SCREEN_WIDTH, height: 1*PX, color: myColor().grayF0())
         line1.text = ""
-        line1.dividers(374*PX, y: 0, width: 2*PX, height: 471*PX, color:  myColor().grayF0())
+        line1.dividers(374*PX, y: 0, width: 2*PX, height: 500*PX, color:  myColor().grayF0())
         
         // 设置产品图片
-        img1.frame = CGRect(x:36*PX,y:10*PX,width:310*PX,height:310*PX)
-        img2.frame = CGRect(x:404*PX,y:10*PX,width:310*PX,height:310*PX)
+        img1.frame = CGRect(x:20*PX,y:20*PX,width:335*PX,height:335*PX)
+        img2.frame = CGRect(x:398*PX,y:20*PX,width:335*PX,height:335*PX)
         
         // 设置产品名称
-        proName1.setLabelView(43*PX, 330*PX, 304*PX, 70*PX, NSTextAlignment.left, UIColor.clear, myColor().gray3(), 24, "")
+        proName1.setLabelView(20*PX, 364*PX, 328*PX, 70*PX, NSTextAlignment.left, UIColor.clear, myColor().gray3(), 24, "")
         proName1.numberOfLines = 2
         proName1.text = ""
-        proName1.lineBreakMode = .byWordWrapping
-        proName2.setLabelView(411*PX, 330*PX, 304*PX, 70*PX, NSTextAlignment.left, UIColor.clear, myColor().gray3(), 24, "")
+        proName1.lineBreakMode = .byTruncatingTail
+        proName2.setLabelView(398*PX, 364*PX, 328*PX, 70*PX, NSTextAlignment.left, UIColor.clear, myColor().gray3(), 24, "")
         proName2.numberOfLines = 2
         proName2.text = ""
-        proName2.lineBreakMode = .byWordWrapping
+        proName2.lineBreakMode = .byTruncatingTail 
         
         // 设置销售量
-        sale1.setLabelView(218*PX, 418*PX, 120*PX, 28*PX, NSTextAlignment.right, UIColor.clear, myColor().Gray6(), 20, "")
-        sale2.setLabelView(587*PX, 418*PX, 120*PX, 28*PX, NSTextAlignment.right, UIColor.clear, myColor().Gray6(), 20, "")
+        sale1.setLabelView(231*PX, 446*PX, 120*PX, 28*PX, NSTextAlignment.right, UIColor.clear, myColor().Gray6(), 20, "")
+        sale2.setLabelView(610*PX, 446*PX, 120*PX, 28*PX, NSTextAlignment.right, UIColor.clear, myColor().Gray6(), 20, "")
         
         // 设置价格符号
-        priceIcon1.setLabelView(43*PX, 413*PX, 20*PX, 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 20, "¥")
-        priceIcon2.setLabelView(411*PX, 413*PX, 20*PX, 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 20, "¥")
+        priceIcon1.setLabelView(20*PX, 440*PX, 20*PX, 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 20, "¥")
+        priceIcon2.setLabelView(398*PX, 440*PX, 20*PX, 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 20, "¥")
         
-        price1.setLabelView(63*PX, 411*PX, price1.autoLabelWidth(price1.text!, font: 28, height: 40*PX), 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 28, "")
+        price1.setLabelView(40*PX, 440*PX, price1.autoLabelWidth(price1.text!, font: 28, height: 40*PX), 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 28, "")
         price1.setRealWages(price1.text!, big: 28, small: 20, fg: ".")
         price1.numberOfLines = 2
         price1.lineBreakMode = NSLineBreakMode.byCharWrapping
         
-        price2.setLabelView(431*PX, 411*PX, price2.autoLabelWidth(price2.text!, font: 28, height: 40*PX), 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 28, "")
+        price2.setLabelView(418*PX, 440*PX, price2.autoLabelWidth(price2.text!, font: 28, height: 40*PX), 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 28, "")
         price2.setRealWages(price2.text!, big: 28, small: 20, fg: ".")
         price2.numberOfLines = 2
         price2.lineBreakMode = NSLineBreakMode.byCharWrapping
         
         if price1.text == ""{
-            priceIcon1.isHidden = true
+            //priceIcon1.isHidden = true
         }
         
         if price2.text == ""{
-            priceIcon2.isHidden = true
+           // priceIcon2.isHidden = true
         }
         
-        unit1.setLabelView(price1.x+price1.width, 418*PX,  unit1.autoLabelWidth(unit1.text!, font: 20, height: 28*PX), 28*PX, NSTextAlignment.center, UIColor.clear, myColor().Gray6(), 20, "")
-        unit2.setLabelView(price2.x+price2.width, 418*PX,  unit2.autoLabelWidth(unit2.text!, font: 20, height: 28*PX), 28*PX, NSTextAlignment.center, UIColor.clear, myColor().Gray6(), 20, "")
-
-        
+        unit1.setLabelView(price1.x+price1.width, 447*PX,  unit1.autoLabelWidth(unit1.text!, font: 20, height: 28*PX), 28*PX, NSTextAlignment.center, UIColor.clear, myColor().Gray6(), 20, "")
+        unit2.setLabelView(price2.x+price2.width, 447*PX,  unit2.autoLabelWidth(unit2.text!, font: 20, height: 28*PX), 28*PX, NSTextAlignment.center, UIColor.clear, myColor().Gray6(), 20, "")
     }
     
 

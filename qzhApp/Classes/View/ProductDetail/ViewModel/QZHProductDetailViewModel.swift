@@ -35,19 +35,29 @@ class QZHProductDetailViewModel:NSObject{
     // 评价信息视图模型
     lazy var commentStatus = [QZHProductDetail_PROListCommentViewModel]()
     
+    // 评价信息内容
+    lazy var commentReplies:[[QZHProductDetail_PROListCommentRepliesViewModel]] = []
+    
     // 产品详情数据
     lazy var proDeatailStatus = [QZHProductDetail_PRODeatailViewModel]()
     
     // 推荐产品视图模型
     lazy var proRecommendStatus = [QZHProductDetail_PRORecommendViewModel]()
     
+    func addFooter(completion:@escaping (_ isSuccess:Bool)->()){
+        QZHNetworkManager.shared.statusList(method: .POST, url: "personalCenter/myFootprint/add", params: ["goodsId":QZHProductDetailModel.goodsId as AnyObject]) { (result, isSuccess) in
+            completion(isSuccess)
+        }
+    }
+    
     // 获取产品详情
-    func getProductGoodsDetail(completion:@escaping (_ result:[QZHProductDetail_GoodsViewModel],_ pic:[QZHProductDetail_PROPicViewModel],_ proPrice:[QZHProductDetail_PROPrice2StockByIdViewModel],_ proSpacep:[QZHProductDetail_PROSpecOptionViewModel],_ attr:[QZHProductDetail_PROAttributeOptionViewModel],_ shop:[QZHProductDetail_PROShopStatisticsViewModel],_ attention:[QZHProductDetail_AttentionCollectViewModel],_ comment:[QZHProductDetail_PROListCommentViewModel],_ detail:[QZHProductDetail_PRODeatailViewModel],_ isSuccess:Bool)->(),getPro:@escaping (_ isSuccess:Bool)->()){
-        print("QZHProductDetailModel.goodsId:\(QZHProductDetailModel.goodsId)")
+    func getProductGoodsDetail(completion:@escaping (_ isSuccess:Bool)->(),getPro:@escaping (_ isSuccess:Bool)->()){
+        //print("QZHProductDetailModel.goodsId:\(QZHProductDetailModel.goodsId)")
         //QZHProductDetailModel.goodsId = 1
+        
         QZHNetworkManager.shared.statusList(method: .POST, url: "standard/productGoods/proDetail", params: ["goodsId":QZHProductDetailModel.goodsId as AnyObject]) { (result, isSuccess) in
             if !isSuccess{
-                completion(self.goodsStatus, self.picStatus, self.proPriceStatus, self.proSpaceStatus, self.proAttOptionsStatus, self.shopStatus, self.attentionCollectStatus, self.commentStatus, self.proDeatailStatus, false)
+                completion(false)
                 getPro(false)
             }else{
                 print(result)
@@ -151,31 +161,44 @@ class QZHProductDetailViewModel:NSObject{
                     }
                     
                     // 评价信息
-                    if _data["comment"] is NSNull || _data["comment"]! == nil{
-                        
-                    }else{
-                        let _comment:Dictionary<String,AnyObject> = _data["comment"] as! Dictionary<String, AnyObject>
+                    if _data.keys.contains("comment"){
+                        let _comment:[String:AnyObject] = _data["comment"] as! [String:AnyObject]
                         QZHProductDetail_PROListCommentModel.count = _comment["totalNum"] as! Int
-                        let _commentData:[Dictionary<String,AnyObject>] = _comment["data"] as! [Dictionary<String, AnyObject>]
+                        let _commentData:[[String:AnyObject]] = _comment["data"] as! [[String:AnyObject]]
                         var commentList = [QZHProductDetail_PROListCommentViewModel]()
-                        for dict in _commentData ?? []{
+                        var commentRepliesLists:[[QZHProductDetail_PROListCommentRepliesViewModel]] = []
+                        for dict in _commentData{
                             //对字典进行处理
                             let newDict = PublicFunction().setNULLInDIC(dict)
                             //a）创建企业模型
-                            guard let model = QZHProductDetail_PROListCommentModel.yy_model(with:newDict) else{
-                                continue
-                            }
+                            let model = QZHProductDetail_PROListCommentModel.yy_model(with:newDict)
                             //b）将model添加到数组
-                            commentList.append(QZHProductDetail_PROListCommentViewModel(model:model))
-                        }                        
+                            commentList.append(QZHProductDetail_PROListCommentViewModel(model:model!))
+                            var commentRepliesList = [QZHProductDetail_PROListCommentRepliesViewModel]()
+                            var dic:[[String:AnyObject]] = [[:]]
+                            if dict.keys.contains("replies"){
+                                dic = dict["replies"] as! [[String : AnyObject]]
+                                for d in dic ?? []{
+                                    //对字典进行处理
+                                    let newDict1 = PublicFunction().setNULLInDIC(d)
+                                    //a）创建企业模型
+                                    guard let model = QZHProductDetail_PROListCommentRepliesModel.yy_model(with:newDict1) else{
+                                        continue
+                                    }
+                                    //b）将model添加到数组
+                                    commentRepliesList.append(QZHProductDetail_PROListCommentRepliesViewModel(model:model))
+                                }
+                            }
+                            commentRepliesLists.append(commentRepliesList)
+                        }
                         self.commentStatus = commentList
+                        self.commentReplies = commentRepliesLists
+                        
                     }
                     
                     // 详情信息
-                    if _data["detail"] is NSNull{
-                        
-                    }else{
-                        let _detail:Dictionary<String,AnyObject> = _data["detail"] as! Dictionary<String, AnyObject>
+                    if _data.keys.contains("detail"){
+                        let _detail:[String:AnyObject] = _data["detail"] as! [String:AnyObject]
                         var detailList = [QZHProductDetail_PRODeatailViewModel]()
                         let newdetail = PublicFunction().setNULLInDIC(_detail)
                         
@@ -187,11 +210,11 @@ class QZHProductDetailViewModel:NSObject{
                     }
                     
                     
-                    completion(self.goodsStatus, self.picStatus, self.proPriceStatus, self.proSpaceStatus, self.proAttOptionsStatus, self.shopStatus, self.attentionCollectStatus, self.commentStatus, self.proDeatailStatus, isSuccess)
+                    completion(isSuccess)
                     getPro(isSuccess)
 
                 }else{
-                    completion(self.goodsStatus, self.picStatus, self.proPriceStatus, self.proSpaceStatus, self.proAttOptionsStatus, self.shopStatus, self.attentionCollectStatus, self.commentStatus, self.proDeatailStatus, false)
+                    completion(false)
                     getPro(false)
                 }
             }
@@ -246,6 +269,7 @@ class QZHProductDetailViewModel:NSObject{
 
         
         QZHNetworkManager.shared.statusList(method: .POST, url: "standard/productGoods/productsRecommend", params: ["memberId":QZHProductDetailModel.memberId as AnyObject,"pageNo":QZHProductDetail_PRORecommendModel.pageNo as AnyObject,"pageSize":QZHProductDetail_PRORecommendModel.pageSize as AnyObject]) { (result, isSuccess) in
+            print("推荐产品：\(result)")
             if !isSuccess{
                 completion(false, false)
             }else{
@@ -338,11 +362,11 @@ class QZHProductDetailViewModel:NSObject{
     /// - Parameter completion: 回调方法
     func addToCar(completion:@escaping (_ isSuccess:Bool,_ message:String)->()){
         QZHNetworkManager.shared.statusList(method: .POST, url: "order/shopCart/insert", params: ["info":"{\"productId\":\(QZHProductDetailModel.productId),\"specOptionId\":\"\(QZHProductDetailModel.specOptionId)\",\"specOptionName\":\"\(QZHProductDetailModel.specOptionName)\",\"proCount\": \(QZHProductDetailModel.proCount),\"goodsId\":\(QZHProductDetailModel.goodsId),\"sellMemberId\":\(QZHProductDetailModel.sellMemberId)}" as AnyObject]) { (result, isSuccess) in
-            
+            print("result:\(result)")
             if result["status"] as!Int == 200{
                 completion(isSuccess, "加入成功！！")
             }else{
-                completion(isSuccess, "加入失败！！")
+                completion(isSuccess, "加入失败！！\(result["data"]!)")
             }
         }
     }

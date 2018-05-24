@@ -36,6 +36,7 @@ class QZHBaseViewController: UIViewController,UITextFieldDelegate{
     
     // 页面跳转标示
     var pageIsOpen = true
+
     
     /// 自定义导航条
     lazy var navigationBar = UINavigationBar(frame:CGRect(x:0,y:0,width:SCREEN_WIDTH,height:PX*128))
@@ -45,7 +46,9 @@ class QZHBaseViewController: UIViewController,UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
+        //UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        var scrollView:UIScrollView = UIScrollView(frame:UIScreen.main.bounds)
+        self.view = scrollView
         setupUI()
         
         if isPush{
@@ -54,6 +57,16 @@ class QZHBaseViewController: UIViewController,UITextFieldDelegate{
         
     }
     
+    override func viewSafeAreaInsetsDidChange() {
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                self.navigationBar.y = 44
+            }
+
+        } else {
+                // Fallback on earlier versions
+        }
+    }
     override var title: String?{
         didSet{
             navItem.title = title
@@ -69,16 +82,22 @@ class QZHBaseViewController: UIViewController,UITextFieldDelegate{
         self.tabbelView?.endEditing(true)
         self.view.endEditing(true)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
+        
+        setStatusBarBackgroundColor(color: .white)
+    }
 }
 
 //MARK：-设置界面
 extension QZHBaseViewController{
     func setupUI(){
         view.backgroundColor = UIColor.white
-        
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
         //取消自动取消 - 如果隐藏了导航栏会缩进20个点
         automaticallyAdjustsScrollViewInsets = false
-        
         setupNavigation()
         
         setupTabelView()
@@ -90,13 +109,11 @@ extension QZHBaseViewController{
         }*/
         
         //QZHNetworkManager.shared.userLogo?setupTabelView():setupVisitorView()
-        
-        
     }
     
     /// 设置表格时图
     private func setupTabelView(){
-        tabbelView = UITableView(frame:view.bounds,style:.plain)
+        tabbelView = UITableView(frame:view.bounds,style:.grouped)
         //view.addSubview(tabbelView!)
         view.insertSubview(tabbelView!, belowSubview: navigationBar)
         
@@ -184,11 +201,13 @@ extension  QZHBaseViewController: UITableViewDataSource,UITableViewDelegate{
             loadData()
         }
     }
+    
 }
 
 
 //MAKRK: - 登录监听方法
 extension QZHBaseViewController{
+    
     // 输入框按下键盘 return 收回键盘
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         

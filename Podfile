@@ -12,5 +12,10 @@ target 'qzhApp' do
   pod "Kingfisher"
 
   pod "ZWPlaceHolder"
+  
+  pod "IQKeyboardManager"
+ 
+ # pod "ZYSideSlipFilter", "~> 0.5.0"
+  
 end
 #  pod "MobileVLCKit"

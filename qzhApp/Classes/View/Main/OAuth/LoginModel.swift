@@ -22,6 +22,9 @@ class LoginModel: NSObject {
         
         // 验证码
         static var authCode:String = ""
+        
+        // 是否返回首页
+        static var isLogin:Int = 0
     }
     
     /// 重写 description 的计算属性
@@ -31,6 +34,14 @@ class LoginModel: NSObject {
 }
 
 extension LoginModel{
+    class var isLogin: Int {
+        get{
+            return paramers.isLogin
+        }
+        set{
+            paramers.isLogin = newValue
+        }
+    }
     class var userName: String {
         get{
             return paramers.userName

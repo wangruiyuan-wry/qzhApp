@@ -51,16 +51,17 @@ class QZH_CYSQSortViewController: QZHBaseViewController {
 extension QZH_CYSQSortViewController{
     override func setupUI() {
         super.setupUI()
-        
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
         self.view.backgroundColor = myColor().grayF0()
-        
+        setStatusBarBackgroundColor(color: .white)
         // 去掉 tableview 分割线
-        self.tabbelView?.separatorStyle = .none
+        self.tabbelView?.isHidden = true
         tabbelView?.height = 1
         
         // 注册原型 cell
         tabbelView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         setupNavTitle()
+        self.isPush = true
         
         setupLeftSort()
         setupRightSort()
@@ -74,13 +75,21 @@ extension QZH_CYSQSortViewController{
         let btn:SearchController = SearchController()
         btn.addOnClickLister(target: self, action:#selector( goToSearch))
 
-        var _leftbtn=UIBarButtonItem(customView:btn.SeacrchTitleBtn3())
+        let _leftbtn=UIBarButtonItem(customView:btn.SeacrchTitleBtn3())
         navItem.leftBarButtonItem = _leftbtn
     }
     
     // 设置一级分类列表样式
     func setupLeftSort(){
         leftSort.setupScrollerView(x: 0, y: 129*PX, width: 190*PX, height: SCREEN_HEIGHT-225*PX, background: myColor().grayF0())
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                leftSort.setupScrollerView(x: 0, y: 177*PX, width: 190*PX, height: SCREEN_HEIGHT-341*PX, background: myColor().grayF0())
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         leftSort.contentSize = CGSize(width:leftSort.width,height:leftSort.height)
         self.view.addSubview(leftSort)
     }
@@ -123,6 +132,14 @@ extension QZH_CYSQSortViewController{
     // 设置二级分类容器
     func setupRightSort(){
         rightSort.setupScrollerView(x: 190*PX, y: 129*PX, width: SCREEN_WIDTH-190*PX, height: SCREEN_HEIGHT-225*PX, background: myColor().grayF0())
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                rightSort.setupScrollerView(x: 190*PX, y: 177*PX, width: SCREEN_WIDTH-190*PX, height: SCREEN_HEIGHT-341*PX, background: myColor().grayF0())
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         rightSort.contentSize = CGSize(width:rightSort.width,height:rightSort.height)
         self.view.addSubview(rightSort)
     }
@@ -134,7 +151,11 @@ extension QZH_CYSQSortViewController{
         if pic == ""{
             imgView.image = UIImage(named:"noPic")
         }else{
-            imgView.image = UIImage(data: PublicFunction().imgFromURL(pic))
+            if let url = URL(string: pic) {
+                imgView.downloadedFrom(url: url)
+            }else{
+                imgView.image = UIImage(named:"noPic")
+            }
         }
         rightSort.addSubview(imgView)
     }
@@ -147,18 +168,25 @@ extension QZH_CYSQSortViewController{
         let itemView:QZHUIView = QZHUIView()
         if count%3 == 0{
             itemView.setupViews(x: 20*PX, y: top, width: 174*PX, height: 188*PX, bgColor: UIColor.white)
+            let bgView:QZHUIView = QZHUIView()
+            bgView.setupViews(x: 20*PX, y: top, width: 542*PX, height: 188*PX, bgColor: UIColor.white)
+            rightSort.addSubview(bgView)
         }else if count%3 == 1{
             itemView.setupViews(x: 194*PX, y: top, width: 174*PX, height: 188*PX, bgColor: UIColor.white)
         }else if count%3 == 2{
             itemView.setupViews(x: 368*PX, y: top, width: 174*PX, height: 188*PX, bgColor: UIColor.white)
         }
-        
+    
         // 设置图片 UI
         let imgView:UIImageView = UIImageView(frame:CGRect(x:22*PX,y:20*PX,width:130*PX,height:130*PX))
         if pic == ""{
             imgView.image = UIImage(named:"noPic")
         }else{
-            imgView.image = UIImage(data: PublicFunction().imgFromURL(pic))
+            if let url = URL(string: pic) {
+                imgView.downloadedFrom(url: url)
+            }else{
+                imgView.image = UIImage(named:"noPic")
+            }
         }
         itemView.addSubview(imgView)
         
@@ -184,7 +212,7 @@ extension QZH_CYSQSortViewController{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 15
+        return 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
@@ -206,11 +234,13 @@ extension QZH_CYSQSortViewController{
     func showFriends(){
         let vc = QZHDemoViewController()
         
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     //搜索页面跳转
     func goToSearch(){
+        QZHCYSQSearchProListParamModel.categoryId = ""
+        QZHBrandModel.categoryId = 0
         let nav = QZHSearchViewController()
         present(nav, animated: true, completion: nil)
     }
@@ -244,6 +274,26 @@ extension QZH_CYSQSortViewController{
    
     // 跳转至产品列表页
     func gotoProList(_ sender:UITapGestureRecognizer){
-    
+        let _this:UIView = sender.view!
+        QZHCYSQSearchProListParamModel.closeFlag = false
+        
+        QZHCYSQSearchProListParamModel.categoryId = "\(_this.tag)"
+        QZHBrandModel.categoryId = _this.tag
+        QZHCYSQSearchProListParamModel.order = 1
+        QZHCYSQSearchProListParamModel.q = ""
+        QZHCYSQSearchProListParamModel.brand = ""
+        QZHCYSQSearchProListParamModel.specOptionName = ""
+        QZHCYSQSearchProListParamModel.customCategoryId = ""
+        QZHCYSQSearchProListParamModel.price = ""
+        QZHCYSQSearchProListParamModel.category_id_lv1 = ""
+        QZHSreenSelMode.brandId = ""
+        QZHSreenSelMode.brandName = ""
+        QZHSreenSelMode.specNameArray = []
+        QZHSreenSelMode.specIdArray = []
+        QZHSreenSelMode.max = ""
+        QZHSreenSelMode.min = ""
+        
+        let nav = QZHSearchListViewController()
+        present(nav, animated: true, completion: nil)
     }
 }

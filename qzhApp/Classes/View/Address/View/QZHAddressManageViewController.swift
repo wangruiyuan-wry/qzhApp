@@ -41,13 +41,30 @@ extension QZHAddressManageViewController{
         // 注册原型 cell
         tabbelView?.register(UINib(nibName:"QZHAddressManageTableViewCell",bundle:nil), forCellReuseIdentifier: cellId)
         
-        tabbelView?.y = 128*PX
-        tabbelView?.height = SCREEN_HEIGHT - 228*PX
+        tabbelView?.y = 48*PX
+        tabbelView?.height = SCREEN_HEIGHT - 48*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                tabbelView?.y = 96*PX
+                tabbelView?.height = SCREEN_HEIGHT - 96*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         tabbelView?.separatorStyle = .none
         
         setupNav()
         
         let addBtn:UIButton = UIButton(frame:CGRect(x:0,y:SCREEN_HEIGHT-100*PX,width:SCREEN_WIDTH,height:100*PX))
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                addBtn.y = SCREEN_HEIGHT-168*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         addBtn.setTitle("添加新地址", for: .normal)
         addBtn.titleLabel?.font = UIFont.systemFont(ofSize: 28*PX)
         addBtn.backgroundColor = myColor().blue007aff()
@@ -92,7 +109,7 @@ extension QZHAddressManageViewController{
         cell.editBtn.addOnClickLister(target: self, action: #selector(self.editAddress(_:)))
         
         cell.delBtn.tag = self.addressStatus.addressListStatus[indexPath.row].status.id
-        cell.addOnClickLister(target: self, action: #selector(self.delAddress(_:)))
+        cell.delBtn.addOnClickLister(target: self, action: #selector(self.delAddress(_:)))
         return cell
     }
     
@@ -110,13 +127,13 @@ extension QZHAddressManageViewController{
         
     // 返回
     func close(){
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     // 新增地址
     func addAddress(){
         let nav = QZHAddAdressViewController()
-        present(nav, animated: true, completion: nil)
+        self.present(nav, animated: true, completion: nil)
     }
     
     // 设置为默认地址
@@ -134,7 +151,7 @@ extension QZHAddressManageViewController{
         let this = sender.view
         QZHAddressModel.addressId = (this?.tag)!
         let nav = QZHEditAddressViewController()
-        present(nav, animated: true, completion: nil)
+        self.present(nav, animated: true, completion: nil)
     }
     
     // 删除地址

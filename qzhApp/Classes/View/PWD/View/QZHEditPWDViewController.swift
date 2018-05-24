@@ -59,6 +59,14 @@ extension QZHEditPWDViewController{
         self.tabbelView?.separatorStyle = .none
         
         self.tabbelView?.y = 128*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                self.tabbelView?.y = 176*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         tabbelView?.backgroundColor = UIColor.white
         

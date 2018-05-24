@@ -112,6 +112,7 @@ class QZH_CYSQCarProModel:NSObject{
         static var ids:Int = 0
         static var proCounts:Double = 0.0
         static var specOptionNames:String = ""
+        static var specOptionId:String = ""
         static var productIds:Int = 0
         static var idStr:String = ""
     }
@@ -123,6 +124,14 @@ extension QZH_CYSQCarProModel{
         }
         get{
             return editParamer.proCounts
+        }
+    }
+    class var specOptionId:String{
+        set{
+            editParamer.specOptionId = newValue
+        }
+        get{
+            return editParamer.specOptionId
         }
     }
     class var specOptionNames:String{
@@ -158,3 +167,95 @@ extension QZH_CYSQCarProModel{
         }
     }
 }
+
+class QZH_CYSQCarProInfoModel:NSObject{
+    
+    // 条形码
+    var barCode:String = ""
+    
+    // 点击量
+    var clickVolume:Int = 0
+    
+    // 产品的创建时间
+    var createDate:String = ""
+    
+    // 产品所属货品ID
+    var goodsId:Int = 0
+    
+    // 产品Id
+    var id:Int = 0
+    
+    // 原价
+    var orginalPrice:Double = 0.0
+    
+    // 产品图片
+    var picturePath:String = ""
+    
+    // 产品编码
+    var productCode:String = ""
+    
+    // 产品名称
+    var productName:String = ""
+    
+    // 促销价
+    var  promotionPrice	:Double = 0.0
+    
+    // 销售量
+    var salesVolume:Double = 0.0
+    
+    // 库存
+    var stock:Double = 0.0
+    
+    /// 重写 description 的计算属性
+    override var description: String{
+        return yy_modelDescription()
+    }
+}
+
+class QZH_CYSQCarAccountPeriodInfoModel:NSObject{
+    
+    // 买家ID
+    var buyerMemberId:Int = 0
+    
+    // 公司名
+    var companyName:String = ""
+    
+    // 删除标记
+    var delFlag:Int = 0
+    
+    //id
+    var id:Int = 0
+    
+    // 联系人
+    var linkName:String = ""
+    
+    // 昵称
+    var linkNickName:String = ""
+    
+    // 帐期时间
+    var periodDay:Int = 0
+    
+    // 帐期剩余
+    var periodLeft:Double = 0.0
+    
+    // 帐期总额
+    var periodTotal:Double = 0.0
+    
+    // 已使用帐期
+    var periodUsed:Double = 0.0
+    
+    // 手机
+    var phone:String = ""
+    
+    // 卖家公司
+    var salerMemberId:Int = 0
+    
+    // 电话
+    var tel:String = ""
+    
+    /// 重写 description 的计算属性
+    override var description: String{
+        return yy_modelDescription()
+    }
+}
+

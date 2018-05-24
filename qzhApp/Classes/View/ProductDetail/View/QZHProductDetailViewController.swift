@@ -14,6 +14,13 @@ import UIKit
 private let cellId = "cellId"
 
 class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
+    // 收藏
+    lazy var collectStatus = QZHCollectListPorListViewModel()
+    
+    // 操作结果显示
+    var timer:Timer!
+    var resultView:QZHUIView = QZHUIView()
+    
     // 原始价格
     var olderPrice:String = ""
     var olderKC:String = ""
@@ -23,6 +30,14 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
     var productIds:String = ""
     var productIdCount:Int = 0
     var proIds:String = ""
+    var specNameStr:String = ""
+    var specIdStr:String = ""
+    var proIdArray:String = ""
+    var proIdFlaga:Int = 0
+    var specCount:Int = 0
+    
+    // tableView头部headerView
+    var headerView:QZHUIView = QZHUIView()
     
     // 透明导航
     var topView:QZHUIView = QZHUIView()
@@ -37,12 +52,13 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
     
     // 收藏 - 底部
     var footer_Collection:QZHUIButton = QZHUIButton()
+    var footer_Collection1:QZHUIButton = QZHUIButton()
     
     // 加入购物车 - 底部
-    var footer_AddCar:QZHUIButton = QZHUIButton()
+    var footer_AddCar:QZHUILabelView = QZHUILabelView()
     
     // 立即购买 - 底部
-    var footer_BuyNow:QZHUIButton = QZHUIButton()
+    var footer_BuyNow:QZHUILabelView = QZHUILabelView()
     
     // 头部显示产品图片
     var proPic:UIImageView = UIImageView()
@@ -77,13 +93,14 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
     
     // 头部轮播组
     var topSroller:QZHUIScrollView = QZHUIScrollView()
-    
 
     // 头部 3D 轮播图容器
     lazy var cycleScrollView:WRCycleScrollView = {
         let frame = CGRect(x: 0, y:0, width: SCREEN_WIDTH, height: 750*PX)
         let cycleView = WRCycleScrollView(frame: frame, type: .SERVER, imgs: nil, descs: nil)
         cycleView.isUserInteractionEnabled = false
+        cycleView.showPageControl = false
+        cycleView.autoScrollInterval = 0.3
         return cycleView
     }()
     
@@ -98,9 +115,14 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
     var ggKC:QZHUILabelView = QZHUILabelView()
     var ggGG:QZHUILabelView = QZHUILabelView()
     var ggContent:QZHUIScrollView = QZHUIScrollView()
-    var buyNum:QZHUILabelView = QZHUILabelView()
-    var KCNum:Int = 0
+    var buyNum:UITextField = UITextField()
+    var KCNum:Double = 0
     var specOptionIds:String = ""
+    var btn1:QZHUIView = QZHUIView()
+    var btn2:QZHUILabelView = QZHUILabelView()
+    var btn3:QZHUILabelView = QZHUILabelView()
+    var NowKC:Double = 0.0
+    
     
     // 背景遮罩层
     var blackBG:QZHUIView = QZHUIView()
@@ -117,17 +139,30 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
     // 视频
     var webView:UIWebView = UIWebView(frame:CGRect(x:0,y:0,width:750*PX,height:750*PX))
     
-    
     override func loadData() {
+        self.productDetailStatus.addFooter { (isSuccess) in
+            self.getData()
+            
+        }
+        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    func getData() {
         // 获取产品详情
-        productDetailStatus.getProductGoodsDetail(completion: { (goods, pic, price, space, attrtion, shop, attentionClloect, comment, goodDetail, isSuccess) in
+        productDetailStatus.getProductGoodsDetail(completion: { (isSuccess) in
             if isSuccess{
+                let goods = self.productDetailStatus.goodsStatus
+                let pic = self.productDetailStatus.picStatus
+                let price = self.productDetailStatus.proPriceStatus
+                let space = self.productDetailStatus.proSpaceStatus
+                let attrtion = self.productDetailStatus.proAttOptionsStatus
+                let shop = self.productDetailStatus.shopStatus
+                let attentionClloect = self.productDetailStatus.attentionCollectStatus
+                let comment = self.productDetailStatus.commentStatus
+                let replies = self.productDetailStatus.commentReplies
+                let goodDetail = self.productDetailStatus.proDeatailStatus
                 QZHProductDetailModel.goodsId = Int(goods[0].status.id)
-                QZHProductDetailModel.memberId = Int64(shop[0].status.memberId)
+                QZHProductDetailModel.memberId = goods[0].status.eipMemberId
                 self.topSroller.contentSize.width = 0
                 if pic[0].status.videoPath != ""{
                     
@@ -160,7 +195,11 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                 var imgArray:[String] = pic[0].status.picturePath.components(separatedBy: ",")
                 for i in 0..<imgArray.count{
                     let img:UIImageView = UIImageView(frame:CGRect(x:self.topSroller.contentSize.width,y:0,width:750*PX,height:750*PX))
-                    img.image = UIImage(data:PublicFunction().imgFromURL(imgArray[i]))
+                    if let url = URL(string: imgArray[i]) {
+                        img.downloadedFrom(url: url)
+                    }else{
+                        img.image = UIImage(named:"noPic")
+                    }
                     self.topSroller.addSubview(img)
                     self.topSroller.contentSize = CGSize(width:self.topSroller.contentSize.width + 750*PX,height:750*PX)
                 }
@@ -170,17 +209,31 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                 self.olderPrice = "\(goods[0].status.fixedPrice.roundTo(places: 2))"
                 self.proUnit = goods[0].status.unit
                 self.ggKC.text = "库存\(goods[0].status.stock)\(goods[0].status.unit)"
+                self.NowKC = goods[0].status.stock
                 self.olderKC = "库存\(goods[0].status.stock)\(goods[0].status.unit)"
                 
                 var picArray = pic[0].status.picturePath.components(separatedBy: ",")
                 if picArray.count > 0{
-                    self.ggIcon.image = UIImage(data:PublicFunction().imgFromURL(picArray[0]))
+                    if let url = URL(string: picArray[0]) {
+                        self.ggIcon.downloadedFrom(url: url)
+                    }else{
+                        self.ggIcon.image = UIImage(named:"noPic")
+                    }
                     
-                    var img = UIImage(data:PublicFunction().imgFromURL(picArray[0]))
-                    img = img?.specifiesHeight(80*PX)
+                    
+                    //img = img?.specifiesHeight(80*PX)
                     self.navItem.titleView?.width = 80*PX
-                    self.navItem.titleView = UIImageView(image:img)
-                    self.olderImg = img!
+                    let navImg:UIImageView = UIImageView(frame:CGRect(x:0,y:0,width:80*PX,height:80*PX))
+                    if let url = URL(string: picArray[0]) {
+                        navImg.downloadedFrom1(url: url)
+                        QZHCommentModel.proImg = picArray[0]
+                    }else{
+                        navImg.image = UIImage(named:"noPic")
+                        QZHCommentModel.proImg = "noPic"
+                    }
+                    self.navItem.titleView = navImg
+                    self.navItem.titleView?.width = 80*PX
+                    
                 }else{
                     var img = UIImage(named:"noPic")
                     img = img?.specifiesHeight(80*PX)
@@ -189,32 +242,32 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                     self.olderImg = img!
                 }
                 
+                
                 if comment.count > 0{
-                    var avatar_logo = comment[0].status.avatar
-                    var avatar_logoFlag = 1
-                    if avatar_logo == ""{
+                    var avatar_logo = replies[0][0].status.avatar
+                   var avatar_logoFlag = 1
+                   /*  if avatar_logo == ""{
                         avatar_logo = "proUserLogo"
                         avatar_logoFlag = 0
-                    }
+                    }*/
                     
                     var starNums = 0
-                    var commentNum = Double.init(comment[0].status.goods_evaluation)! + Double.init(comment[0].status.service_evaluation)!
+                    var commentNum:Double = Double.init(comment[0].status.goodsComment)!
+                    //Double.init(comment[0].status.goods_evaluation)! + Double.init(comment[0].status.service_evaluation)!
                     if commentNum == 0.0{
                         starNums = 0
                     }else if commentNum < 2.0 {
                         starNums = 1
-                    }else if commentNum < 4.0{
+                    }else if commentNum < 3.0{
                         starNums = 2
-                    }else if commentNum < 6.0{
+                    }else if commentNum < 4.0{
                         starNums = 3
-                    }else if commentNum < 8.0{
+                    }else if commentNum < 5.0{
                         starNums = 4
                     }else{
                         starNums = 5
                     }
-                    
-                    
-                    self.setupComment(y: self.commentView.y, count: QZHProductDetail_PROListCommentModel.count, photo: avatar_logo,photoFlag:avatar_logoFlag, userName: comment[0].status.createName, date: comment[0].status.createTime, star: starNums, content: comment[0].status.content)
+                    self.setupComment(y: self.commentView.y, count: QZHProductDetail_PROListCommentModel.count, photo: avatar_logo,photoFlag:avatar_logoFlag, userName: replies[0][0].status.accountName, date: comment[0].status.orderTime, star: starNums, content: replies[0][0].status.goodsDescripe)
                 }
                 
                 var shop_logo = shop[0].status.storeLogo
@@ -222,7 +275,7 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                     shop_logo = "noPic"
                 }
                 QZHStoreInfoModel.memberID = shop[0].status.memberId
-                self.tabbelView?.addSubview(self.setupShopView(y: self.shopView.y, photo: shop_logo, shopName: shop[0].status.short_name, Vip: shop[0].status.memberLevel, proCount: shop[0].status.goodsNum, sale: shop[0].status.monthSales, scCount: shop[0].status.collectionNum, proComment: CGFloat(shop[0].status.goodsEvalution.roundTo(places: 1)), sComment: CGFloat(shop[0].status.serviceEvalution.roundTo(places: 1))))
+                self.headerView.addSubview(self.setupShopView(y: self.shopView.y, photo: shop_logo, shopName: shop[0].status.shortName, Vip: shop[0].status.memberLevel, proCount: shop[0].status.goodsNum, sale: shop[0].status.monthSales, scCount: shop[0].status.collectionNum, proComment: CGFloat(shop[0].status.goodsEvalution.roundTo(places: 1)), sComment: CGFloat(shop[0].status.serviceEvalution.roundTo(places: 1))))
                 
                 if goodDetail.count > 0{
                     self.setupProDetail(y: self.DetailTitle.y + self.DetailTitle.height, jsPath: goodDetail[0].status.productDetailsApp)
@@ -238,17 +291,31 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                 
                 // 规格 设置
                 var ggTop:CGFloat = 0
+                self.specCount = space.count
                 for i in 0..<space.count{
-                    ggTop = self.setupCommentList(y: ggTop, title: space[i].status.specName, commentArray: space[i].status.option as! [[String : AnyObject]])
+                    ggTop = self.setupCommentList(y: ggTop, title: space[i].status.specName, commentArray: space[i].status.option as! [[String : AnyObject]],i+1)
+                }
+                if self.productDetailStatus.attentionCollectStatus[0].status.collentProduct == 1{
+                    self.footer_Collection.isHidden = true
+                    self.footer_Collection1.isHidden = false
+                }else{
+                    self.footer_Collection.isHidden = false
+                    self.footer_Collection1.isHidden = true
                 }
                 
-                self.getPro()
+               self.getPro()
+               
             }
         }) { (isSuccess) in
             if isSuccess{
                 
             }
         }
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     // 获取产品价格
@@ -267,14 +334,17 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
                     self.setupDelPriceLabel(price: result[0].status.originalPrice.roundTo(places: 2))
                 }
                 self.ggKC.text = "库存\(result[0].status.stock)\(self.proUnit!)"
+                self.NowKC = result[0].status.stock
                 if result[0].status.picturePath == ""{
                 
                     self.ggIcon.image = UIImage(named:"noPic")
                 
                 }else{
-                
-                    self.ggIcon.image = UIImage(data:PublicFunction().imgFromURL(result[0].status.picturePath))
-                    
+                    if let url = URL(string: result[0].status.picturePath) {
+                        self.ggIcon.downloadedFrom(url: url)
+                    }else{
+                        self.ggIcon.image = UIImage(named:"noPic")
+                    }
                 }
             }
         }
@@ -304,6 +374,7 @@ class QZHProductDetailViewController: QZHBaseViewController,UIWebViewDelegate{
 extension QZHProductDetailViewController{
     override func setupUI() {
         super.setupUI()
+        self.isPush = true
         proDetail.delegate = self
         
         // 去掉 tableview 分割线
@@ -315,6 +386,14 @@ extension QZHProductDetailViewController{
         //tabbelView?.register(QZHProductDetailCell.self, forCellReuseIdentifier: cellId)
         tabbelView?.register(UINib(nibName:"QZHProductDetailCell",bundle:nil), forCellReuseIdentifier: cellId)
         tabbelView?.height = SCREEN_HEIGHT - 100*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                tabbelView?.height = SCREEN_HEIGHT - 216*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         // 设置cell高度自适应
         //tabbelView?.rowHeight = UITableViewAutomaticDimension
@@ -324,6 +403,7 @@ extension QZHProductDetailViewController{
 
         setupNav1()
         setupNav()
+        setupHeaderView()
         setupTopScroll()
         setupMain()
         setupFooter()
@@ -334,6 +414,11 @@ extension QZHProductDetailViewController{
         view.addSubview(blackBG)
         setupProCSView()
         setupProGGView()
+    }
+    
+    func setupHeaderView(){
+        headerView.setupViews(x: 0, y: 0, width: SCREEN_WIDTH, height: 750*PX, bgColor: myColor().grayF0())
+        tabbelView?.tableHeaderView = headerView
     }
     
     // 设置头部轮播
@@ -347,7 +432,8 @@ extension QZHProductDetailViewController{
         let bg:UIImageView = UIImageView(frame:CGRect(x:0,y:0,width:SCREEN_WIDTH,height:SCREEN_WIDTH))
         bg.image = UIImage(named:"loadPic")
         topSroller.addSubview(bg)
-        tabbelView?.addSubview(topSroller)
+        headerView.height = 750*PX
+        headerView.addSubview(topSroller)
     }
     
     
@@ -357,7 +443,7 @@ extension QZHProductDetailViewController{
         
         navItem.titleView?.width = 80*PX
         navItem.titleView = UIImageView(image:img)
-        navItem.rightBarButtonItems = [UIBarButtonItem(title: "", img: "chatIcon1", target: self, action: #selector(showFriends),color:UIColor.white),UIBarButtonItem(title: "", img: "searchIcon4", target: self, action: #selector(gotoSeach),color:UIColor.white)]
+        navItem.rightBarButtonItems = [UIBarButtonItem(title: "", img: "chatIcon1", target: self, action: #selector(showFriends),color:UIColor.white),UIBarButtonItem(title: "", img: "producrDetail_Car2", target: self, action: #selector(gotoCar),color:UIColor.white)]
         navItem.leftBarButtonItem = UIBarButtonItem(title: "", img: "back_pageIcon2", target: self, action: #selector(self.close),color:UIColor.white)
         navigationBar.tintColor = UIColor.white
 
@@ -366,6 +452,14 @@ extension QZHProductDetailViewController{
     // 设置头部透明导航
     func setupNav1(){
         topView.setupViews(x: 0, y: 54*PX, width: SCREEN_WIDTH, height: 60*PX, bgColor: UIColor.clear)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                topView.setupViews(x: 0, y: 102*PX, width: SCREEN_WIDTH, height: 60*PX, bgColor: UIColor.clear)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         let back:QZHUIView = QZHUIView()
         back.setupViews(x: 20*PX, y: 0, width: 60*PX, height: 60*PX, bgColor: UIColor(red:0/255,green:0/255,blue:0/255,alpha:0.5))
@@ -380,9 +474,9 @@ extension QZHProductDetailViewController{
         search.setupViews(x: 580*PX, y: 0, width: 60*PX, height: 60*PX, bgColor: UIColor(red:0/255,green:0/255,blue:0/255,alpha:0.5))
         search.layer.cornerRadius = 30*PX
         let search_Img:UIImageView = UIImageView(frame:CGRect(x:15*PX,y:15*PX,width:30*PX,height:30*PX))
-        search_Img.image = UIImage(named:"searchIcon1")
+        search_Img.image = UIImage(named:"producrDetail_Car1")
         search.addSubview(search_Img)
-        search.addOnClickLister(target: self, action: #selector(self.gotoSeach))
+        search.addOnClickLister(target: self, action: #selector(self.gotoCar))
         topView.addSubview(search)
         
         let friend:QZHUIView = QZHUIView()
@@ -401,7 +495,14 @@ extension QZHProductDetailViewController{
     func setupTabView(){
         tabView.isHidden = true
         tabView.setupViews(x: 0, y: 128*PX, width: SCREEN_WIDTH, height: 80*PX, bgColor: UIColor.white)
-        
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+               tabView.setupViews(x: 0, y: 176*PX, width: SCREEN_WIDTH, height: 80*PX, bgColor: UIColor.white)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         let tbn1 = setupTabViewList(x:65*PX,title:"宝贝")
         tbn1.tag = 5
         setupTabViewUI(tbn1)
@@ -440,12 +541,13 @@ extension QZHProductDetailViewController{
         // 名称 价格 分享
         let view1:QZHUIView = QZHUIView()
         view1.setupViews(x: 0, y: topSroller.height, width: SCREEN_WIDTH, height: 183*PX, bgColor: UIColor.white)
-        tabbelView?.addSubview(view1)
+        headerView.height = view1.y + 183*PX
+        headerView.addSubview(view1)
         
         proName.setLabelView(20*PX, 10*PX, 610*PX, 84*PX, NSTextAlignment.left, UIColor.clear, myColor().gray3()
             , 30, "")
         proName.numberOfLines = 2
-        proName.lineBreakMode = .byWordWrapping
+        proName.lineBreakMode = .byTruncatingTail
         view1.addSubview(proName)
         
         let shareBtn:QZHUIButton = QZHUIButton()
@@ -463,7 +565,8 @@ extension QZHProductDetailViewController{
         // 产品参数 UI
         let View2:QZHUIView = QZHUIView()
         View2.setupViews(x: 0, y: view1.y+view1.height+10*PX, width: SCREEN_WIDTH, height: 161*PX, bgColor: UIColor.white)
-        tabbelView?.addSubview(View2)
+        headerView.height = View2.y + 161*PX
+        headerView.addSubview(View2)
         // 产品参数
         let proAttr:QZHUILabelView = QZHUILabelView()
         proAttr.setLabelView(20*PX, 0, 710*PX, 80*PX, NSTextAlignment.left, UIColor.clear, myColor().gray3(), 26, "产品参数")
@@ -492,7 +595,7 @@ extension QZHProductDetailViewController{
         setupComment(y:EvaluationTitle.y+EvaluationTitle.height,count:0,photo:"",photoFlag :0,userName:"",date:"",star:0,content:"")
         
         // 店铺
-        tabbelView?.addSubview(setupShopView(y: commentView.y+commentView.height+10*PX, photo: "loadPic", shopName: "", Vip: "", proCount: -1, sale: 0, scCount: 0, proComment: 0.0, sComment: 0.0))
+        headerView.addSubview(setupShopView(y: commentView.y+commentView.height+10*PX, photo: "loadPic", shopName: "", Vip: "", proCount: -1, sale: 0, scCount: 0, proComment: 0.0, sComment: 0.0))
         
         // 详情标题
         //let DetailTitle:QZHUIView = QZHUIView()
@@ -524,7 +627,8 @@ extension QZHProductDetailViewController{
     // 设置评价
     func setupComment(y:CGFloat,count:Int,photo:String,photoFlag:Int,userName:String,date:String,star:Int,content:String){
         commentView.setupViews(x: 0, y: y, width: SCREEN_WIDTH, height: 344*PX, bgColor: UIColor.white)
-        tabbelView?.addSubview(commentView)
+        headerView.height = y + 344*PX
+        headerView.addSubview(commentView)
         if commentView.subviews.count > 0{
             commentView.subviews[0].removeFromSuperview()
         }
@@ -541,12 +645,24 @@ extension QZHProductDetailViewController{
             if photoFlag == 0{
                 photoView.image = UIImage(named:photo)
             }else{
-                photoView.image = UIImage(data:PublicFunction().imgFromURL(photo))
+                if let url = URL(string: photo) {
+                    photoView.downloadedFrom(url: url)
+                }else{
+                    photoView.image = UIImage(named:"proUserLogo")
+                }
             }
             commentView.addSubview(photoView)
             
+            let sessionId = userName
+            let index = sessionId.index(sessionId.endIndex, offsetBy: -1)
+            let suffix = sessionId.substring(from: index)
+            
+            let indexs = sessionId.index(sessionId.startIndex, offsetBy: 1)
+            
+            let prefix = sessionId.substring(to: indexs)
+            
             let userView:QZHUILabelView = QZHUILabelView()
-            userView.setLabelView(100*PX, 30*PX, userView.autoLabelWidth(userName, font: 28, height: 40*PX), 40*PX, NSTextAlignment.left, UIColor.clear, myColor().gray3(), 28, userName)
+            userView.setLabelView(100*PX, 30*PX, userView.autoLabelWidth(userName, font: 28, height: 40*PX), 40*PX, NSTextAlignment.left, UIColor.clear, myColor().gray3(), 28, "\(prefix)***\(suffix)")
             commentView.addSubview(userView)
             
             for i in 0..<5{
@@ -560,13 +676,13 @@ extension QZHProductDetailViewController{
             }
             
             let dateView:QZHUILabelView = QZHUILabelView()
-            dateView.setLabelView(20*PX, 90*PX, 220*PX, 28*PX, NSTextAlignment.left, UIColor.clear, myColor().Gray6(), 20, "购买日期：\(date)")
+            dateView.setLabelView(20*PX, 90*PX, 600*PX, 28*PX, NSTextAlignment.left, UIColor.clear, myColor().Gray6(), 20, "购买日期：\(date)")
             commentView.addSubview(dateView)
             
             let contentView:QZHUILabelView = QZHUILabelView()
             contentView.setLabelView(20*PX, 138*PX, 696*PX, 70*PX, NSTextAlignment.left, UIColor.clear, myColor().gray3(), 24, content)
             contentView.numberOfLines = 2
-            contentView.lineBreakMode = .byWordWrapping
+            contentView.lineBreakMode = .byTruncatingTail 
             commentView.addSubview(contentView)
             
             let btn:QZHUIButton = QZHUIButton()
@@ -581,9 +697,14 @@ extension QZHProductDetailViewController{
     // 设置店铺
     func setupShopView(y:CGFloat,photo:String,shopName:String,Vip:String,proCount:Int,sale:Int,scCount:Int,proComment:CGFloat,sComment:CGFloat) ->QZHUIView{
         shopView.setupViews(x: 0, y: y, width: SCREEN_WIDTH, height: 400*PX, bgColor: UIColor.white)
+        headerView.height = y + 400*PX
         
         let photoView:UIImageView = UIImageView(frame:CGRect(x:20*PX,y:20*PX,width:100*PX,height:100*PX))
-        photoView.image = UIImage(named:photo)
+        if let url = URL(string:photo) {
+            photoView.downloadedFrom(url: url)
+        }else{
+            photoView.image = UIImage(named:"noPic")
+        }
         shopView.addSubview(photoView)
         
         let titleView:QZHUILabelView = QZHUILabelView()
@@ -650,20 +771,20 @@ extension QZHProductDetailViewController{
         shopView.addSubview(_sCommentNumView)
         
         // 店铺分类
-        let btn1:QZHUIButton = QZHUIButton()
-        btn1.setupButton(180*PX, 301*PX, 160*PX, 60*PX, myColor().blue007aff(), UIColor.white, "店铺分类", 24, 1*PX, myColor().blue007aff(), "", UIControlState.normal, 0, UIViewContentMode.center)
-        btn1.frame = CGRect(x:180*PX,y:301*PX,width:160*PX,height:60*PX)
-        btn1.layer.cornerRadius = 8*PX
-        btn1.addTarget(self, action: #selector(self.shopSort), for: .touchUpInside)
-        shopView.addSubview(btn1)
+        let btn11:QZHUIButton = QZHUIButton()
+        btn11.setupButton(180*PX, 301*PX, 160*PX, 60*PX, myColor().blue007aff(), UIColor.white, "店铺分类", 24, 1*PX, myColor().blue007aff(), "", UIControlState.normal, 0, UIViewContentMode.center)
+        btn11.frame = CGRect(x:180*PX,y:301*PX,width:160*PX,height:60*PX)
+        btn11.layer.cornerRadius = 8*PX
+        btn11.addTarget(self, action: #selector(self.shopSort), for: .touchUpInside)
+        shopView.addSubview(btn11)
         
         // 进店逛逛
-        let btn2:QZHUIButton = QZHUIButton()
-        btn2.setupButton(410*PX, 301*PX, 160*PX, 60*PX, myColor().blue007aff(), UIColor.white, "进店逛逛", 24, 1*PX, myColor().blue007aff(), "", UIControlState.normal, 0, UIViewContentMode.center)
-        btn2.frame = CGRect(x:410*PX,y:301*PX,width:160*PX,height:60*PX)
-        btn2.layer.cornerRadius = 8*PX
-        btn2.addTarget(self, action: #selector(self.gotToShop), for: .touchUpInside)
-        shopView.addSubview(btn2)
+        let btn22:QZHUIButton = QZHUIButton()
+        btn22.setupButton(410*PX, 301*PX, 160*PX, 60*PX, myColor().blue007aff(), UIColor.white, "进店逛逛", 24, 1*PX, myColor().blue007aff(), "", UIControlState.normal, 0, UIViewContentMode.center)
+        btn22.frame = CGRect(x:410*PX,y:301*PX,width:160*PX,height:60*PX)
+        btn22.layer.cornerRadius = 8*PX
+        btn22.addTarget(self, action: #selector(self.gotToShop), for: .touchUpInside)
+        shopView.addSubview(btn22)
         
         return shopView
     }
@@ -675,19 +796,23 @@ extension QZHProductDetailViewController{
         proDetail.x = 0
        // proDetail.height =
         proDetail.backgroundColor = UIColor.white
-        tabbelView?.addSubview(proDetail)
+        headerView.addSubview(proDetail)
+        
         //加载网页
         
         proDetail.scrollView.showsHorizontalScrollIndicator = false
         proDetail.scrollView.showsVerticalScrollIndicator = false
         proDetail.scrollView.isScrollEnabled = false
         proDetail.loadHTMLString(jsPath, baseURL: nil)
+        
+         headerView.height = proDetail.y + proDetail.height
+        
     }
     
     // 设置标题 UI
     func setupTitleUI(selView:QZHUIView,y:CGFloat,title:String,icon:String){
         selView.setupViews(x: 0, y: y, width: SCREEN_WIDTH, height: 80*PX, bgColor: UIColor.clear)
-        tabbelView?.addSubview(selView)
+        headerView.addSubview(selView)
         
         let Line1:QZHUILabelView = QZHUILabelView()
         Line1.dividers(236*PX, y: 40*PX, width: 80*PX, height: 1*PX, color: myColor().gray9())
@@ -707,6 +832,8 @@ extension QZHProductDetailViewController{
             titleView.x = 310*PX
             titleView.width = 130*PX
         }
+        
+        headerView.height = y + 80*PX
         selView.addSubview(titleView)
         
     }
@@ -715,6 +842,14 @@ extension QZHProductDetailViewController{
     func setupProCSView(){
         csView.isHidden = true
         csView.setupScrollerView(x: 0, y: 749*PX, width: SCREEN_WIDTH, height: 585*PX, background: UIColor.white)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+               csView.setupScrollerView(x: 0, y: SCREEN_HEIGHT - 653*PX, width: SCREEN_WIDTH, height: 653*PX, background: UIColor.white)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         csView.backgroundColor = UIColor.white
         csView.contentSize = CGSize(width:SCREEN_WIDTH,height:585*PX)
         view.addSubview(csView)
@@ -755,6 +890,14 @@ extension QZHProductDetailViewController{
     // 设置产品规格
     func setupProGGView(){
         ggView.setupScrollerView(x: 0, y: SCREEN_HEIGHT-836*PX, width: SCREEN_WIDTH, height: 836*PX, background: UIColor.clear)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                ggView.setupScrollerView(x: 0, y: SCREEN_HEIGHT-904*PX, width: SCREEN_WIDTH, height: 904*PX, background: UIColor.clear)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         let ggView1:QZHUIView = QZHUIView()
         ggView1.setupViews(x: 0, y: 29*PX, width: SCREEN_WIDTH, height: 807*PX, bgColor: UIColor.white)
         ggView.addSubview(ggView1)
@@ -813,7 +956,14 @@ extension QZHProductDetailViewController{
         redBtn.layer.borderWidth = 1*PX
         ggView1.addSubview(redBtn)
         
-        buyNum.setLabelView(555*PX, 596*PX, 90*PX, 70*PX, NSTextAlignment.center, UIColor.white, myColor().gray3(), 30, "1")
+        buyNum.frame = CGRect(x:555*PX,y:596*PX,width:90*PX,height:70*PX)
+        //buyNum.setLabelView(555*PX, 596*PX, 90*PX, 70*PX, NSTextAlignment.center, UIColor.white, myColor().gray3(), 30, "1")
+        buyNum.textAlignment = .center
+        buyNum.backgroundColor = UIColor.white
+        buyNum.textColor = myColor().gray3()
+        buyNum.font = UIFont.systemFont(ofSize: 30*PX)
+        buyNum.text = "1.0"
+        buyNum.keyboardType = .numberPad
         buyNum.layer.borderColor = myColor().gray9().cgColor
         buyNum.layer.borderWidth = 1*PX
         ggView1.addSubview(buyNum)
@@ -830,31 +980,50 @@ extension QZHProductDetailViewController{
         ggView1.addSubview(line3)
         
         
+        btn1.setupViews(x: 0, y: 707*PX, width: SCREEN_WIDTH, height: 100*PX, bgColor: UIColor.clear)
+        
         // 加入购物车
         let addBtn:QZHUIButton = QZHUIButton()
-        addBtn.setupButton(0*PX, 707*PX, 375*PX, 100*PX, UIColor.white, myColor().blue00b9ff(), "加入购物车", 32, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
-        addBtn.frame = CGRect(x:0*PX, y:707*PX, width:375*PX, height:100*PX)
+        addBtn.setupButton(0*PX, 0, 375*PX, 100*PX, UIColor.white, myColor().blue00b9ff(), "加入购物车", 32, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
+        addBtn.frame = CGRect(x:0*PX, y:0, width:375*PX, height:100*PX)
         addBtn.addTarget(self, action: #selector(self.addToCar), for: UIControlEvents.touchUpInside)
-        ggView1.addSubview(addBtn)
+        btn1.addSubview(addBtn)
         
         // 立即购买
         let buyBtn:QZHUIButton = QZHUIButton()
-        buyBtn.setupButton(375*PX, 707*PX, 375*PX, 100*PX, UIColor.white, myColor().blue007aff(), "立即购买", 32, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
-        buyBtn.frame = CGRect(x:375*PX, y:707*PX, width:375*PX, height:100*PX)
+        buyBtn.setupButton(375*PX, 0, 375*PX, 100*PX, UIColor.white, myColor().blue007aff(), "立即购买", 32, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
+        buyBtn.frame = CGRect(x:375*PX, y:0, width:375*PX, height:100*PX)
         buyBtn.addTarget(self, action: #selector(self.buyNow), for: UIControlEvents.touchUpInside)
-        ggView1.addSubview(buyBtn)
+        btn1.addSubview(buyBtn)
+        ggView1.addSubview(btn1)
+        
+        btn2.setLabelView(0, 707*PX, SCREEN_WIDTH, 100*PX, NSTextAlignment.center, myColor().blue00b9ff(), UIColor.white, 32, "加入购物车")
+        btn2.addOnClickLister(target: self, action: #selector(self.addToCar))
+        btn2.isHidden = true
+        ggView1.addSubview(btn2)
+        
+        btn3.setLabelView(0, 707*PX, SCREEN_WIDTH, 100*PX, NSTextAlignment.center, myColor().blue00b9ff(), UIColor.white, 32, "立即购买")
+        btn3.addOnClickLister(target: self, action: #selector(self.buyNow))
+        btn3.isHidden = true
+        ggView1.addSubview(btn3)
+        
+        
+        
     
     }
     
     // 设置规格项
-    func setupCommentList(y:CGFloat,title:String,commentArray:[[String:AnyObject]])->CGFloat{
+    func setupCommentList(y:CGFloat,title:String,commentArray:[[String:AnyObject]],_ tag:Int)->CGFloat{
         var top_Y = y
         let commentView:QZHUIView = QZHUIView()
         commentView.setupViews(x: 20*PX, y: y, width: 710*PX, height: 57*PX, bgColor: UIColor.clear)
+        commentView.tag = tag
+        commentView.restorationIdentifier = "commentView"
         ggContent.addSubview(commentView)
         
         let titleView:QZHUILabelView = QZHUILabelView()
         titleView.setLabelView(0, 20*PX, 710*PX, 37*PX, NSTextAlignment.left, UIColor.white, myColor().gray3(), 26, title)
+        titleView.tag = 3
         commentView.addSubview(titleView)
         top_Y = top_Y + 77*PX
         
@@ -874,18 +1043,9 @@ extension QZHProductDetailViewController{
             listBtn.layer.borderColor = myColor().gray9().cgColor
             listBtn.layer.cornerRadius = 8*PX
             listBtn.layer.masksToBounds = true
-            listBtn.tag = 1
-            listBtn.restorationIdentifier = commentArray[i]["productIds"] as! String
+            listBtn.restorationIdentifier = "\(commentArray[i]["productIds"] as! String)&&&\(commentArray[i]["optionId"]!)"
             listBtn.isUserInteractionEnabled = true
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.checkComment(_:)))
-            listBtn.addGestureRecognizer(tapGesture)
-            
-            let idView:QZHUILabelView = QZHUILabelView()
-            idView.tag = 3
-            idView.isHidden = true
-            idView.setLabelView(left, marginTop, widthBtn+60*PX, 60*PX, NSTextAlignment.center, UIColor.white, myColor().gray3(), 26, "\(commentArray[i]["optionId"]!)")
-            listBtn.addSubview(idView)
-            
+            listBtn.addOnClickLister(target: self, action: #selector(self.checkComment1(_:)))
             commentView.addSubview(listBtn)
            left = left + widthBtn + 80*PX
         }
@@ -902,6 +1062,14 @@ extension QZHProductDetailViewController{
     func setupFooter(){
         let footView:QZHUIView = QZHUIView()
         footView.setupViews(x: 0, y: SCREEN_HEIGHT-100*PX, width: SCREEN_WIDTH, height: 100*PX, bgColor: UIColor.white)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                footView.setupViews(x: 0, y: SCREEN_HEIGHT-168*PX, width: SCREEN_WIDTH, height: 100*PX, bgColor: UIColor.white)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         // 设置店铺按钮
         footer_Shop.setupButton(4*PX, 15*PX, 103*PX, 70*PX, myColor().gray8a(), UIColor.clear, "店铺", 20, 0, UIColor.clear, "proDetailShopICon", UIControlState.normal, 18*PX, UIViewContentMode.bottom)
@@ -921,16 +1089,23 @@ extension QZHProductDetailViewController{
         footer_Collection.addTarget(self, action: #selector(self.collection), for: .touchUpInside)
         footView.addSubview(footer_Collection)
         
+        footer_Collection1.setupButton(221*PX, 15*PX, 108*PX, 70*PX, myColor().gray8a(), UIColor.clear, "已收藏", 20, 0, UIColor.clear, "star", UIControlState.normal, 18*PX, UIViewContentMode.bottom)
+        footer_Collection1.frame = CGRect(x:221*PX,y:0, width:108*PX, height:70*PX)
+        footer_Collection1.addTarget(self, action: #selector(self.collection1), for: .touchUpInside)
+        footer_Collection1.isHidden = true
+        footView.addSubview(footer_Collection1)
+        
         // 设置立即购买
-        footer_BuyNow.setupButton(540*PX, 0, 210*PX, 100*PX, UIColor.white, myColor().blue007aff(), "立即购买", 28, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
-        footer_BuyNow.frame = CGRect(x:540*PX,y:0, width:210*PX, height:100*PX)
-        footer_BuyNow.addTarget(self, action: #selector(self.buyNow), for: .touchUpInside)
+        footer_BuyNow.setLabelView(540*PX, 0, 210*PX, 100*PX, NSTextAlignment.center, myColor().blue007aff(), UIColor.white, 28, "立即购买")
+        footer_BuyNow.restorationIdentifier = "buy"
+        footer_BuyNow.addOnClickLister(target: self, action: #selector(self.openProSpace))
         footView.addSubview(footer_BuyNow)
         
         // 设置加入购物车
-        footer_AddCar.setupButton(330*PX, 0, 210*PX, 100*PX, UIColor.white, myColor().blue00b9ff(), "加入购物车", 28, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
+        footer_AddCar.setLabelView(330*PX, 0, 210*PX, 100*PX, NSTextAlignment.center, myColor().blue00b9ff(), UIColor.white, 28, "加入购物车")
         footer_AddCar.frame = CGRect(x:330*PX,y:0, width:210*PX, height:100*PX)
-        footer_AddCar.addTarget(self, action: #selector(self.addToCar), for: .touchUpInside)
+        footer_AddCar.addOnClickLister(target: self, action: #selector(self.openProSpace))
+        footer_AddCar.restorationIdentifier = "car"
         footView.addSubview(footer_AddCar)
         
         self.view.addSubview(footView)
@@ -943,13 +1118,16 @@ extension QZHProductDetailViewController{
         if let doubleValue = Double(webView.stringByEvaluatingJavaScript(from: "document.body.offsetHeight")!)
         {
             webView.height = CGFloat(doubleValue)*PX
+        }else{
+            webView.height = 400*PX
+        
         }
         // 推荐标题
         self.setupTitleUI(selView: pullTitle, y: proDetail.y+proDetail.height, title: "推荐", icon: "proDeatailPullIcon")
+        tabbelView?.tableHeaderView = headerView
     }
     
     func webViewDidStartLoad(webView: UIWebView){
-        print("开始加载\n");
         webView.allowsInlineMediaPlayback = true
         webView.mediaPlaybackRequiresUserAction = true
     }
@@ -964,83 +1142,103 @@ extension QZHProductDetailViewController{
 // MARK: - 设置 tableView 数据源方法
 extension QZHProductDetailViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if productDetailStatus.proRecommendStatus.count > 0{
-            var count = productDetailStatus.proRecommendStatus.count/2+2
-            if productDetailStatus.proRecommendStatus.count % 2 > 0{
-                count = count+1
-            }
-            self.cellCount = count
-            return count
-            
-        }else{
-            return self.cellCount
+        var count = productDetailStatus.proRecommendStatus.count/2
+        if productDetailStatus.proRecommendStatus.count % 2 > 0{
+            count = count+1
         }
-        
+        return count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0{
-            return pullTitle.y+80*PX
-        }else if indexPath.row != self.cellCount-1 {
-            return 471*PX
-        }else{
-            return 80*PX
-        }
-
+            return 501*PX
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 80*PX
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let foot:QZHUIView = QZHUIView()
+        foot.setupViews(x: 0, y: 0, width: SCREEN_WIDTH, height: 80*PX, bgColor: UIColor.clear)
+        let Line1:QZHUILabelView = QZHUILabelView()
+        Line1.dividers(236*PX, y: 40*PX, width: 80*PX, height: 1*PX, color: myColor().gray9())
+        foot.addSubview(Line1)
+        
+        let Line2:QZHUILabelView = QZHUILabelView()
+        Line2.dividers(435*PX, y: 40*PX, width: 80*PX, height: 1*PX, color: myColor().gray9())
+        foot.addSubview(Line2)
+        
+        let titleView:QZHUILabelView = QZHUILabelView()
+        titleView.setLabelView(310*PX, 25*PX, 130*PX, 30*PX, NSTextAlignment.center, UIColor.clear, myColor().gray9(), 22, "已经到底了")
+        foot.addSubview(titleView)
+
+        return foot
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! QZHProductDetailCell
         cell.backgroundColor = UIColor.clear
-        if indexPath.row != 0{
-            if indexPath.row != self.cellCount-1 {
                 cell.backgroundColor = UIColor.white
                 let _index = indexPath.row*2
-                cell.proName1.text = self.productDetailStatus.proRecommendStatus[_index-2].status.goodsName
-                cell.price1.text = "\(self.productDetailStatus.proRecommendStatus[_index-2].status.fixedPrice)"
-                cell.unit1.text = "\(self.productDetailStatus.proRecommendStatus[_index-2].status.unit)"
-                cell.sale1.text = "已售\(self.productDetailStatus.proRecommendStatus[_index-2].status.salesVolume)"
-                if self.productDetailStatus.proRecommendStatus[_index-2].status.unit != ""{
-                    cell.unit1.text = "/\(self.productDetailStatus.proRecommendStatus[_index-2].status.unit)"
+                cell.proName1.text = self.productDetailStatus.proRecommendStatus[_index].status.goodsName
+                cell.price1.text = "\(self.productDetailStatus.proRecommendStatus[_index].status.fixedPrice)"
+                cell.price1.width = cell.price1.autoLabelWidth(cell.price1.text!, font: 32, height: 40*PX)
+                cell.unit1.text = "\(self.productDetailStatus.proRecommendStatus[_index].status.unit)"
+                cell.sale1.text = "已售\(self.productDetailStatus.proRecommendStatus[_index].status.salesVolume)"
+                if self.productDetailStatus.proRecommendStatus[_index].status.unit != ""{
+                    cell.unit1.text = "/\(self.productDetailStatus.proRecommendStatus[_index].status.unit)"
+                    cell.unit1.x = cell.price1.x + cell.price1.width + 3*PX
                 }
-                let _pic1:[String:AnyObject] = self.productDetailStatus.proRecommendStatus[_index-2].status.pic
+                let _pic1:[String:AnyObject] = self.productDetailStatus.proRecommendStatus[_index].status.pic
                 if _pic1 != nil || !_pic1.isEmpty{
                     let _pics1 = (_pic1["picturePath"] as!String).components(separatedBy: ",")
                     if _pics1.count != 0{
-                        cell.img1.image = UIImage(data:PublicFunction().imgFromURL(_pics1[0] as! String))
+                        if let url = URL(string: _pics1[0] as! String) {
+                            cell.img1.downloadedFrom(url: url)
+                        }else{
+                            cell.img1.image = UIImage(named:"noPic")
+                        }
                     }else{
                     cell.img1.image = UIImage(named:"noPic")
                     }
                 }else{
                     cell.img1.image = UIImage(named:"noPic")
                 }
-                cell.pro1.tag = Int(self.productDetailStatus.proRecommendStatus[_index-2].status.id)
+                cell.pro1.tag = Int(self.productDetailStatus.proRecommendStatus[_index].status.id)
                 cell.pro1.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
                 
-                if self.productDetailStatus.proRecommendStatus.count > _index-1{
-                    cell.proName2.text = self.productDetailStatus.proRecommendStatus[_index-1].status.goodsName
-                    cell.price2.text = "\(self.productDetailStatus.proRecommendStatus[_index-1].status.fixedPrice)"
-                    cell.sale2.text = "已售\(self.productDetailStatus.proRecommendStatus[_index-1].status.salesVolume)"
-                    if self.productDetailStatus.proRecommendStatus[_index-1].status.unit != ""{
-                        cell.unit2.text = "/\(self.productDetailStatus.proRecommendStatus[_index-1].status.unit)"
+                if self.productDetailStatus.proRecommendStatus.count > _index+1{
+                    cell.proName2.text = self.productDetailStatus.proRecommendStatus[_index+1].status.goodsName
+                    cell.price2.text = "\(self.productDetailStatus.proRecommendStatus[_index+1].status.fixedPrice)"
+                    cell.price2.width = cell.price2.autoLabelWidth(cell.price2.text!, font: 28, height: 40*PX)
+                    cell.sale2.text = "已售\(self.productDetailStatus.proRecommendStatus[_index+1].status.salesVolume)"
+                    if self.productDetailStatus.proRecommendStatus[_index+1].status.unit != ""{
+                        cell.unit2.text = "/\(self.productDetailStatus.proRecommendStatus[_index+1].status.unit)"
+                        cell.unit2.x = cell.price2.x + cell.price2.width + 3*PX
+                        
                     }
-                    let _pic2:[String:AnyObject] = self.productDetailStatus.proRecommendStatus[_index-1].status.pic
+                    let _pic2:[String:AnyObject] = self.productDetailStatus.proRecommendStatus[_index+1].status.pic
                     if _pic2 != nil || !_pic2.isEmpty{
                         let _pics2 = (_pic2["picturePath"] as!String).components(separatedBy: ",")
                         if _pics2.count != 0{
-                            cell.img2.image = UIImage(data:PublicFunction().imgFromURL(_pics2[0] as! String))
+                            if let url = URL(string: _pics2[0] as! String) {
+                                cell.img2.downloadedFrom(url: url)
+                            }else{
+                                cell.img2.image = UIImage(named:"noPic")
+                            }
                         }else{
                             cell.img2.image = UIImage(named:"noPic")
                         }
                     }else{
                         cell.img2.image = UIImage(named:"noPic")
                     }
-                    cell.pro2.tag = Int(self.productDetailStatus.proRecommendStatus[_index-1].status.id)
+                    cell.pro2.tag = Int(self.productDetailStatus.proRecommendStatus[_index+1].status.id)
                     cell.pro2.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
                 }
-            }else{
-                self.setupTitleUI(selView: noProView, y: cell.y, title: "已经到底", icon: "")
-            }
-        }
         return cell
     }
     
@@ -1049,7 +1247,7 @@ extension QZHProductDetailViewController{
     /// - Parameter scrollView:
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.tag == 1{
-            print(scrollView.contentOffset.x)
+
         }
         
         if scrollView.contentOffset.y >= SCREEN_WIDTH-127*PX{
@@ -1075,6 +1273,7 @@ extension QZHProductDetailViewController{
             self.setupTabViewUI(tabView.viewWithTag(1) as! QZHUILabelView)
         }
         
+        scrollView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: -80*PX, right: 0)
     }
     
     
@@ -1106,12 +1305,14 @@ extension QZHProductDetailViewController{
     func showFriends(){
         let vc = QZHDemoViewController()
         
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     // 搜索
-    func gotoSeach(){
-    
+    func gotoCar(){
+        let nav = QZH_CYSQMainViewController()
+        nav.selectedIndex = 3
+        present(nav, animated: true, completion: nil)
     }
     
     // 返回
@@ -1122,13 +1323,13 @@ extension QZHProductDetailViewController{
     // 进入店铺
     func gotToShop(){
         let vc = QZHStoreIndexViewController()
-        
          present(vc, animated: true, completion: nil)
     }
     
     // 店铺分类
     func shopSort(){
-        
+        let vc = QZHStoreSortViewController()
+        present(vc, animated: true, completion: nil)
     }
     
     // 客服
@@ -1136,42 +1337,115 @@ extension QZHProductDetailViewController{
     
     }
     
-    // 收藏
-    func collection(){
-    
+    // 操作结果图层消失
+    func resultViewXS(){
+        resultView.isHidden = true
+        resultView.subviews.map{ $0.removeFromSuperview()}
     }
     
-    /*
-     {
-     "productId":2,
-     "specOptionId":"1;2",
-     "specOptionName":"200g;蓝色",
-     "proCount":1,
-     "goodsId":1,
-     "sellMemberId":50
-     }
-     */
+    // 收藏
+    func collection(){
+        QZHCollectListPorModel.goodsId = QZHProductDetailModel.goodsId
+        self.collectStatus.addCollect { (isSuccess, msg) in
+            self.resultView.opertionSuccess(msg, isSuccess)
+            self.footer_Collection.isHidden = true
+            self.footer_Collection1.isHidden = false
+            self.view.addSubview(self.resultView)
+            self.resultView.isHidden = false
+            self.timer = Timer.scheduledTimer(timeInterval: 3, target:self,selector:#selector(self.resultViewXS),userInfo:nil,repeats:true)
+            
+        }
+    }
+    func collection1(){
+        QZHCollectListPorModel.goodsId = QZHProductDetailModel.goodsId
+        self.collectStatus.delsCollect { (isSuccess, msg) in
+            self.resultView.opertionSuccess(msg, isSuccess)
+            self.view.addSubview(self.resultView)
+            self.footer_Collection.isHidden = false
+            self.footer_Collection1.isHidden = true
+            self.resultView.isHidden = false
+            self.timer = Timer.scheduledTimer(timeInterval: 3, target:self,selector:#selector(self.resultViewXS),userInfo:nil,repeats:true)
+        }
+    }
     
     // 加入购物车
     func addToCar(){
-        print("加入购物车")
-        if proIds.components(separatedBy: ",").count == 1 && proIds != ""{
-            QZHProductDetailModel.productId = Int64.init(proIds)!
-            QZHProductDetailModel.specOptionId = specOptionIds
-            QZHProductDetailModel.specOptionName = ggGG.text!
-            QZHProductDetailModel.proCount = Double.init(self.buyNum.text!)!
-            QZHProductDetailModel.sellMemberId = Int(QZHProductDetailModel.memberId)
-            self.productDetailStatus.addToCar { (isSuccess, result) in
-                UIAlertController.showAlert(message: result, in: self)
-            }
+        if Double.init(self.buyNum.text!)! > self.NowKC{
+            UIAlertController.showAlert(message: "你所选的规格库存不足，不能加入购物车！！！", in: self)
         }else{
-            UIAlertController.showAlert(message: "您还为选择规格，请先选择规格", in: self)
+            if proIdArray.components(separatedBy: ",").count == 1 && proIdArray != "" && specIdStr.components(separatedBy: ",").count == self.specCount {
+                QZHProductDetailModel.productId = Int64.init(proIdArray)!
+                QZHProductDetailModel.specOptionId = specIdStr
+                QZHProductDetailModel.specOptionName = specNameStr
+                QZHProductDetailModel.proCount = Double.init(self.buyNum.text!)!
+                QZHProductDetailModel.sellMemberId = Int(QZHProductDetailModel.memberId)
+                self.productDetailStatus.addToCar { (isSuccess, result) in
+                    self.tabbelView?.reloadData()
+                    self.bghidden()
+                    //UIAlertController.showAlert(message: result, in: self)
+                    self.resultView.opertionSuccess(result, isSuccess)
+                    self.view.addSubview(self.resultView)
+                    self.resultView.isHidden = false
+                    self.timer = Timer.scheduledTimer(timeInterval: 3, target:self,selector:#selector(self.resultViewXS),userInfo:nil,repeats:true)
+                    
+                }
+            }else if specIdStr.components(separatedBy: ",").count != self.specCount {
+                //UIAlertController.showAlert(message: "请选择完整的规格", in: self)
+                self.resultView.opertionSuccess("请选择完整的规格", false)
+                self.view.addSubview(self.resultView)
+                self.resultView.isHidden = false
+                self.timer = Timer.scheduledTimer(timeInterval: 3, target:self,selector:#selector(self.resultViewXS),userInfo:nil,repeats:true)
+            } else if proIdArray == ""{
+                //UIAlertController.showAlert(message: "您还未选择规格，请先选择规格", in: self)
+                self.resultView.opertionSuccess("您还未选择规格，请先选择规格", false)
+                self.view.addSubview(self.resultView)
+                self.resultView.isHidden = false
+                self.timer = Timer.scheduledTimer(timeInterval: 3, target:self,selector:#selector(self.resultViewXS),userInfo:nil,repeats:true)
+            }else if proIdArray.components(separatedBy: ",").count > 1 {
+                
+                //UIAlertController.showAlert(message: "您所选的规格暂无产品，请重新先选择规格", in: self)
+                self.resultView.opertionSuccess("您所选的规格暂无产品，请重新先选择规格", false)
+                self.view.addSubview(self.resultView)
+                self.resultView.isHidden = false
+                self.timer = Timer.scheduledTimer(timeInterval: 3, target:self,selector:#selector(self.resultViewXS),userInfo:nil,repeats:true)
+            }
         }
     }
     
     // 立即购买
     func buyNow(){
-    
+        if Double.init(self.buyNum.text!)! > self.NowKC{
+            UIAlertController.showAlert(message: "你所选的规格库存不足，不能购买！！！", in: self)
+        }else{
+            if proIdArray.components(separatedBy: ",").count == 1 && proIdArray != "" && specIdStr.components(separatedBy: ",").count == self.specCount {
+                QZH_CYSQCarSettlementModel.ShoppingFlag = 1
+                
+                QZH_CYSQCarSettlementModel.productId = Int.init(proIdArray)!
+                QZH_CYSQCarSettlementModel.specOptionName = specNameStr
+                QZH_CYSQCarSettlementModel.proCount = Double.init(self.buyNum.text!)!
+                QZH_CYSQCarSettlementModel.type = 1
+                QZH_CYSQCarSettlementModel.ids = ""
+                self.bghidden()
+                let nav = QZH_CYSQCarSettlementViewController()
+                present(nav, animated: true, completion: nil)
+            }else if specIdStr.components(separatedBy: ",").count != self.specCount {
+                self.resultView.opertionSuccess("请选择完整的规格", false)
+                self.view.addSubview(self.resultView)
+                self.resultView.isHidden = false
+                self.timer = Timer.scheduledTimer(timeInterval: 3, target:self,selector:#selector(self.resultViewXS),userInfo:nil,repeats:true)
+            } else if proIdArray == ""{
+                self.resultView.opertionSuccess("您还未选择规格，请先选择规格", false)
+                self.view.addSubview(self.resultView)
+                self.resultView.isHidden = false
+                self.timer = Timer.scheduledTimer(timeInterval: 3, target:self,selector:#selector(self.resultViewXS),userInfo:nil,repeats:true)
+            }else if proIdArray.components(separatedBy: ",").count > 1 {
+                
+                self.resultView.opertionSuccess("您所选的规格暂无产品，请重新先选择规格", false)
+                self.view.addSubview(self.resultView)
+                self.resultView.isHidden = false
+                self.timer = Timer.scheduledTimer(timeInterval: 3, target:self,selector:#selector(self.resultViewXS),userInfo:nil,repeats:true)
+            }
+        }
     }
     
     // 分享
@@ -1186,14 +1460,34 @@ extension QZHProductDetailViewController{
     }
     
     // 产品规格
-    func openProSpace(){
+    func openProSpace(_ sender:UITapGestureRecognizer){
+        let this = sender.view
+        if this?.restorationIdentifier == "buy"{
+            btn1.isHidden = true
+            btn2.isHidden = true
+            btn3.isHidden = false
+        }else if this?.restorationIdentifier == "car"{
+            
+            btn1.isHidden = true
+            btn2.isHidden = false
+            btn3.isHidden = true
+            
+        }else{
+            btn1.isHidden = false
+            btn2.isHidden = true
+            btn3.isHidden = true
+        
+        }
         blackBG.isHidden = false
         ggView.isHidden = false
     }
     
     // 查看所有评价
     func checkEvaluation(){
-        
+        QZHCommentModel.goodsId = QZHProductDetailModel.goodsId
+        QZHCommentModel.status = ""
+        let nav = QZHProEvaluationViewController()
+        self.present(nav, animated: true, completion: nil)
     }
     
     // 产品详情
@@ -1215,225 +1509,150 @@ extension QZHProductDetailViewController{
     
     // 增加
     func NumAdd(){
-        var num:Int = Int.init(buyNum.text!)!
+        var num:Double = Double.init(buyNum.text!)!
+        
         if num != KCNum {
             num = num + 1
             buyNum.text = "\(num)"
-            let price = priceLabel.text!
-            ggPrice.text = "¥\((Double.init(price)!*Double.init(num)).roundTo(places: 2))"
         }
     }
     
     // 减少
     func NumRec(){
-        var num:Int = Int.init(buyNum.text!)!
+        var num:Double = Double.init(buyNum.text!)!
         if num > 1{
             num = num - 1
             buyNum.text = "\(num)"
-            let price = priceLabel.text!
-            ggPrice.text = "¥\((Double.init(price)!*Double.init(num)).roundTo(places: 2))"
         }
     }
     
-    // 选择规格
-    func checkComment(_ sender:UITapGestureRecognizer){
+    func checkComment1(_ sender:UITapGestureRecognizer){
         let _this:QZHUILabelView = sender.view as! QZHUILabelView
-        proIds = ""
-        if _this.tag == 1{
-            if productIdCount == 0{
-                setComment(_this)
-                _this.tag = 2
-                _this.textColor = myColor().blue1a87ff()
-                _this.layer.borderColor = myColor().blue007aff().cgColor
-                productIds = _this.restorationIdentifier!
-                ggGG.text = _this.text!
-                specOptionIds = (_this.viewWithTag(3)as! QZHUILabelView).text!
-                proIds = productIds
-                productIdCount = productIdCount + 1
-            }else{
-                setComment(_this)
-                let result = getproIDs(ids: _this.restorationIdentifier!)
-                if result != ""{
-                    ggGG.text = "\(ggGG.text!);\(_this.text!)"
-                    productIds = "\(productIds);\(_this.restorationIdentifier!)"
-                    specOptionIds = "\(specOptionIds);\((_this.viewWithTag(3)as! QZHUILabelView).text!)"
-                    _this.tag = 2
-                    _this.textColor = myColor().blue1a87ff()
-                    _this.layer.borderColor = myColor().blue007aff().cgColor
-                    proIds = result
-                    productIdCount = (ggGG.text?.components(separatedBy: ",").count)!
+        
+        setlistBtn_Blue(_this)
+        if proIdArray.components(separatedBy: ",").count != 1 || proIdArray == ""{
+        }else{
+            let proID:String! = String.init(proIdArray)
+            QZHProductDetailModel.productId = Int64.init(proID!)!
+            self.getProductPrice(proID: Int64.init(QZHProductDetailModel.productId))
+        }
+    }
+    func setlistBtn_Blue(_ _this:QZHUILabelView){
+        let parent = _this.superview
+        setupSelSpec(_this)
+        setDefaultBtn((parent?.tag)!)
+        let selBtnView:[UIView] = ggContent.subviews
+        specIdStr = ""
+        proIdArray = ""
+        specNameStr = ""
+        for views in selBtnView{
+            let children:[QZHUILabelView] = views.subviews as! [QZHUILabelView]
+            for child in children{
+                if child.tag == 2{
+                    if specNameStr != ""{
+                        specNameStr = "\(specNameStr),"
+                        specIdStr = "\(specIdStr),"
+                    }
+                    if proIdArray == ""{
+                        proIdArray = "\(child.restorationIdentifier?.components(separatedBy: "&&&")[0] as! String)"
+                    }
+                    specNameStr = "\(specNameStr)\(child.text as! String)"
+                    specIdStr = "\(specIdStr)\(child.restorationIdentifier?.components(separatedBy: "&&&")[1] as! String)"
+                    var idstr:String! = ""
+                    let thisProId:String = "\(child.restorationIdentifier?.components(separatedBy: "&&&")[0] as! String)"
+                    for i in 0..<proIdArray.components(separatedBy: ",").count{
+                        for j in 0..<thisProId.components(separatedBy: ",").count{
+                            if proIdArray.components(separatedBy: ",")[i] == thisProId.components(separatedBy: ",")[j]{
+                                if idstr != ""{
+                                    idstr = idstr + ","
+                                }
+                                idstr = idstr + thisProId.components(separatedBy: ",")[j]
+                            }
+                        }
+                    }
+                    proIdArray = idstr as! String
                 }
             }
             
-        }else{
-            proIds = ""
-            _this.textColor = myColor().gray3()
-            _this.layer.borderColor = myColor().gray9().cgColor
-            _this.tag = 1
-            productIdCount = productIdCount - 1
+            if views.tag == parent?.tag{
+                break
+            }
+        }
+        self.ggGG.text = "已选：\(specNameStr)"
+        
+        setBtnGray(proIdArray,(parent?.tag)!)
+    }
+    
+    // 设置已规格样式
+    func setupSelSpec(_ sender: QZHUILabelView){
+        let parent:QZHUIView = sender.superview as! QZHUIView
+        let children:[QZHUILabelView] = parent.subviews as![QZHUILabelView]
+        for child in children{
+            if child.tag != 3{
+                if child.tag == 2{
+                    child.textColor = myColor().gray3()
+                    child.layer.borderColor = myColor().gray9().cgColor
+                    child.tag = 1
+                }
+            }
+        }
+        sender.textColor = myColor().blue1a87ff()
+        sender.layer.borderColor = myColor().blue007aff().cgColor
+        sender.tag = 2
+    }
+    // 设置按钮常规
+    func setDefaultBtn(_ thisTag:Int){
+        let viewArray:[UIView] = ggContent.subviews as! [UIView]
+        for i in 0..<viewArray.count{
             
-            if productIdCount == 0{
-                productIds = ""
-                ggGG.text = "请选择 规格"
-            }else{
-                let textArray:[String?] = (ggGG.text?.components(separatedBy: ","))!
-                ggGG.text = ""
-                var count = 0
-                for i in 0..<textArray.count{
-                    let str:String! = textArray[i]
-                    if textArray[i] != _this.text{
-                        if ggGG.text == ""{
-                            ggGG.text = str
-                        }else{
-                            ggGG.text = "\(ggGG.text!),\(str!)"
-                        }
-                    }else{
-                        if count > 0{
-                            if ggGG.text == ""{
-                                ggGG.text = str
-                            }else{
-                                ggGG.text = "\(ggGG.text!),\(str!)"
-                            }
-                        }
-                        count = count+1
+        }
+        for Views in viewArray{
+            if Views.tag > thisTag{
+                let children:[QZHUILabelView] = Views.subviews as! [QZHUILabelView]
+                for child in children{
+                    if child.tag != 3{
+                        child.textColor = myColor().gray3()
+                        child.layer.borderColor = myColor().gray9().cgColor
+                        child.backgroundColor = UIColor.white
+                        child.tag = 1
+                        child.addOnClickLister(target: self, action: #selector(self.checkComment1(_:)))
                     }
                 }
-                
-                let idArray:[String?] = productIds.components(separatedBy: ";")
-                productIds = ""
-                var count1 = 0
-                for i in 0..<idArray.count{
-                    if idArray[i] != _this.restorationIdentifier{
-                        let str:String! = idArray[i]
-                        if idArray[i] != _this.restorationIdentifier{
-                            if productIds == ""{
-                                productIds = str
-                            }else{
-                                productIds = "\(productIds);\(str!)"
-                            }
-                        }else{
-                            if count1 > 0{
-                                if productIds == ""{
-                                    productIds = str
-                                }else{
-                                    productIds = "\(productIds);\(str!)"
+            }
+        }
+
+    }
+    
+    // 设置规格摁钮变为灰色
+    func setBtnGray(_ proID:String,_ thisTag:Int){
+        let viewArray:[UIView] = ggContent.subviews as! [UIView]
+        for i in 0..<viewArray.count{
+            
+        }
+        for Views in viewArray{
+            if Views.tag != thisTag && Views.restorationIdentifier == "commentView"{
+                let children:[QZHUILabelView] = Views.subviews as! [QZHUILabelView]
+                for child in children{
+                    if child.tag != 3{
+                        let thisId = "\(child.restorationIdentifier?.components(separatedBy: "&&&")[0] as! String)"
+                        var count = 0
+                        for i in 0..<proID.components(separatedBy: ",").count{
+                            for j in 0..<thisId.components(separatedBy: ",").count{
+                                if proID.components(separatedBy: ",")[i] == thisId.components(separatedBy: ",")[j]{
+                                    count = 1
                                 }
                             }
-                            count1 = count1+1
-                            
+                        }
+                        if count == 0 && Views.tag > thisTag{
+                            child.textColor = myColor().grayEB()
+                            child.backgroundColor = myColor().grayF0()
+                            child.layer.borderColor = myColor().grayE().cgColor
+                            child.addOnClickLister(target: self, action: #selector(self.checkComment))
                         }
                     }
-                }
-            }
-        }
-        
-        self.buyNum.text = "1"
-        print("productIdCount:\(productIdCount)")
-        
-        if proIds.components(separatedBy: ",").count == 1 && proIds != ""{
-            self.getProductPrice(proID: Int64.init(proIds)!)
-        }else{
-            priceLabel.text = olderPrice
-            ggKC.text = olderKC
-            ggPrice.text = "¥\(olderPrice)"
-            ggIcon.image = olderImg
-        }
-        
-    }
-    
-    // 规格筛选设置
-    func setComment(_ sender:QZHUILabelView){
-        let parentView:UIView = sender.superview!
-        let viewArray:[QZHUILabelView] = parentView.subviews as! [QZHUILabelView]
-        for child in viewArray{
-            child.tag = 1
-            child.textColor = myColor().gray3()
-            child.layer.borderColor = myColor().gray9().cgColor
-            let textArray:[String?] = (ggGG.text?.components(separatedBy: ","))!
-            ggGG.text = ""
-            var count = 0
-            for i in 0..<textArray.count{
-                let str:String! = textArray[i]
-                if textArray[i] != child.text{
-                    if ggGG.text == ""{
-                        ggGG.text = str
-                    }else{
-                        ggGG.text = "\(ggGG.text!),\(str!)"
-                    }
-                }else{
-                    if count > 0{
-                        if ggGG.text == ""{
-                            ggGG.text = str
-                        }else{
-                            ggGG.text = "\(ggGG.text!),\(str!)"
-                        }
-                    }
-                    count = count+1
-                }
-            }
-            let idArray:[String?] = productIds.components(separatedBy: ";")
-            productIds = ""
-            var count1 = 0
-            for i in 0..<idArray.count{
-                let str:String! = idArray[i]
-                if idArray[i] != child.restorationIdentifier{
-                    if productIds == ""{
-                        productIds = str
-                    }else{
-                        productIds = "\(productIds);\(str!)"
-                    }
-                }else{
-                    if count1 > 0{
-                        if productIds == ""{
-                            productIds = str
-                        }else{
-                            productIds = "\(productIds);\(str!)"
-                        }
-                    }
-                    count1 = count1+1
-                
                 }
             }
         }
     }
-    
-    // 获取相同的产品ID
-    func getproIDs(ids:String)->String{
-        let idsStr:String = "\(ids),"
-        var result:String! = ""
-        let idArray:[String?] = productIds.components(separatedBy: ";")
-        if proIds != ""{
-            let children1:[String?] = proIds.components(separatedBy: ",")
-            let children2:[String?] = ids.components(separatedBy: ",")
-            for i in 0..<children1.count{
-                for j in 0..<children2.count{
-                    if children2[j] == children1[i]{
-                        if result == ""{
-                            result = children2[j]!
-                        }else{
-                            result = "\(result),\(children2[j]!)"
-                        }
-                    }
-
-                }
-            }
-        }else{
-            for i in 0..<idArray.count{
-                let children1:[String?] = idArray[i]!.components(separatedBy: ",")
-                let children2:[String?] = ids.components(separatedBy: ",")
-                for j in 0..<children1.count{
-                    for n in 0..<children2.count{
-                        if children2[n] == children1[j]{
-                            if result == ""{
-                                result = children2[n]!
-                            }else{
-                                result = "\(result),\(children2[n]!)"
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return result
-    }
+    func checkComment(){}
 }

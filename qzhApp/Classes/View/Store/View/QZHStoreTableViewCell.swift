@@ -60,20 +60,19 @@ class QZHStoreTableViewCell: UITableViewCell {
         // 产品名称
         name1.setLabelView(20*PX, 364*PX, 328*PX, 70*PX, NSTextAlignment.left, UIColor.white, myColor().gray3(), 24, "")
         name1.numberOfLines = 2
-        name1.lineBreakMode = .byWordWrapping
+        name1.lineBreakMode = .byTruncatingTail
         name2.setLabelView(20*PX, 364*PX, 328*PX, 70*PX, NSTextAlignment.left, UIColor.white, myColor().gray3(), 24, "")
         name2.numberOfLines = 2
-        name2.lineBreakMode = .byWordWrapping
+        name2.lineBreakMode = .byTruncatingTail
         
         // 价格
         priceIcon1.setLabelView(20*PX, 440*PX, 20*PX, 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 20, "¥")
         priceIcon2.setLabelView(20*PX, 440*PX, 20*PX, 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 20, "¥")
         
-        price1.setLabelView(40*PX, 440*PX, price1.autoLabelWidth(price1.text!, font: 28, height: 40*PX), 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 28, "")
-        price1.setRealWages(price1.text!, big: 28, small: 20, fg: ".")
-        price1.width = price1.autoLabelWidth(price1.text!, font: 28, height: 40*PX)
+        price1.setLabelView(40*PX, 440*PX, price1.autoLabelWidth(price1.text!, font: 28, height: 40*PX), 40*PX, NSTextAlignment.center, UIColor.white, myColor().redFf4300(), 28, "")
         
-        price2.setLabelView(40*PX, 440*PX, price2.autoLabelWidth(price2.text!, font: 28, height: 40*PX), 40*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 28, "")
+        
+        price2.setLabelView(40*PX, 440*PX, price2.autoLabelWidth(price2.text!, font: 28, height: 40*PX), 40*PX, NSTextAlignment.center, UIColor.white, myColor().redFf4300(), 28, "")
         price2.setRealWages(price2.text!, big: 28, small: 20, fg: ".")
         price2.width = price2.autoLabelWidth(price2.text!, font: 28, height: 40*PX)
         

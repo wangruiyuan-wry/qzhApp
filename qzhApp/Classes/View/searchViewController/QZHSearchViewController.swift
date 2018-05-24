@@ -1,174 +1,168 @@
 //
 //  QZHSearchViewController.swift
-//  qzhApp
+//  千纸鹤SCEO
 //
-//  Created by sbxmac on 2018/1/23.
+//  Created by sbxmac on 2018/4/17.
 //  Copyright © 2018年 SpecialTech. All rights reserved.
 //
 
 import UIKit
-import PagingMenuController
 
-/// 定义全局常量,尽量使用 private 修饰，否则哪儿都可以访问
+/// 定义全局常量,尽量使用 private 修饰，否则哪儿都可以访问  QZH_CYSQBaseViewController
 private let cellId = "cellId"
 
-// 分配选项卡菜单配置
-private struct PagingMenuOptionsSearch:PagingMenuControllerCustomizable{
-    var menuHeight:CGFloat = 82*PX
-    
-    // 设置默认显示第一页
-    var defaultPage: Int = 0
-    
-    //
-    var menuControllerSet: MenuControllerSet = .multiple
-    
-    
-    // 社区商城控制器
-    private let SQSC = QZHSearchSQSC()
-    
-    // 产业商圈控制器
-    private let CYSQ = QZHSearchCYSQ()
-    
-    //企业门户控制器
-    private let QYMH = QZHSearchQYMH()
-    
-    //积分优购控制器
-    private let JFYG = QZHSearchJFYG()
-    
-    //组件类型
-    var componentType: ComponentType{
-        return .all(menuOptions: MenuOptions(), pagingControllers:pagingControllers)
-    }
-    
-    //所有子控制器
-    fileprivate var pagingControllers:[UIViewController]{
-        return [SQSC,CYSQ,QYMH,JFYG]
-    }
-    
-    
-    //菜单配置项
-    fileprivate struct MenuOptions:MenuViewCustomizable{
-        
-        var backgroundColor: UIColor = UIColor.white
-        
-        // 高度
-        var height: CGFloat = 82*PX
-        
-        // 页面切换动画播放时间为0.5秒
-        var animationDuration: TimeInterval = 0.5
-        
-        // 不允许手指左右滑动
-        var isScrollEnabled: Bool = false
-        
-        // 菜单切换动画减速
-        var deceleratingRate: CGFloat = UIScrollViewDecelerationRateFast
-        
-        // 菜单选中样式
-        var focusMode: MenuFocusMode = .underline(height: 2*PX, color: myColor().blue007aff(), horizontalPadding: 0, verticalPadding: 0)
-        
-        // 菜单位置
-        var menuPosition: MenuPosition = .top
-        
-        // 菜单显示的模式
-        var displayMode:MenuDisplayMode{
-            return .segmentedControl
-        }
-        
-        
-        
-        // 菜单项
-        var itemsOptions: [MenuItemViewCustomizable]{
-            return [SQSCItem(),CYSQItem(),QYMHItem(),JFYGItem()]
-        }
-    }
-    
-    // 社区商城菜单
-    fileprivate struct SQSCItem:MenuItemViewCustomizable{
-        
-        // 自定义菜单项名称
-        var displayMode: MenuItemDisplayMode{
-            return .text(title:MenuItemText(text:"社区商城",color:myColor().Gray0D(),selectedColor:myColor().blue007aff(),font:UIFont.systemFont(ofSize: 28*PX),selectedFont:UIFont.systemFont(ofSize: 28*PX) ))
-        }
-    }
-    
-    // 产业商圈菜单
-    fileprivate struct CYSQItem:MenuItemViewCustomizable{
-        // 自定义菜单项名称
-        var displayMode: MenuItemDisplayMode{
-            return .text(title:MenuItemText(text:"产业商圈",color:myColor().Gray0D(),selectedColor:myColor().blue007aff(),font:UIFont.systemFont(ofSize: 28*PX),selectedFont:UIFont.systemFont(ofSize: 28*PX) ))
-        }
-    }
-    
-    // 企业门户菜单
-    fileprivate struct QYMHItem:MenuItemViewCustomizable{
-        // 自定义菜单项名称
-        var displayMode: MenuItemDisplayMode{
-            return .text(title:MenuItemText(text:"企业门户",color:myColor().Gray0D(),selectedColor:myColor().blue007aff(),font:UIFont.systemFont(ofSize: 28*PX),selectedFont:UIFont.systemFont(ofSize: 28*PX) ))
-        }
-    }
-    
-    // 积分优购菜单
-    fileprivate struct JFYGItem:MenuItemViewCustomizable{
-        // 自定义菜单项名称
-        var displayMode: MenuItemDisplayMode{
-            return .text(title:MenuItemText(text:"积分优购",color:myColor().Gray0D(),selectedColor:myColor().blue007aff(),font:UIFont.systemFont(ofSize: 28*PX),selectedFont:UIFont.systemFont(ofSize: 28*PX) ))
-        }
-    }
-}
-
-//菜单显示模式
-
-
 class QZHSearchViewController: QZHBaseViewController {
-    override func loadData() {
-        
+    
+    // 历史搜索列表
+    let history:QZHUIScrollView = QZHUIScrollView()
+    
+    // 搜索
+    let btn:SearchController = SearchController()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
     }
 }
 
-// MARK: - UI 界面设计
+// MARK: - 页面 UI设置
 extension QZHSearchViewController{
     override func setupUI() {
         super.setupUI()
+        
+        QZHSreenSelMode.brandId = ""
+        QZHSreenSelMode.brandName = ""
+        QZHSreenSelMode.specNameArray = []
+        QZHSreenSelMode.specIdArray = []
+        QZHSreenSelMode.max = ""
+        QZHSreenSelMode.min = ""
+        
+        QZHCYSQSearchProListParamModel.specOptionName = ""
+        QZHCYSQSearchProListParamModel.brand = ""
+        QZHCYSQSearchProListParamModel.price = ""
+        
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
         //设置导航栏按钮
         setupNavTitle()
         
         //注册原型 cell
-        tabbelView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
-        tabbelView?.isHidden = true
+        self.tabbelView?.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        self.tabbelView?.isHidden = true
         
-        setupTab()
+        
+        history.setupScrollerView(x: 0, y: 186*PX, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-186*PX, background: UIColor.white)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                history.setupScrollerView(x: 0, y: 234*PX, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-302*PX, background: UIColor.white)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
+        self.view.addSubview(history)
+        
+        setStatusBarBackgroundColor(color: .white)
+        
+        setupTitleLabel()
+        setupLabelItem()
+        
     }
-    
     // 设置头部导航栏
     func setupNavTitle(){
         navItem.leftBarButtonItem = UIBarButtonItem(title: "", img: "back_pageIcon", target: self, action: #selector(close))
-        navItem.rightBarButtonItem = UIBarButtonItem(title: "搜索", img: "", target: self, action: #selector(close))
         
-        let btn:SearchController = SearchController()
-        //btn.backgroundColor = UIColor.white
-        navItem.titleView = btn.SeacrchBtn4()
+        navItem.rightBarButtonItem = UIBarButtonItem(title: "搜索", img: "", target: self, action: #selector(self.search))
+        
+        navItem.titleView?.width = 550*PX
+        navItem.titleView?.y = 70*PX
+        
+        navItem.titleView = btn.SeacrchBtn5()
+        
     }
-    //添加头部选项卡
-    func setupTab(){
-        //分页菜单配置
-        let options = PagingMenuOptionsSearch()
+    
+    // title标签
+    func setupTitleLabel(){
+        let label:QZHUILabelView = QZHUILabelView()
+        label.setLabelView(20*PX, 158*PX, 150*PX, 37*PX, NSTextAlignment.left, UIColor.white,myColor().gray3(), 26, "历史搜索")
+        view.addSubview(label)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                label.setLabelView(20*PX, 206*PX, 150*PX, 37*PX, NSTextAlignment.left, UIColor.white,myColor().gray3(), 26, "历史搜索")
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
-        //分页菜单控制器初始化
-        let pagingMenuController = PagingMenuController(options:options)
-        
-        
-        //分页菜单控制器尺寸设置
-        pagingMenuController.view.frame.origin.y += 128*PX+1
-        pagingMenuController.view.frame.size.height -= 128*PX+1
-        
-        //建立父子关系
-        addChildViewController(pagingMenuController)
-        
-        //分页菜单控制器视图添加到当前视图
-        view.addSubview(pagingMenuController.view)
+        let icon:UIImageView = UIImageView(frame:CGRect(x:683*PX,y:155*PX,width:30*PX,height:30*PX))
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                icon.y = 203*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
+        icon.image = UIImage(named:"trashIcon")
+        icon.addOnClickLister(target: self, action: #selector(self.clanerHistory))
+        view.addSubview(icon)
     }
+    
+    // 标签
+    func setupLabelItem(){
+        let chilrenviews = self.history.subviews
+        
+        for chilren in chilrenviews {
+            
+            chilren.removeFromSuperview()
+            
+        }
+        
+        var _cache:[String:AnyObject] = CacheFunc().getCahceData(fileName: "searchHistoryTextQZH.plist", folderName: "Store") as! [String : AnyObject]
+        var _array:[String] = []
+        // 判断字典是否为空
+        if !_cache.isEmpty{
+            _array = _cache["history"] as! [String]
+        }
+        
+        var paddingLeft = 0*PX
+        var paddingTop = 20*PX
+        
+        for i in _array{
+            
+            let labelItem:QZHUILabelView = QZHUILabelView()
+            labelItem.layer.cornerRadius = 8*PX
+            labelItem.clipsToBounds = true
+            let widthLabel = labelItem.autoLabelWidth(i, font: 25, height: 60*PX)+62*PX
+            let padding:[String:AnyObject] = getPaddingleft(paddingLeft, widthLabel, y: paddingTop)
+            paddingLeft = padding["x"] as! CGFloat
+            paddingTop = padding["y"] as! CGFloat
+            labelItem.setLabelView(paddingLeft, paddingTop, widthLabel, 60*PX, NSTextAlignment.center, myColor().GrayF1F2F6(), myColor().gray4(), 24, i)
+            paddingLeft = paddingLeft + widthLabel
+            history.contentSize = CGSize(width:history.width,height:labelItem.y+labelItem.height)
+            labelItem.addOnClickLister(target: self, action: #selector(self.searchHistory(_:)))
+            history.addSubview(labelItem)
+        }
+    }
+    
+    // 获取下一个标签 paddingLeft
+    func getPaddingleft(_ x:CGFloat,_ width:CGFloat,y:CGFloat)->[String:AnyObject]{
+        var padding:[String:AnyObject] = [:]
+        
+        if (x+width+20*PX) > SCREEN_WIDTH{
+            padding = ["x":20*PX as AnyObject,"y":y+80*PX as AnyObject]
+        }else{
+            padding = ["x":x+20*PX as AnyObject,"y":y as AnyObject]
+        }
+        
+        return padding
+    }
+    
 }
-
 
 // MARK: - 监听方法
 extension QZHSearchViewController{
@@ -176,5 +170,70 @@ extension QZHSearchViewController{
     func close(){
         dismiss(animated: true, completion: nil)
     }
-
+    
+    // 清空历史记录
+    func clanerHistory(){
+        var _array:[String] = []
+        var _cache:Dictionary<String,AnyObject> = CacheFunc().getCahceData(fileName: "searchHistoryTextQZH.plist", folderName: "QZH")
+        _cache.updateValue(_array as AnyObject, forKey: "history")
+        CacheFunc().setCahceData(fileName: "searchHistoryTextQZH.plist", folderName: "QZH", cacheDatas: _cache as NSDictionary)
+        setupLabelItem()
+    }
+    
+    // 搜索
+    func search(){
+        var _cache:Dictionary<String,AnyObject> = CacheFunc().getCahceData(fileName: "searchHistoryTextQZH.plist", folderName: "QZH")
+        let textStr:String = (btn.viewWithTag(1)as! UITextField).text!
+        var _array:[String] = []
+        var _oldArray:[String] = []
+        // 判断字典是否为空
+        if !_cache.isEmpty{
+            _oldArray = _cache["history"] as! [String]
+        }
+        if textStr.trimmingCharacters(in: .whitespaces) != ""{
+            _array.append(textStr)
+            for i in 0..<_oldArray.count{
+                if textStr != _oldArray[i] {
+                    _array.append(_oldArray[i])
+                }
+            }
+        }
+        _cache.updateValue(_array as AnyObject, forKey: "history")
+        CacheFunc().setCahceData(fileName: "searchHistoryTextQZH.plist", folderName: "QZH", cacheDatas: _cache as NSDictionary)
+        QZHStoreSearchProModel.q = textStr.trimmingCharacters(in: .whitespaces)
+        QZHStoreProModel.q = textStr.trimmingCharacters(in: .whitespaces)
+        QZHCYSQSearchProListParamModel.q =  textStr.trimmingCharacters(in: .whitespaces)
+        
+        
+        QZHCYSQSearchProListParamModel.closeFlag = true
+        let nav = QZHSearchListViewController()
+        present(nav, animated: true, completion: nil)
+    }
+    func searchHistory(_ sender:UITapGestureRecognizer){
+        let this:QZHUILabelView = sender.view as! QZHUILabelView
+        
+        var _cache:Dictionary<String,AnyObject> = CacheFunc().getCahceData(fileName: "searchHistoryTextQZH.plist", folderName: "QZH")
+        let textStr:String = this.text!
+        var _array:[String] = []
+        var _oldArray:[String] = []
+        // 判断字典是否为空
+        if !_cache.isEmpty{
+            _oldArray = _cache["history"] as! [String]
+        }
+        if textStr.trimmingCharacters(in: .whitespaces) != ""{
+            _array.append(textStr)
+            for i in 0..<_oldArray.count{
+                if textStr != _oldArray[i] {
+                    _array.append(_oldArray[i])
+                }
+            }
+        }
+        _cache.updateValue(_array as AnyObject, forKey: "history")
+        CacheFunc().setCahceData(fileName: "searchHistoryTextQZH.plist", folderName: "QZH", cacheDatas: _cache as NSDictionary)
+        QZHStoreProModel.q = textStr.trimmingCharacters(in: .whitespaces)
+        QZHCYSQSearchProListParamModel.q =  textStr.trimmingCharacters(in: .whitespaces)
+        QZHCYSQSearchProListParamModel.closeFlag = true
+        let nav = QZHSearchListViewController()
+        present(nav, animated: true, completion: nil)
+    }
 }

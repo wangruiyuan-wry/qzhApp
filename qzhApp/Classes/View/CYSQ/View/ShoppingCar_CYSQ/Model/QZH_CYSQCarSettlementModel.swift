@@ -12,6 +12,10 @@ import Foundation
 class QZH_CYSQCarSettlementModel:NSObject{
     struct  param {
         static var ids:String = ""
+        
+        // 备注
+        static var remark:String = ""
+        
         // 收货人姓名
         static var person:String = ""
         // 收货人电话
@@ -20,9 +24,111 @@ class QZH_CYSQCarSettlementModel:NSObject{
         static var address:String = ""
         // 收收货地址id
         static var addressId:Int = 0
+        
+        // 订单 id
+        static var orderID:Int = 0
+        
+        // 订单支付号
+        static var payNumber:String = ""
+        
+        // 是否是立即购买
+        static var ShoppingFlag:Int = 0
+        
+        // 立即购买参数
+        // - 所选规格的产品ID
+        static var productId:Int = 0
+        
+        // - 数量
+        static var proCount:Double = 0.0
+        
+        // - 所选规格
+        static var specOptionName:String = ""
+        
+        // - 是否是立即购买
+        static var type:Int = 0
+        
+        // 账期
+        static var accountSettlementDays:Int = 0
     }
 }
 extension QZH_CYSQCarSettlementModel{
+    class var accountSettlementDays:Int{
+        set{
+            param.accountSettlementDays = newValue
+        }
+        get{
+            return param.accountSettlementDays
+        }
+    }
+    class var type:Int{
+        set{
+            param.type = newValue
+        }
+        get{
+            return param.type
+        }
+    }
+    class var ShoppingFlag:Int{
+        set{
+            param.ShoppingFlag = newValue
+        }
+        get{
+            return param.ShoppingFlag
+        }
+    }
+    class var productId:Int{
+        set{
+            param.productId = newValue
+        }
+        get{
+            return param.productId
+        }
+    }
+    
+    class var proCount:Double{
+        set{
+            param.proCount = newValue
+        }
+        get{
+            return param.proCount
+        }
+    }
+    
+    class var specOptionName:String{
+        set{
+            param.specOptionName = newValue
+        }
+        get{
+            return param.specOptionName
+        }
+    }
+    
+    class var orderID:Int{
+        set{
+            param.orderID = newValue
+        }
+        get{
+            return param.orderID
+        }
+    }
+    
+    class var payNumber:String{
+        set{
+            param.payNumber = newValue
+        }
+        get{
+            return param.payNumber
+        }
+    }
+
+    class var remark:String{
+        set{
+            param.remark = newValue
+        }
+        get{
+            return param.remark
+        }
+    }
     class var phone:String{
         set{
             param.phone = newValue

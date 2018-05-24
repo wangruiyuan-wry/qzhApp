@@ -25,6 +25,8 @@ class QZHMainViewController: UITabBarController {
         
         //注册通知
         NotificationCenter.default.addObserver(self, selector: #selector(userLogin), name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification), object: nil)
+        
+        self.tabBar.barTintColor = UIColor.white
     }
     
     
@@ -50,8 +52,6 @@ class QZHMainViewController: UITabBarController {
     
     //MARK: -监听方法
     @objc private  func userLogin(n:Notification){
-        
-        print("用户登录通知 \(n)")
         
         var when = DispatchTime.now()
         
@@ -139,9 +139,9 @@ extension QZHMainViewController{
     func setupChildControllers(){
         let array = [
             ["clsName":"QZHHomeViewController","title":"首页","imageName":"home"],
-            ["clsName":"QZHAddAdressViewController","title":"分类","imageName":"sort"],
+            ["clsName":"QZH_CYSQSortViewController","title":"分类","imageName":"sort"],
             ["clsName":"QZH_CYSQCarViewController","title":"购物车","imageName":"shoppingCar"],
-            ["clsName":"QZHUserConcenterViewController","title":"我的","imageName":"user"]
+            ["clsName":"QZHPersonalCenterViewController","title":"我的","imageName":"user"]
         ]
         
         var arrayM = [UIViewController]()
@@ -180,12 +180,25 @@ extension QZHMainViewController{
             for: .highlighted)
         // 系统默认是 12 号字，修改字体大小，要设置 Normal 的字体大小
         vc.tabBarItem.setTitleTextAttributes(
-            [NSFontAttributeName: UIFont.systemFont(ofSize: 12)],
+            [NSFontAttributeName: UIFont.systemFont(ofSize: 11)],
             for: UIControlState(rawValue: 0))
         // 设置背景颜色
         vc.tabBarController?.tabBar.backgroundColor = UIColor.white
-        vc.tabBarController?.tabBar.barTintColor = UIColor.white
-        vc.tabBarController?.tabBarItem.badgeColor = UIColor.white
+        vc.tabBarController?.tabBar.barTintColor = UIColor.red
+        if #available(iOS 10.0, *) {
+            vc.tabBarController?.tabBarItem.badgeColor = UIColor.white
+        } else {
+            // Fallback on earlier versions
+        }
+
+        vc.tabBarController?.tabBar.backgroundImage = UIImage()
+        vc.tabBarController?.tabBar.shadowImage = UIImage()
+        
+        //添加阴影
+        vc.tabBarController?.tabBar.layer.shadowColor = UIColor.blue.cgColor;
+        vc.tabBarController?.tabBar.layer.shadowOffset = CGSize(width:0,height:-10 )
+        vc.tabBarController?.tabBar.layer.shadowOpacity = 0.8
+        
         //实例化导航控制器的时候会调用 push 方法对 rootVC 压栈
         let nav = QZHNavigationController(rootViewController:vc)
         

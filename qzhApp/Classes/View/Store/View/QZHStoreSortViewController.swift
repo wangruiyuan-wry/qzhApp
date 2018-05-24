@@ -50,6 +50,15 @@ extension QZHStoreSortViewController{
         tabbelView?.register(UINib(nibName:"QZHStoreSortTableViewCell",bundle:nil), forCellReuseIdentifier: cellId)
         tabbelView?.y = 128*PX
         tabbelView?.height = SCREEN_HEIGHT - 128*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                self.tabbelView?.y = 176*PX
+                tabbelView?.height = SCREEN_HEIGHT - 176*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         tabbelView?.backgroundColor = UIColor.white
         
         // 设置导航条
@@ -204,7 +213,7 @@ extension QZHStoreSortViewController{
     //／显示消息 好友列表
     func showFriends(){
         let vc = QZHDemoViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     // 返回

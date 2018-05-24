@@ -38,106 +38,131 @@ class QZHHomeViewModels: NSObject {
                     print("数据异常！！！")
                     completion([],[],[],[],[],false,false)
                 }else{
-                    
+                    print(result["data"])
                     let _data:Dictionary<String,AnyObject> = result["data"] as! Dictionary<String, AnyObject>
-
                     //企业门户广告
-                    let qymhData:[[String:AnyObject]] = _data["qymh"] as! [[String:AnyObject]]
-                    var qymhList = [QZHHomeViewModel]()
-                    
-                    for dict in qymhData ?? []{
+                    if _data.keys.contains("qymh"){
+                        let qymhData:[[String:AnyObject]] = _data["qymh"] as! [[String:AnyObject]]
+                        var qymhList = [QZHHomeViewModel]()
                         
-                        //对字典进行处理
-                        let newDict = PublicFunction().setNULLInDIC(dict)
-                        //a）创建企业模型
-                        guard let model = QZHHomeModel.yy_model(with:newDict) else{
-                            continue
+                        for dict in qymhData ?? []{
+                            
+                            //对字典进行处理
+                            let newDict = PublicFunction().setNULLInDIC(dict)
+                            //a）创建企业模型
+                            guard let model = QZHHomeModel.yy_model(with:newDict) else{
+                                continue
+                            }
+                            
+                            //b）将model添加到数组
+                            qymhList.append(QZHHomeViewModel(model:model))
                         }
-                        
-                        //b）将model添加到数组
-                        qymhList.append(QZHHomeViewModel(model:model))
+                        //2. FIXME 拼接数据
+                        self.QYMHList = qymhList
+                    }else{
+                        self.QYMHList = []
                     }
-                    //2. FIXME 拼接数据
-                    self.QYMHList = qymhList
+                    
                     
                     //产业商圈广告
-                    let cysqData:[[String:AnyObject]] = _data["cysq"] as! [[String:AnyObject]]
-                    var cysqList = [QZHHomeViewModel]()
-                    
-                    for dict in cysqData ?? []{
+                    if _data.keys.contains("cysq"){
+                        let cysqData:[[String:AnyObject]] = _data["cysq"] as! [[String:AnyObject]]
+                        var cysqList = [QZHHomeViewModel]()
                         
-                        //对字典进行处理
-                        let newDict = PublicFunction().setNULLInDIC(dict)
-                        //a）创建企业模型
-                        guard let model = QZHHomeModel.yy_model(with:newDict) else{
-                            continue
+                        for dict in cysqData ?? []{
+                            
+                            //对字典进行处理
+                            let newDict = PublicFunction().setNULLInDIC(dict)
+                            //a）创建企业模型
+                            guard let model = QZHHomeModel.yy_model(with:newDict) else{
+                                continue
+                            }
+                            
+                            //b）将model添加到数组
+                            cysqList.append(QZHHomeViewModel(model:model))
                         }
-                        
-                        //b）将model添加到数组
-                        cysqList.append(QZHHomeViewModel(model:model))
+                        //2. FIXME 拼接数据
+                        self.CYSQList = cysqList
+                    }else{
+                        self.CYSQList = []
                     }
-                    //2. FIXME 拼接数据
-                    self.CYSQList = cysqList
                     
                     //积分优购
-                    let jfygData:[[String:AnyObject]] = _data["jfyg"] as! [[String:AnyObject]]
-                    var jfygList = [QZHHomeViewModel]()
-                    
-                    for dict in jfygData ?? []{
+                    if _data.keys.contains("jfyg"){
+                        let jfygData:[[String:AnyObject]] = _data["jfyg"] as! [[String:AnyObject]]
+                        var jfygList = [QZHHomeViewModel]()
                         
-                        //对字典进行处理
-                        let newDict = PublicFunction().setNULLInDIC(dict)
-                        //a）创建企业模型
-                        guard let model = QZHHomeModel.yy_model(with:newDict) else{
-                            continue
+                        for dict in jfygData ?? []{
+                            
+                            //对字典进行处理
+                            let newDict = PublicFunction().setNULLInDIC(dict)
+                            //a）创建企业模型
+                            guard let model = QZHHomeModel.yy_model(with:newDict) else{
+                                continue
+                            }
+                            
+                            //b）将model添加到数组
+                            jfygList.append(QZHHomeViewModel(model:model))
                         }
+                        //2. FIXME 拼接数据
+                        self.JFYGList += jfygList
                         
-                        //b）将model添加到数组
-                        jfygList.append(QZHHomeViewModel(model:model))
+                    }else{
+                        self.JFYGList = []
                     }
-                    //2. FIXME 拼接数据
-                    self.JFYGList += jfygList
                     
                     // 社区商城
-                    let sqscData:[[String:AnyObject]] = _data["sqsc"] as! [[String:AnyObject]]
-                    var sqscList = [QZHHomeViewModel]()
+                    if _data.keys.contains("sqsc"){
                     
-                    for dict in sqscData ?? []{
+                        let sqscData:[[String:AnyObject]] = _data["sqsc"] as! [[String:AnyObject]]
+                        var sqscList = [QZHHomeViewModel]()
                         
-                        //对字典进行处理
-                        let newDict = PublicFunction().setNULLInDIC(dict)
-                        //a）创建企业模型
-                        guard let model = QZHHomeModel.yy_model(with:newDict) else{
-                            continue
+                        for dict in sqscData ?? []{
+                            
+                            //对字典进行处理
+                            let newDict = PublicFunction().setNULLInDIC(dict)
+                            //a）创建企业模型
+                            guard let model = QZHHomeModel.yy_model(with:newDict) else{
+                                continue
+                            }
+                            
+                            //b）将model添加到数组
+                            sqscList.append(QZHHomeViewModel(model:model))
                         }
-                        
-                        //b）将model添加到数组
-                        sqscList.append(QZHHomeViewModel(model:model))
+                        //2. FIXME 拼接数据
+                        self.SQSCList = sqscList
+                    }else{
+                        self.SQSCList = []
                     }
-                    //2. FIXME 拼接数据
-                    self.SQSCList = sqscList
                     
                     // 轮播图
-                    let lbtData:[[String:AnyObject]] = _data["lbt"] as! [[String:AnyObject]]
-                    var lbtList = [QZHHomeViewModel]()
-                    
-                    for dict in lbtData ?? []{
+                    print("lbt:\(_data["lbt"])")
+                    if _data.keys.contains("lbt"){
+                        let lbtData:[[String:AnyObject]] = _data["lbt"] as! [[String:AnyObject]]
+                        var lbtList = [QZHHomeViewModel]()
                         
-                        //对字典进行处理
-                        let newDict = PublicFunction().setNULLInDIC(dict)
-                        //a）创建企业模型
-                        guard let model = QZHHomeModel.yy_model(with:newDict) else{
-                            continue
+                        for dict in lbtData ?? []{
+                            
+                            //对字典进行处理
+                            let newDict = PublicFunction().setNULLInDIC(dict)
+                            //a）创建企业模型
+                            guard let model = QZHHomeModel.yy_model(with:newDict) else{
+                                continue
+                            }
+                            
+                            //b）将model添加到数组
+                            lbtList.append(QZHHomeViewModel(model:model))
                         }
                         
-                        //b）将model添加到数组
-                        lbtList.append(QZHHomeViewModel(model:model))
+                        //2. FIXME 拼接数据
+                        self.LBTList = lbtList
+                    }else{
+                        self.LBTList = []
                     }
-                    
-                    //2. FIXME 拼接数据
-                    self.LBTList = lbtList
+                   
                     
                     completion(self.LBTList, self.SQSCList, self.CYSQList, self.QYMHList, self.JFYGList, isSuccess,true)
+                    
                 }
             }
         }

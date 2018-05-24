@@ -56,7 +56,7 @@ class QZHPWDViewController: QZHBaseViewController{
                 }
             }
         }else{
-            UIAlertController.showAlert(message: "请输入正确的手机号码", in: self)
+            UIAlertController.showAlert(message: "请输入正确的手机号码!!", in: self)
         }
     }
     
@@ -83,6 +83,14 @@ extension QZHPWDViewController{
         self.tabbelView?.separatorStyle = .none
         
         self.tabbelView?.y = 128*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                self.tabbelView?.y = 176*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         tabbelView?.backgroundColor = UIColor.white
         
@@ -97,7 +105,7 @@ extension QZHPWDViewController{
     // 设置导航栏
     func setupNav(){
         //设置导航条
-        title = "忘记密码"
+        title = QZHPWDModel.pageName
         navItem.leftBarButtonItem = UIBarButtonItem(title: "", img: "back_pageIcon", target: self, action: #selector(close))
         
         // 设置 logo 图像

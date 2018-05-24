@@ -54,6 +54,7 @@ class QZHStoreIndexViewController: QZHBaseViewController {
         StoreInfo.getStoreInfo { (other,isSuccess) in
            
             if isSuccess{
+                QZHStoreInfoModel.storeId = self.StoreInfo.storeInfo[0].status.id
                 // 店铺信息映射
                 self.isAttents = other["isAttent"] as! Int
                 self.setupStoreInfoView(img: self.StoreInfo.storeInfo[0].status.storeLogo, name: self.StoreInfo.storeInfo[0].status.shortName, vip: self.StoreInfo.storeInfo[0].status.memberLevel, careNum: self.StoreInfo.storeInfo[0].status.attentionNum, care: other["isAttent"] as! Int)
@@ -95,8 +96,16 @@ extension QZHStoreIndexViewController{
         // 注册原型 cell
         tabbelView?.register(UINib(nibName:"QZHStoreTableViewCell",bundle:nil), forCellReuseIdentifier: cellId)
         tabbelView?.top = 127*PX
-        tabbelView?.height = SCREEN_HEIGHT - 227*PX
-        
+        tabbelView?.height = SCREEN_HEIGHT - 127*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                tabbelView?.top = 176*PX
+                tabbelView?.height = SCREEN_HEIGHT - 343*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         // 设置导航条
         navItem.rightBarButtonItem = UIBarButtonItem(title: "", img: "chatIcon1", target: self, action: #selector(showFriends),color:UIColor.white)
         navItem.leftBarButtonItem = UIBarButtonItem(title: "", img: "back_pageIcon2", target: self, action: #selector(self.close),color:UIColor.white)
@@ -136,7 +145,11 @@ extension QZHStoreIndexViewController{
         }else if img == "loadPic"{
             logoView.image = UIImage(named:img)
         }else{
-            //logoView.image = UIImage(data:PublicFunction().imgFromURL(img))
+            if let url = URL(string: img) {
+                logoView.downloadedFrom(url: url)
+            }else{
+                logoView.image = UIImage(named:"noPic")
+            }
         }
         storeInfoView.addSubview(logoView)
         
@@ -251,6 +264,14 @@ extension QZHStoreIndexViewController{
         // 设置底部容器
         let bottomView:QZHUIView = QZHUIView()
         bottomView.setupViews(x: 0, y: SCREEN_HEIGHT-100*PX, width: SCREEN_WIDTH, height: 100*PX, bgColor: UIColor.white)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                bottomView.y = SCREEN_HEIGHT-168*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         self.view.addSubview(bottomView)
         // 设置阴影
         bottomView.layer.shadowColor = UIColor.black.cgColor
@@ -307,7 +328,7 @@ extension QZHStoreIndexViewController{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0{
-            return 232*PX
+            return 152*PX
         }else{
             return 501*PX
         }
@@ -323,17 +344,28 @@ extension QZHStoreIndexViewController{
                 if self.StoreInfo.storePro[row-2].status.picturePath == ""{
                     cell.img1.image = UIImage(named:"noPic")
                 }else{
-                    //cell.img1.image = UIImage(data:PublicFunction().imgFromURL(self.StoreInfo.storePro[row-2].status.picturePath))
+                    if let url = URL(string: self.StoreInfo.storePro[row-2].status.picturePath) {
+                        cell.img1.downloadedFrom(url: url)
+                    }else{
+                        cell.img1.image = UIImage(named:"noPic")
+                    }
                 }
                 cell.name1.text = self.StoreInfo.storePro[row-2].status.productName
-                if self.StoreInfo.storePro[row-2].status.promotionPrice == 0.0{
+
+                if self.StoreInfo.storePro[row-2].status.promotionPrice != 0.0 || self.StoreInfo.storePro[row-2].status.promotionPrice != 0{
                     cell.price1.text = "\(self.StoreInfo.storePro[row-2].status.promotionPrice)"
                 }else{
                     cell.price1.text = "\(self.StoreInfo.storePro[row-2].status.originalPrice)"
                 }
-                
-                cell.spec1.text = "/\(self.StoreInfo.storePro[row-2].status.unit)"
+                cell.price1.setRealWages(cell.price1.text!, big: 28, small: 20, fg: ".")
+                cell.price1.width = cell.price1.autoLabelWidth(cell.price1.text!, font: 38, height: 40*PX)
+                if self.StoreInfo.storePro[row-2].status.unit != ""{
+                    cell.spec1.text = "/\(self.StoreInfo.storePro[row-2].status.unit)"
+                    cell.spec1.x = cell.price1.width + cell.price1.x
+                }
                 cell.sale1.text = "已售\(self.StoreInfo.storePro[row-2].status.salesVolume)"
+                cell.pro1.tag = self.StoreInfo.storePro[row-2].status.productGoodsId
+                cell.pro1.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
             }
             
             if self.StoreInfo.storePro.count > row-1{
@@ -341,16 +373,27 @@ extension QZHStoreIndexViewController{
                 if self.StoreInfo.storePro[row-1].status.picturePath == ""{
                     cell.img2.image = UIImage(named:"noPic")
                 }else{
-                    //cell.img2.image = UIImage(data:PublicFunction().imgFromURL(self.StoreInfo.storePro[row-1].status.picturePath))
+                    if let url = URL(string: self.StoreInfo.storePro[row-1].status.picturePath) {
+                        cell.img2.downloadedFrom(url: url)
+                    }else{
+                        cell.img2.image = UIImage(named:"noPic")
+                    }
                 }
                 cell.name2.text = self.StoreInfo.storePro[row-1].status.productName
-                if self.StoreInfo.storePro[row-1].status.promotionPrice == 0.0{
+                if self.StoreInfo.storePro[row-1].status.promotionPrice != 0.0 || self.StoreInfo.storePro[row-1].status.promotionPrice != 0{
                     cell.price2.text = "\(self.StoreInfo.storePro[row-1].status.promotionPrice)"
                 }else{
-                    cell.price2.text = "\(self.StoreInfo.storePro[row-1].status.originalPrice)"
+                    cell.price2.text = "\(self.StoreInfo.storePro[row-1].status.originalPrice)"//originalPrice
                 }
-                cell.spec2.text = "/\(self.StoreInfo.storePro[row-1].status.unit)"
+                cell.price2.setRealWages(cell.price2.text!, big: 28, small: 20, fg: ".")
+                cell.price2.width = cell.price2.autoLabelWidth(cell.price2.text!, font: 38, height: 40*PX)
+                if self.StoreInfo.storePro[row-1].status.unit != ""{
+                    cell.spec2.text = "/\(self.StoreInfo.storePro[row-1].status.unit)"
+                    cell.spec2.x = cell.price2.width + cell.price2.x
+                }
                 cell.sale2.text = "已售\(self.StoreInfo.storePro[row-1].status.salesVolume)"
+                cell.pro2.tag = self.StoreInfo.storePro[row-1].status.productGoodsId
+                cell.pro2.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
 
             }else{
                 cell.pro2.isHidden = true
@@ -395,7 +438,7 @@ extension QZHStoreIndexViewController{
     func showFriends(){
         let vc = QZHDemoViewController()
         
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     // 返回

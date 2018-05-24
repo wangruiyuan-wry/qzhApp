@@ -159,8 +159,7 @@ class QZGH_CYSQHomeListViewModel:NSObject{
             QZGH_CYSQHomeModel_hotSell.pageNo = 1
         }
         
-        QZHNetworkManager.shared.statusList(method:  .POST, url: "standard/productGoods/hotSell", params: ["pageNo":QZGH_CYSQHomeModel_hotSell.pageNo as AnyObject,"pageSize":16 as AnyObject]) { (result, isSuccess) in
-            
+        QZHNetworkManager.shared.statusList(method:  .POST, url: "standard/productGoods/hotSell", params: ["pageNo":QZGH_CYSQHomeModel_hotSell.pageNo as AnyObject,"pageSize":20 as AnyObject]) { (result, isSuccess) in
             if !isSuccess{
                 completion(false, false)
             }else{

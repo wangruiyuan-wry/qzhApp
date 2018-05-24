@@ -2,7 +2,7 @@
 //  QZHCarJYTableViewCell.swift
 //  qzhApp
 //
-//  Created by sbxmac on 2018/3/20.
+//  Created by sbxmac on 2018/3/23.
 //  Copyright © 2018年 SpecialTech. All rights reserved.
 //
 
@@ -20,13 +20,12 @@ class QZHCarJYTableViewCell: UITableViewCell {
     @IBOutlet weak var line: QZHUILabelView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         proImg.frame = CGRect(x:20*PX,y:10*PX,width:160*PX,height:160*PX)
         proImg.image = UIImage(named:"loadPic")
         
         proName.setLabelView(200*PX, 18*PX, 496*PX, 70*PX, NSTextAlignment.left, UIColor.white, myColor().gray3(), 24, "")
         proName.numberOfLines = 2
-        proName.lineBreakMode = .byWordWrapping
+        proName.lineBreakMode = .byTruncatingTail 
         
         proSpec.setLabelView(200*PX, 91*PX, 496*PX, 33*PX, NSTextAlignment.left, UIColor.white, myColor().gray9(), 24, "")
         
@@ -39,11 +38,12 @@ class QZHCarJYTableViewCell: UITableViewCell {
         proCount.setLabelView(630*PX, 134*PX, 100*PX, 33*PX, NSTextAlignment.right, UIColor.white, myColor().Gray6(), 24, "")
         
         line.dividers(20*PX, y: 180*PX, width: 730*PX, height: 1*PX, color: myColor().grayF0())
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
     }
     
 }

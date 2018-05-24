@@ -14,6 +14,7 @@ class QZHNavigationController: UINavigationController {
         super.viewDidLoad()
         //隐藏默认的NavigationBar
         navigationBar.isHidden = true
+
     }
     
     ///重写 push 方法，所有的 push 动作都会调用此方法

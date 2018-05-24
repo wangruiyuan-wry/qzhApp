@@ -23,7 +23,7 @@ class QZHRegisterViewModel:NSObject{
     
     // 注册
     func register(completion:@escaping (_ resultText:String,_ getAuthCode:Bool ,_ isSuccess:Bool)->()){
-        QZHNetworkManager.shared.statusList(method: .POST, url: "user/register", params: ["phone":QZHRegisterModel.phone as AnyObject,"authCode":QZHRegisterModel.authCode as AnyObject,"password":QZHRegisterModel.password as AnyObject,"companyName":QZHRegisterModel.companyName as AnyObject,"nickName":QZHRegisterModel.nickName as AnyObject]) { (result, isSuccess) in
+        QZHNetworkManager.shared.statusList(method: .POST, url: "user/register", params: ["phone":QZHRegisterModel.phone as AnyObject,"authCode":QZHRegisterModel.authCode as AnyObject,"password":QZHRegisterModel.password as AnyObject,"companyName":QZHRegisterModel.companyName as AnyObject,"nickName":QZHRegisterModel.nickName as AnyObject,"referrer":QZHRegisterModel.reffer as AnyObject]) { (result, isSuccess) in
             if result["status"] as! Int == 200{
                 completion("注册成功", true, isSuccess)
             }else{

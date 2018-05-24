@@ -10,6 +10,7 @@ import UIKit
 
 class QZH_CYSQCarTableViewCell: UITableViewCell,UITextFieldDelegate {
     
+    @IBOutlet weak var chossenView: QZHUIView!
     @IBOutlet weak var choosenBtn: UIImageView!
     @IBOutlet weak var proName: QZHUILabelView!
     @IBOutlet weak var proImg: UIImageView!
@@ -28,6 +29,7 @@ class QZH_CYSQCarTableViewCell: UITableViewCell,UITextFieldDelegate {
     @IBOutlet weak var specBtn: QZHUIView!
     @IBOutlet weak var specText: QZHUILabelView!
 
+    @IBOutlet weak var proBtn: QZHUIView!
     
     override func awakeFromNib() {
         
@@ -39,15 +41,18 @@ class QZH_CYSQCarTableViewCell: UITableViewCell,UITextFieldDelegate {
         choosenBtn.layer.cornerRadius = 17.5*PX
         choosenBtn.layer.masksToBounds = true
         choosenBtn.restorationIdentifier = "unSel"
+        chossenView.setupViews(x: 0, y: 0, width: 155*PX, height: 183*PX, bgColor: UIColor.clear)
         
         proImg.frame = CGRect(x:75*PX,y:10*PX,width:160*PX,height:160*PX)
         proImg.image = UIImage(named:"loadPic")
         
+        
+        proBtn.setupViews(x: 80*PX, y: 0, width: 560*PX, height: 180*PX, bgColor: UIColor.clear)
         // 设置产品信息
         proView.setupViews(x: 255*PX, y: 0, width: 495*PX, height: 180*PX, bgColor: UIColor.white)
         proName.setLabelView(0, 20*PX, 400*PX, 70*PX, NSTextAlignment.left, UIColor.white, myColor().gray3(), 24, "")
         proName.numberOfLines = 2
-        proName.lineBreakMode = .byWordWrapping
+        proName.lineBreakMode = .byTruncatingTail 
         
         proEditBtn.frame = CGRect(x:433*PX,y:22*PX,width:29*PX,height:31*PX)
         proEditBtn.image = UIImage(named:"CarEdit")
@@ -62,7 +67,7 @@ class QZH_CYSQCarTableViewCell: UITableViewCell,UITextFieldDelegate {
         price2.setLabelView(30*PX+price1.width, 139*PX, price2.autoLabelWidth(price2.text!, font: 30, height: 28*PX), 28*PX, NSTextAlignment.left, UIColor.white, myColor().gray9(), 20, "")
 
         
-        proNum.setLabelView(475*PX - proNum.autoLabelWidth(proNum.text!, font: 20, height: 28*PX), 138*PX,proNum.autoLabelWidth(proNum.text!, font: 20, height: 28*PX), 28*PX, NSTextAlignment.right, UIColor.clear, myColor().gray9(), 20, "")
+        proNum.setLabelView(475*PX - proNum.autoLabelWidth(proNum.text!, font: 30, height: 28*PX), 138*PX,proNum.autoLabelWidth(proNum.text!, font: 30, height: 28*PX), 28*PX, NSTextAlignment.right, UIColor.clear, myColor().gray9(), 20, "")
         
         // 设置编辑产品 UI
         proEditView.setupViews(x: 255*PX, y: 0, width: 495*PX, height: 180*PX, bgColor: UIColor.white)
@@ -127,6 +132,8 @@ class QZH_CYSQCarTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         numText.text = proNum.text?.components(separatedBy: "x")[1]
         specText.text = proSpec.text
+        
+        proBtn.isHidden = true
     }
  
     // 增加

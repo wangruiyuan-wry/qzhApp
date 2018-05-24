@@ -11,7 +11,7 @@ import UIKit
 /// 定义全局常量,尽量使用 private 修饰，否则哪儿都可以访问  QZH_CYSQBaseViewController
 private let cellId = "cellId"
 
-class QZH_CYSQHomeViewController: QZHBaseViewController {
+class QZH_CYSQHomeViewController: QZHBaseViewController,WRCycleScrollViewDelegate {
     
     // 产业商圈首页数据列表视图模型
     lazy var HomeList = QZGH_CYSQHomeListViewModel()
@@ -41,6 +41,9 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
         return cycleView
     }()
     
+    var cycleScrollView1Id:[Int] = []
+    var body:QZHUIView = QZHUIView()
+    
     override func loadData() {
         HomeList.loadHomeData { (isSuccess,shouldRefresh) in
 
@@ -48,11 +51,11 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
             //self.refreahController?.endRefreshing()
             
             //刷新表
-            if shouldRefresh {
+            //if shouldRefresh {
                 
-                self.tabbelView?.reloadData()
+                //self.tabbelView?.reloadData()
                 
-            }
+            //}
 
             if isSuccess{
                 //设置轮播图
@@ -71,19 +74,27 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
                 }
                 for i in 0..<classCount{
                     let classArray:[UIView] = self.MarketClassView.subviews
-                    (classArray[2*i] as! UIImageView).image = UIImage(data:PublicFunction().imgFromURL(self.HomeList.getMarketClassList[i].status.pictureUrl as! String))
-                    (classArray[2*i] as! UIImageView).tag = self.HomeList.getMarketClassList[i].status.labelId
+                    if let url = URL(string: self.HomeList.getMarketClassList[i].status.pictureUrl as! String) {
+                        (classArray[2*i] as! UIImageView).downloadedFrom(url: url)
+                    }else{
+                        (classArray[2*i] as! UIImageView).image = UIImage(named:"noPic")
+                    }
+                    (classArray[2*i] as! UIImageView).tag = self.HomeList.getMarketClassList[i].status.categoryId
                     (classArray[2*i] as! UIImageView).addOnClickLister(target: self, action: #selector(self.goToMarketClass(_:)))
                     (classArray[2*i+1] as! UILabel).text = self.HomeList.getMarketClassList[i].status.name
-                    (classArray[2*i+1] as! UILabel).tag = self.HomeList.getMarketClassList[i].status.labelId
+                    (classArray[2*i+1] as! UILabel).tag = self.HomeList.getMarketClassList[i].status.categoryId
                     (classArray[2*i+1] as! UILabel).addOnClickLister(target: self, action: #selector(self.goToMarketClass(_:)))
                     
                     let classArray1:[UIView] = self.MarketClassView1.subviews
-                    (classArray1[2*i] as! UIImageView).image = UIImage(data:PublicFunction().imgFromURL(self.HomeList.getMarketClassList[i].status.pictureUrl as! String))
-                    (classArray1[2*i] as! UIImageView).tag = self.HomeList.getMarketClassList[i].status.labelId
+                    if let url = URL(string: self.HomeList.getMarketClassList[i].status.pictureUrl as! String) {
+                        (classArray1[2*i] as! UIImageView).downloadedFrom(url: url)
+                    }else{
+                        (classArray1[2*i] as! UIImageView).image = UIImage(named:"noPic")
+                    }
+                    (classArray1[2*i] as! UIImageView).tag = self.HomeList.getMarketClassList[i].status.categoryId
                     (classArray1[2*i] as! UIImageView).addOnClickLister(target: self, action: #selector(self.goToMarketClass(_:)))
                     (classArray1[2*i+1] as! UILabel).text = self.HomeList.getMarketClassList[i].status.name
-                    (classArray1[2*i+1] as! UILabel).tag = self.HomeList.getMarketClassList[i].status.labelId
+                    (classArray1[2*i+1] as! UILabel).tag = self.HomeList.getMarketClassList[i].status.categoryId
                     (classArray1[2*i+1] as! UILabel).addOnClickLister(target: self, action: #selector(self.goToMarketClass(_:)))
                     
                 }
@@ -103,8 +114,11 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
                 var imgArray1:[String] = []
                 for pic in self.HomeList.sildeTodayRecommendList{
                     imgArray1.append(pic.status.slidePictureUrl)
+                    self.cycleScrollView1Id.append(Int(pic.status.goodId))
                 }
                 self.cycleScrollView1.serverImgArray = imgArray1 as? [String]
+                self.cycleScrollView1.tag = 2
+                self.cycleScrollView1.delegate = self
                 self.recommendView.addSubview(self.cycleScrollView1)
                 
                 // 今日推荐
@@ -136,6 +150,7 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
             }
         }
        getHotSell()
+        
     }
     
     // 加载热销产品
@@ -156,6 +171,11 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
             }
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setStatusBarBackgroundColor(color: .clear)
+    }
 }
 
 
@@ -163,6 +183,7 @@ class QZH_CYSQHomeViewController: QZHBaseViewController {
 extension QZH_CYSQHomeViewController{
     override func setupUI() {
         super.setupUI()
+        self.isPush = true
         setupvarMarketClassView1()
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         
@@ -171,6 +192,14 @@ extension QZH_CYSQHomeViewController{
         
         tabbelView?.backgroundColor = myColor().grayF0()
         tabbelView?.height = SCREEN_HEIGHT - 98*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                tabbelView?.height = SCREEN_HEIGHT - 214*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         // 注册原型 cell
         tabbelView?.register(UINib(nibName:"QZH_CYSQHomeHotSell",bundle:nil), forCellReuseIdentifier: cellId)
@@ -191,25 +220,26 @@ extension QZH_CYSQHomeViewController{
         setupvarMarketClassView()
         
         
-        tabbelView?.addSubview(self.setupTitles(y: 649*PX, text: "促销专区", icons: "CYSQ_promotion"))
+        body.addSubview(self.setupTitles(y: 649*PX, text: "促销专区", icons: "CYSQ_promotion"))
         setupPromotionView()
-        tabbelView?.addSubview(self.setupTitles(y: 1059*PX, text: "今日推荐", icons: "CYSQ_recommend"))
+        body.addSubview(self.setupTitles(y: 1059*PX, text: "今日推荐", icons: "CYSQ_recommend"))
         setupRecommendView()
-        tabbelView?.addSubview(self.setupTitles(y: 1980*PX, text: "热销产品", icons: "CYSQ_hot"))
+        body.addSubview(self.setupTitles(y: 1980*PX, text: "热销产品", icons: "CYSQ_hot"))
         
+        tabbelView?.tableHeaderView = body
     }
     
     // 设置导航条
     func setupNav(){
         let btn:SearchController = SearchController()
         btn.isUserInteractionEnabled = true
-        btn.addOnClickLister(target: self, action: #selector(self.goToSearch))
+        btn.uiView_CYSQ.addOnClickLister(target: self, action: #selector(self.goToSearch))
         navItem.titleView = btn.SeacrchTitleBtn1(title: "产业商圈", titleColor: UIColor.white)
     }
     func setupNav1(){
         let btn:SearchController = SearchController()
         btn.isUserInteractionEnabled = true
-        btn.addOnClickLister(target: self, action: #selector(goToSearch))
+        btn.uiView_CYSQ.addOnClickLister(target: self, action: #selector(self.goToSearch))
         navItem.titleView = btn.SeacrchTitleBtn2(title: "产业商圈", titleColor: myColor().Gray6c6ca1())
     }
     
@@ -298,16 +328,32 @@ extension QZH_CYSQHomeViewController{
         MarketClassView.addSubview(title8)
 
         
-        tabbelView?.addSubview(MarketClassView)
+        body.addSubview(MarketClassView)
     }
     func setupvarMarketClassView1(){
         
         MarketClassView1line.dividers(0, y: 128*PX, width: SCREEN_WIDTH, height: 1*PX, color: myColor().grayF0())
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                MarketClassView1line.dividers(0, y: 176*PX, width: SCREEN_WIDTH, height: 1*PX, color: myColor().grayF0())
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         MarketClassView1line.backgroundColor =  myColor().grayF0()
         MarketClassView1line.isHidden = true
         view.addSubview(MarketClassView1line)
         
         MarketClassView1.setupScrollerView(x: 0, y: 129*PX, width: SCREEN_WIDTH, height: 106*PX, background: UIColor.white)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                MarketClassView1.setupScrollerView(x: 0, y: 177*PX, width: SCREEN_WIDTH, height: 106*PX, background: UIColor.white)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         MarketClassView1.isHidden = true
         MarketClassView1.backgroundColor = UIColor.white
         view.addSubview(MarketClassView1)
@@ -410,7 +456,7 @@ extension QZH_CYSQHomeViewController{
             paddingX = self.setupProPromotion(x: paddingX, img: "", name: "", newprice: 0.0, old: 0.0, id: -1, sellTypes: "", unit: "")
         }
         
-        tabbelView?.addSubview(prmotionView)
+        body.addSubview(prmotionView)
     }
     // 促销专区产品样式
     func setupProPromotion(x:CGFloat,img:String,name:String,newprice:Double,old:Double,id:Int64,sellTypes:String,unit:String)->CGFloat{
@@ -431,7 +477,11 @@ extension QZH_CYSQHomeViewController{
         }else if img == "noPic"{
             imgView.image = UIImage(named:img)
         }else{
-            imgView.image = UIImage(data:PublicFunction().imgFromURL(img))
+            if let url = URL(string: img) {
+                imgView.downloadedFrom(url: url)
+            }else{
+                imgView.image = UIImage(named:"noPic")
+            }
         }
         selfView.addSubview(imgView)
         
@@ -485,7 +535,7 @@ extension QZH_CYSQHomeViewController{
     // 设置今日推荐
     func setupRecommendView(){
         recommendView.setupViews(x: 0, y: 1139*PX, width: SCREEN_WIDTH, height: 841*PX, bgColor: myColor().grayF0())
-        tabbelView?.addSubview(recommendView)
+        body.addSubview(recommendView)
         
         let lunbo = UIImageView(frame:CGRect(x:2*PX,y:0,width:248*PX,height:420*PX))
         lunbo.image = UIImage(named:"loadPic")
@@ -516,7 +566,11 @@ extension QZH_CYSQHomeViewController{
         }else if img == "noPic"{
             imgView.image = UIImage(named:img)
         }else{
-            imgView.image = UIImage(data:PublicFunction().imgFromURL(img))
+            if let url = URL(string: img) {
+                imgView.downloadedFrom(url: url)
+            }else{
+                imgView.image = UIImage(named:"noPic")
+            }
         }
         selfView.addSubview(imgView)
         
@@ -563,13 +617,15 @@ extension QZH_CYSQHomeViewController{
         icon.image = UIImage(named:icons)
         titleView.addSubview(icon)
         
+        body.setupViews(x: 0, y: 0, width: SCREEN_WIDTH, height: titleView.y + 80*PX, bgColor: UIColor.white)
         return titleView
     }
 }
 
 extension QZH_CYSQHomeViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var count = HomeList.hotSellList.count/2+1
+        var count = HomeList.hotSellList.count/2
+        
         if HomeList.hotSellList.count%2>0{
             count = count+1
         }
@@ -577,62 +633,92 @@ extension QZH_CYSQHomeViewController{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0{
-            return 2060*PX
-        }else{
-            return 471*PX
-        }
+        return 501*PX
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! QZH_CYSQHomeHotSell
         cell.backgroundColor = UIColor.clear
-        if indexPath.row != 0{
            cell.backgroundColor = UIColor.white
             let _index = indexPath.row*2
-
-            cell.name1.text = HomeList.hotSellList[_index-2].status.goodsName
-            cell.name2.text = HomeList.hotSellList[_index-1].status.goodsName
-            if HomeList.hotSellList[_index-2].status.selfSupport != 1{
-                cell.zy1.text = ""
+            cell.name1.text = HomeList.hotSellList[_index].status.goodsName
+            if HomeList.hotSellList[_index].status.selfSupport != 1{
+                cell.zy1.isHidden = true
+                cell.name1.x = 20*PX
             }else{
-                cell.zy1.text = "自营"
-            }
-            if HomeList.hotSellList[_index-1].status.selfSupport != 1{
-                cell.zy2.text = ""
-            }else{
-                cell.zy2.text = "自营"
+                cell.zy1.isHidden = false
             }
             
-            cell.price1.text = "\(HomeList.hotSellList[_index-2].status.fixedPrice)"
-            cell.price2.text = "\(HomeList.hotSellList[_index-1].status.fixedPrice)"
+            cell.price1.text = "\(HomeList.hotSellList[_index].status.fixedPrice)"
             
-            if HomeList.hotSellList[_index-2].status.unit != ""{
-                cell.unit1.text = "/\(HomeList.hotSellList[_index-2].status.unit)"
-            }
-            if HomeList.hotSellList[_index-1].status.unit != ""{
-                cell.unit2.text = "/\(HomeList.hotSellList[_index-1].status.unit)"
+            if HomeList.hotSellList[_index].status.unit != ""{
+                cell.unit1.text = "/\(HomeList.hotSellList[_index].status.unit)"
             }
             
-            let _pic1:[[String:AnyObject]] = HomeList.hotSellList[_index-2].status.pic
-            if _pic1.count != 0{
-                cell.img1.image = UIImage(data:PublicFunction().imgFromURL(_pic1[0]["picturePath"] as! String))
+            var picPath:String = ""
+            if HomeList.hotSellList[_index].status.pic.keys.contains("picturePath"){
+                picPath = HomeList.hotSellList[_index].status.pic["picturePath"] as! String
+            }
+            let _pic1:[String] = picPath.components(separatedBy: ",")
+            if _pic1.count > 0{
+              if let url = URL(string: _pic1[0] as! String) {
+                    cell.img1.downloadedFrom(url: url)
+                }else{
+                    cell.img1.image = UIImage(named:"noPic")
+                }
             }else{
                 cell.img1.image = UIImage(named:"noPic")
             }
             
-            let _pic2:[[String:AnyObject]] = HomeList.hotSellList[_index-1].status.pic
-            if _pic2.count != 0{
-                cell.img2.image = UIImage(data:PublicFunction().imgFromURL(_pic2[0]["picturePath"] as! String))
-            }else{
-                cell.img2.image = UIImage(named:"noPic")
-            }
-            
-            cell.view1.tag = Int(HomeList.hotSellList[_index-2].status.id)
-            cell.view2.tag = Int(HomeList.hotSellList[_index-1].status.id)
+            cell.view1.tag = Int(HomeList.hotSellList[_index].status.id)
             
             cell.view1.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
-            cell.view2.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
-        }
+            
+            if HomeList.hotSellList.count > _index+1{
+                cell.name2.text = HomeList.hotSellList[_index+1].status.goodsName
+                if HomeList.hotSellList[_index+1].status.selfSupport != 1{
+                    cell.zy2.isHidden = true
+                    cell.name2.x = 396*PX
+                }else{
+                    cell.zy2.isHidden = false
+                }
+                
+                cell.price2.text = "\(HomeList.hotSellList[_index+1].status.fixedPrice)"
+
+                if HomeList.hotSellList[_index+1].status.unit != ""{
+                    cell.unit2.text = "/\(HomeList.hotSellList[_index+1].status.unit)"
+                }
+                
+                var picPath1:String = ""
+                if HomeList.hotSellList[_index+1].status.pic.keys.contains("picturePath"){
+                    picPath1 = HomeList.hotSellList[_index+1].status.pic["picturePath"] as! String
+                }
+                let _pic2:[String] = picPath1.components(separatedBy: ",")
+                
+                if _pic2.count > 0{
+                    if let url = URL(string: _pic2[0] as! String) {
+                        cell.img2.downloadedFrom(url: url)
+                    }else{
+                        cell.img2.image = UIImage(named:"noPic")
+                    }
+                }else{
+                    cell.img2.image = UIImage(named:"noPic")
+                }
+                
+                cell.view2.tag = Int(HomeList.hotSellList[_index+1].status.id)
+                cell.view2.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
+            }else{
+                //cell.view2.backgroundColor = UIColor.white
+                cell.view2.isHidden = true
+                cell.name2.isHidden = true
+                cell.zy2.isHidden = true
+
+                cell.price2.isHidden = true
+                cell.unit2.isHidden = true
+                cell.img2.isHidden = true
+                cell.icon2.isHidden = true
+
+            }
+        
         return cell
     }
     
@@ -686,11 +772,16 @@ extension QZH_CYSQHomeViewController{
     func showFriends(){
         let vc = QZHDemoViewController()
         
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     // 分类
     func goToMarketClass(_ sender:UITapGestureRecognizer){
+        let this:UIView = sender.view!
+        let id:String! = String(stringInterpolationSegment: this.tag)
+        QZHCYSQSearchProListParamModel.categoryId = String(stringInterpolationSegment: this.tag)
+        let nav = QZHCYSQ_SortProListViewController()
+        present(nav, animated: true, completion: nil)
     }
     
     // 返回
@@ -700,6 +791,8 @@ extension QZH_CYSQHomeViewController{
     
     // 搜索页面跳转
     func goToSearch(){
+        QZHCYSQSearchProListParamModel.categoryId = ""
+        QZHBrandModel.categoryId = 0
         let nav = QZHSearchViewController()
         present(nav, animated: true, completion: nil)
     }
@@ -715,16 +808,21 @@ extension QZH_CYSQHomeViewController{
     }
 }
 
-extension QZH_CYSQHomeViewController: WRCycleScrollViewDelegate
+extension QZH_CYSQHomeViewController
 {
     /// 点击图片事件
     func cycleScrollViewDidSelect(at index:Int, cycleScrollView:WRCycleScrollView)
     {
-        print("点击了第\(index+1)个图片")
+        if cycleScrollView.tag == 2{
+            QZHProductDetailModel.goodsId = cycleScrollView1Id[index]
+            
+            let nav = QZHProductDetailViewController()
+            present(nav, animated: true, completion: nil)
+        }
     }
     /// 图片滚动事件
-    func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView)
+   /* func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView)
     {
         print("滚动到了第\(index+1)个图片")
-    }
+    }*/
 }

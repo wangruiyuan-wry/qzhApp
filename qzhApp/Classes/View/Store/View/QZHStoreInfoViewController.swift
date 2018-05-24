@@ -72,7 +72,11 @@ class QZHStoreInfoViewController: QZHBaseViewController {
                 if self.StoreInfo.storeInfo[0].status.storeLogo == ""{
                     self.logo.image = UIImage(named:"noPic")
                 }else{
-                    self.logo.image = UIImage(data:PublicFunction().imgFromURL(self.StoreInfo.storeInfo[0].status.storeLogo))
+                    if let url = URL(string: self.StoreInfo.storeInfo[0].status.storeLogo) {
+                        self.logo.downloadedFrom(url: url)
+                    }else{
+                        self.logo.image = UIImage(named:"noPic")
+                    }
                 }
                 
                 // 店铺名称
@@ -150,7 +154,15 @@ extension QZHStoreInfoViewController{
         //tabbelView?.isHidden = true
         tabbelView?.y = 127*PX
         tabbelView?.height = SCREEN_HEIGHT - 127*PX
-        
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                tabbelView?.top = 176*PX
+                tabbelView?.height = SCREEN_HEIGHT - 243*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         // 设置导航条
         navItem.rightBarButtonItem = UIBarButtonItem(title: "", img: "chatIcon1", target: self, action: #selector(showFriends),color:UIColor.white)
         navItem.leftBarButtonItem = UIBarButtonItem(title: "", img: "back_pageIcon2", target: self, action: #selector(self.close),color:UIColor.white)
@@ -337,7 +349,7 @@ extension QZHStoreInfoViewController{
     //／显示消息 好友列表
     func showFriends(){
         let vc = QZHDemoViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     // 返回
     func close(){

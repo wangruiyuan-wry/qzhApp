@@ -12,21 +12,21 @@ import Foundation
 
 /// 用户需要登录通知
 let QZHUserShouldLoginNotification = "QZHUserShouldLoginNotification"
-
-///  访问令牌，所有网络请求，都基于此令牌（登陆除外）
-//为了用户安全，访问令牌有时限，默认用户三天
-///模拟 token 过期 - > 服务器返回的状态码是 403
 var accessToken:String? = ""
 
 public let SCREEN_WIDTH=UIScreen.main.bounds.size.width
 public let SCREEN_HEIGHT=UIScreen.main.bounds.size.height
 
-public let PX=SCREEN_WIDTH/750
+public let PX = SCREEN_WIDTH/750
 
 public let pageFlag:Bool = false
 
-public let httpURL = "https://www.sceo360.com/api/"
-//public let httpURL = "http://192.168.100.71:8100/"
+//public let httpURL = "https://www.sceo360.com/api/"
+public let httpURL = "https://www.qzh360.com/api/"
+//public let httpURL = "http://192.168.120.164:8100/api/"
+//public let httpURL = "http://192.168.120.234:8100/api/"
+
+//public let httpURL = "http://192.168.100.71:8100/api/"
 
 //public let httpURL = "http://192.168.120.234:8100/"
 //public let httpURL = "http://192.168.120.14:8100/"
@@ -71,5 +71,22 @@ public extension UIView {
                 }
             }
         }
+    }
+}
+
+func setStatusBarBackgroundColor(color : UIColor) {
+    let statusBarWindow : UIView = UIApplication.shared.value(forKey: "statusBarWindow") as! UIView
+    let statusBar : UIView = statusBarWindow.value(forKey: "statusBar") as! UIView
+    if statusBar.responds(to:#selector(setter: UIView.backgroundColor)) {
+        statusBar.backgroundColor = color
+    }
+}
+
+extension UIDevice {
+    public func isX() -> Bool {
+        if UIScreen.main.bounds.height == 812 {
+            return true
+        }
+        return false
     }
 }

@@ -25,10 +25,20 @@ class QZHRegisterModel:NSObject{
         
         // 个人昵称
         static var nickName:String = ""
+        
+        static var reffer:Int = 0
     }
 }
 
 extension QZHRegisterModel{
+    class var reffer: Int {
+        get{
+            return paramers.reffer
+        }
+        set{
+            paramers.reffer = newValue
+        }
+    }
     class var phone: String {
         get{
             return paramers.phone

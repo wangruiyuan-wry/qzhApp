@@ -96,6 +96,24 @@ class QZHProductDetail_PROSpecOptionViewModel:CustomStringConvertible{
     }
 }
 
+class QZHProductDetail_PROListCommentRepliesViewModel:CustomStringConvertible{
+    // 店铺模型
+    var status:QZHProductDetail_PROListCommentRepliesModel
+    
+    /// 构造函数
+    ///
+    /// - Parameter model: 模型
+    /// - return: 视图模型
+    init(model:QZHProductDetail_PROListCommentRepliesModel) {
+        self.status=model
+    }
+    
+    var description: String{
+        return status.description
+    }
+}
+
+
 class QZHProductDetail_PROShopStatisticsViewModel:CustomStringConvertible{
     // 店铺模型
     var status:QZHProductDetail_PROShopStatisticsModel
@@ -163,7 +181,7 @@ class QZHProductDetail_AttentionCollectViewModel:CustomStringConvertible{
         return status.description
     }
 }
-
+//QZHProductDetail_PROListCommentRepliesModel
 class QZHProductDetail_PRODeatailViewModel:CustomStringConvertible{
     // 产品模型
     var status:QZHProductDetail_PRODeatailModel

@@ -50,8 +50,6 @@ class QZH_CYSQMainViewController: UITabBarController {
     //MARK: -用户登录通知监听方法
     @objc private  func userLogin(n:Notification){
         
-        print("用户登录通知 \(n)")
-        
         var when = DispatchTime.now()
         
         // 判断 n.object 是否有值 -> token 过期，提示用户重新登录
@@ -130,14 +128,16 @@ extension QZH_CYSQMainViewController{
 //注意：不能定义属性。只能定义方法
 //MARK:-设置界面
 extension QZH_CYSQMainViewController{
+    
+    
     //设置所有子控制器
     func setupChildControllers(){
         let array = [
             ["clsName":"QZH_CYSQHomeViewController","title":"首页","imageName":"home"],
             ["clsName":"QZH_CYSQSortViewController","title":"分类","imageName":"sort"],
-            ["clsName":"QZH_CYSQHomeViewController","title":"订单","imageName":"orderIcon"],
+            ["clsName":"QZHMarketHomeViewController","title":"市场","imageName":"orderIcon"],
             ["clsName":"QZH_CYSQCarViewController","title":"购物车","imageName":"shoppingCar"],
-            ["clsName":"QZHUserConcenterViewController","title":"我的","imageName":"user"]
+            ["clsName":"QZHPersonalCenterViewController","title":"我的","imageName":"user"]
         ]
         
         var arrayM = [UIViewController]()
@@ -176,12 +176,16 @@ extension QZH_CYSQMainViewController{
             for: .highlighted)
         // 系统默认是 12 号字，修改字体大小，要设置 Normal 的字体大小
         vc.tabBarItem.setTitleTextAttributes(
-            [NSFontAttributeName: UIFont.systemFont(ofSize: 12)],
+            [NSFontAttributeName: UIFont.systemFont(ofSize: 11)],
             for: UIControlState(rawValue: 0))
         // 设置背景颜色
         vc.tabBarController?.tabBar.backgroundColor = UIColor.white
         vc.tabBarController?.tabBar.barTintColor = UIColor.white
-        vc.tabBarController?.tabBarItem.badgeColor = UIColor.white
+        if #available(iOS 10.0, *) {
+            vc.tabBarController?.tabBarItem.badgeColor = UIColor.white
+        } else {
+            // Fallback on earlier versions
+        }
         //实例化导航控制器的时候会调用 push 方法对 rootVC 压栈
         let nav = QZHNavigationController(rootViewController:vc)
         

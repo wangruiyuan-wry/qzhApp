@@ -78,8 +78,17 @@ extension QZHStore_SearchList_ViewController{
         
         // 注册原型 cell
         tabbelView?.register(UINib(nibName:"QZHStoreTableViewCell",bundle:nil), forCellReuseIdentifier: cellId)
-        tabbelView?.top = 209*PX
-        tabbelView?.height = SCREEN_HEIGHT - 209*PX
+        tabbelView?.top = 127*PX
+        tabbelView?.height = SCREEN_HEIGHT - 127*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                tabbelView?.top = 175*PX
+                tabbelView?.height = SCREEN_HEIGHT - 243*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         // 设置导航条
         navItem.rightBarButtonItems = [UIBarButtonItem(title: "", img: "chatIcon1", target: self, action: #selector(showFriends),color:UIColor.white),UIBarButtonItem(title: "", img: "storeSortIcon", target: self, action: #selector(gotoStoreSort),color:UIColor.white)]
@@ -108,6 +117,14 @@ extension QZHStore_SearchList_ViewController{
     // 设置头部筛选栏
     func setupScreeningView(){
         screeningView.setupViews(x: 0, y: 127*PX, width: SCREEN_WIDTH, height: 80*PX, bgColor: UIColor.white)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                screeningView.setupViews(x: 0, y: 175*PX, width: SCREEN_WIDTH, height: 80*PX, bgColor: UIColor.white)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         self.view.addSubview(screeningView)
         
         let line:QZHUILabelView = QZHUILabelView()
@@ -156,6 +173,7 @@ extension QZHStore_SearchList_ViewController{
 extension QZHStore_SearchList_ViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 1
+        print(self.StoreProList.storeSearchPro.count)
         if self.StoreProList.storeSearchPro.count%2 == 0{
             count = self.StoreProList.storeSearchPro.count/2
         }else{
@@ -179,17 +197,26 @@ extension QZHStore_SearchList_ViewController{
                 cell.img1.image = UIImage(named:"noPic")
             }else{
                 cell.img1.image = UIImage(named:"noPic")
-                //cell.img1.image = UIImage(data:PublicFunction().imgFromURL(self.StoreProList.storeSearchPro[row].status.picturePath))
+                if let url = URL(string: self.StoreProList.storeSearchPro[row].status.picturePath) {
+                    cell.img1.downloadedFrom(url: url)
+                }else{
+                    cell.img1.image = UIImage(named:"noPic")
+                }
             }
             cell.name1.text = self.StoreProList.storeSearchPro[row].status.productName
-            if self.StoreProList.storeSearchPro[row].status.promotionPrice == 0.0{
+            if self.StoreProList.storeSearchPro[row].status.promotionPrice != 0.0 || self.StoreProList.storeSearchPro[row].status.promotionPrice != 0{
                 cell.price1.text = "\(self.StoreProList.storeSearchPro[row].status.promotionPrice)"
             }else{
                 cell.price1.text = "\(self.StoreProList.storeSearchPro[row].status.originalPrice)"
             }
-            
-            cell.spec1.text = "/\(self.StoreProList.storeSearchPro[row].status.unit)"
+            cell.price1.setRealWages(cell.price1.text!, big: 28, small: 20, fg: ".")
+            cell.price1.width = cell.price1.autoLabelWidth(cell.price1.text!, font: 38, height: 40*PX)
+            if self.StoreProList.storeSearchPro[row].status.unit != ""{
+                cell.spec1.text = "/\(self.StoreProList.storeSearchPro[row].status.unit)"
+            }
             cell.sale1.text = "已售\(self.StoreProList.storeSearchPro[row].status.salesVolume)"
+            cell.pro1.tag = self.StoreProList.storeSearchPro[row].status.productGoodsId
+            cell.pro1.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
         }
         
         if self.StoreProList.storeSearchPro.count > row+1{
@@ -197,16 +224,27 @@ extension QZHStore_SearchList_ViewController{
             if self.StoreProList.storeSearchPro[row+1].status.picturePath == ""{
                 cell.img2.image = UIImage(named:"noPic")
             }else{
-                //cell.img2.image = UIImage(data:PublicFunction().imgFromURL(self.StoreProList.storeSearchPro[row+1].status.picturePath))
+                if let url = URL(string: self.StoreProList.storeSearchPro[row+1].status.picturePath) {
+                    cell.img2.downloadedFrom(url: url)
+                }else{
+                    cell.img2.image = UIImage(named:"noPic")
+                }
             }
             cell.name2.text = self.StoreProList.storeSearchPro[row+1].status.productName
-            if self.StoreProList.storeSearchPro[row+1].status.promotionPrice == 0.0{
+            if self.StoreProList.storeSearchPro[row+1].status.promotionPrice != 0.0 || self.StoreProList.storeSearchPro[row+1].status.promotionPrice != 0{
                 cell.price2.text = "\(self.StoreProList.storeSearchPro[row+1].status.promotionPrice)"
             }else{
                 cell.price2.text = "\(self.StoreProList.storeSearchPro[row+1].status.originalPrice)"
             }
-            cell.spec2.text = "/\(self.StoreProList.storeSearchPro[row+1].status.unit)"
+            cell.price2.setRealWages(cell.price2.text!, big: 28, small: 20, fg: ".")
+            cell.price2.width = cell.price2.autoLabelWidth(cell.price2.text!, font: 38, height: 40*PX)
+            
+            if self.StoreProList.storeSearchPro[row+1].status.unit != ""{
+                cell.spec2.text = "/\(self.StoreProList.storeSearchPro[row+1].status.unit)"
+            }
             cell.sale2.text = "已售\(self.StoreProList.storeSearchPro[row+1].status.salesVolume)"
+            cell.pro2.tag = self.StoreProList.storeSearchPro[row+1].status.productGoodsId
+            cell.pro2.addOnClickLister(target: self, action: #selector(self.goToProDetail(_:)))
             
         }else{
             cell.pro2.isHidden = true
@@ -235,7 +273,7 @@ extension QZHStore_SearchList_ViewController{
     func showFriends(){
         let vc = QZHDemoViewController()
         
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     // 跳转至分类页面

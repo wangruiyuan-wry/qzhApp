@@ -28,6 +28,9 @@ class QZH_CYSQCarListViewModel:NSObject{
     // 订单信息列表
     lazy var carProList:[[QZH_CYSQCarProViewModel]]=[]
     
+    // 产品信息列表
+    lazy var proInfoList:[[QZH_CYSQCarProInfoViewModel]] = []
+    
     /// 上拉刷新错误次数
     var pullupErrorTimes = 0
     
@@ -36,11 +39,13 @@ class QZH_CYSQCarListViewModel:NSObject{
     /// - Parameters:
     ///   - pullUp: 是否上拉加载
     ///   - completion: 回调方法
-    func getCarList(pullUp:Bool,completion:@escaping (_ isSuccess:Bool,_ shouldRefresh:Bool,_ count:Int)->()){
+    func getCarList(pullUp:Bool,completion:@escaping (_ isSuccess:Bool,_ shouldRefresh:Bool,_ isLogin:Bool,_ count:Int)->()){
+        
+        LoginModel.isLogin = 1
         //判断是否是上拉刷新，同时检查刷新错误
         if pullUp && pullupErrorTimes > maxPullupTryTimes{
             
-            completion(true,false,QZH_CYSQCarModel.proCount)
+            completion(true,false,true,QZH_CYSQCarModel.proCount)
             
             return
         }
@@ -51,15 +56,19 @@ class QZH_CYSQCarListViewModel:NSObject{
             QZH_CYSQCarModel.pageNo = 1
         }
         //section
-        QZHNetworkManager.shared.statusList(method: .POST, url: "order/shopCart/list", params: [:]) { (result, isSuccess) in
+        QZHNetworkManager.shared.statusList(method: .POST, url: "order/shopCart/list", params: ["pageNo":QZH_CYSQCarModel.pageNo as AnyObject]) { (result, isSuccess) in
+            print(result)
             if isSuccess{
-                if result["status"] as! Int == 200{
+                if result["status"] as! Int == 400{
+                    completion(true,false,false,0)
+                }else if result["status"] as! Int == 200{
                     let _data:[String:AnyObject] = result["data"] as! [String : AnyObject]
                     let store:[[String:AnyObject]] = _data["list"] as! [[String : AnyObject]]
                     QZH_CYSQCarModel.proCount = _data["totalCount"] as! Int
                     // 店铺信息
                     var listArray = [QZH_CYSQCarViewModel]()
                     var proArray:[[QZH_CYSQCarProViewModel]] = []
+                    var proInfoArray:[[QZH_CYSQCarProInfoViewModel]] = []
                     for dic in store{
                         let newDic = PublicFunction().setNULLInDIC(dic)
                         //a）创建企业模型
@@ -69,46 +78,56 @@ class QZH_CYSQCarListViewModel:NSObject{
                         listArray.append(QZH_CYSQCarViewModel(model:model!))
                         
                         let proList:[[String:AnyObject]] = dic["list"] as! [[String : AnyObject]]
-                        print("proList:\(proList)")
+                        
                         var proListView = [QZH_CYSQCarProViewModel]()
+                        var proInfoListView = [QZH_CYSQCarProInfoViewModel]()
                         for proDic in proList{
                             //let newProDic = PublicFunction().setNULLInDIC(proDic)
                             let model1 = QZH_CYSQCarProModel.yy_model(with:proDic)
                             proListView.append(QZH_CYSQCarProViewModel(model:model1!))
+                            
+                            let proInfo:[String:AnyObject] = proDic["productInfo"] as! [String : AnyObject]
+                            let model2 = QZH_CYSQCarProInfoModel.yy_model(with:proInfo)
+                            proInfoListView.append(QZH_CYSQCarProInfoViewModel(model:model2!))
                         }
                         proArray.append(proListView)
+                        proInfoArray.append(proInfoListView)
                     }
                     
                     
                     //2. FIXME 拼接数据
-                    if QZH_CYSQCarModel.pageNo == 1{
+                    if pullUp{
                         
                         self.shoppingCarList += listArray
                         self.carProList += proArray
+                        self.proInfoList += proInfoArray
                     }else{
                         
                         self.shoppingCarList = listArray
                         self.carProList = proArray
+                        self.proInfoList = proInfoArray
                         
                     }
+                    
                     //3.判断上拉刷新的数据量
                     if pullUp && listArray.count == 0 {
                         
                         self.pullupErrorTimes += 1
                         
-                        completion(false, false,QZH_CYSQCarModel.proCount)
+                        completion(false, false,true,QZH_CYSQCarModel.proCount)
+                        
                     }else{
                         
                         //完成回调
-                        completion(isSuccess,true,QZH_CYSQCarModel.proCount)
+                        completion(true,true,true,QZH_CYSQCarModel.proCount)
                     }
 
                     
                 }else{
-                    completion(true,false,QZH_CYSQCarModel.proCount)
+                    completion(true,false,true,QZH_CYSQCarModel.proCount)
                 }
             }else{
-                completion(true,false,QZH_CYSQCarModel.proCount)
+                completion(true,false,true,QZH_CYSQCarModel.proCount)
             }
             
         }
@@ -119,8 +138,9 @@ class QZH_CYSQCarListViewModel:NSObject{
     ///
     /// - Parameter completion: 回调方法
     func editCar(completion:@escaping (_ isSuccess:Bool,_ response:String)->()){
-        QZHNetworkManager.shared.statusList(method: .POST, url: "order/shopCart/update", params: ["id":QZH_CYSQCarProModel.ids as AnyObject,"info":"{\"proCount\":\(QZH_CYSQCarProModel.proCounts),\"specOptionName\":\"\(QZH_CYSQCarProModel.specOptionNames)\",\"productId\":\(QZH_CYSQCarProModel.productIds)}" as AnyObject]) { (result, isSuccess) in
+        QZHNetworkManager.shared.statusList(method: .POST, url: "order/shopCart/update", params: ["id":QZH_CYSQCarProModel.ids as AnyObject,"info":"{\"proCount\":\(QZH_CYSQCarProModel.proCounts),\"specOptionId\":\"\(QZH_CYSQCarProModel.specOptionId)\",\"specOptionName\":\"\(QZH_CYSQCarProModel.specOptionNames)\",\"productId\":\(QZH_CYSQCarProModel.productIds)}" as AnyObject]) { (result, isSuccess) in
             if isSuccess{
+                print(QZH_CYSQCarProModel.ids)
                 if result["status"] as! Int == 200{
                     completion(isSuccess,result["data"] as!String)
                 }else{

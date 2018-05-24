@@ -16,6 +16,9 @@ class QZH_CYSQSortListViewModel: NSObject {
     // 二级分类列表视图模型懒加载
     lazy var secondSortList = [QZH_CYSQSort_SecondViewModel]()
     
+    // 产业商圈分类列表
+    lazy var sortList = [QZH_CYSQSortViewModel]()
+    
     /// 加载一级分类列表
     ///
     /// - Parameter completion: 完成回调
@@ -43,6 +46,38 @@ class QZH_CYSQSortListViewModel: NSObject {
                     
                     //完成回调
                     completion(isSuccess, self.fristSortList)
+                }
+            }
+        }
+    }
+    
+    /// 产业商圈分类
+    ///
+    /// - Parameter completion: 回调方法
+    func getSortList(completion:@escaping (_ isSuccess:Bool)->()){
+        QZHNetworkManager.shared.statusList(method: .GET, url: "market/marketClass/marketClasses", params: [:]) { (result, isSuccess) in
+            if !isSuccess{
+                completion(false)
+            }else{
+                if result["status"]as! Int != 200{
+                    completion(false)
+                }else{
+                    let _data:[[String:AnyObject]] = result["data"] as! [[String : AnyObject]]
+                    var listArray1 = [QZH_CYSQSortViewModel]()
+                    for dict in _data ?? []{
+                        //对字典进行处理
+                        let newDict = PublicFunction().setNULLInDIC(dict)
+                        //a）创建企业模型
+                        guard let model = QZH_CYSQSortModel.yy_model(with:newDict) else{
+                            continue
+                        }
+                        //b）将model添加到数组
+                        listArray1.append(QZH_CYSQSortViewModel(model:model))
+                    }
+                    self.sortList = listArray1
+                    
+                    //完成回调
+                    completion(isSuccess)
                 }
             }
         }

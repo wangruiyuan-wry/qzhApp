@@ -21,6 +21,11 @@ class LoginViewModels: NSObject {
             if result["status"] as! Int == 200{
                 completion("登录成功", true, isSuccess)
                 accessToken = (result["data"] as! [String:AnyObject])["token"] as! String
+                var _cache:Dictionary<String,AnyObject> = CacheFunc().getCahceData(fileName: "login.plist", folderName: "Store")
+                // 判断字典是否为空
+                _cache.updateValue(accessToken as AnyObject, forKey: "token")
+                CacheFunc().setCahceData(fileName: "login.plist", folderName: "Login", cacheDatas: _cache as NSDictionary)
+                
             }else if result["status"] as! Int == 403{
                 completion(result["msg"]as! String,false, isSuccess)
             }
@@ -34,6 +39,21 @@ class LoginViewModels: NSObject {
             let image = UIImage.init(data: result as! Data)
             
             completion(image!, isSuccess)
+        }
+    }
+    
+    // 根据token判断是否登录
+    func tokenLogin(completion:@escaping (_ isSuccess:Bool)->()){
+        QZHNetworkManager.shared.statusList(method: .POST, url: "user/tokenLogin", params: [:]) { (result, isSuccess) in
+            if !isSuccess{
+                completion(false)
+            }else{
+                if result["status"] as! Int != 200{
+                    completion(false)
+                }else{
+                    completion(true)
+                }
+            }
         }
     }
     

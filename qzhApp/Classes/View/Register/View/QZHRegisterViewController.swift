@@ -51,7 +51,9 @@ class QZHRegisterViewController: QZHBaseViewController {
     // 昵称
     var nilkNmeLabel:UITextField = UITextField()
     
-    // 提交按钮
+    // 
+    var refferLabel:UITextField = UITextField()
+    
     var submitBtn:QZHUIButton = QZHUIButton()
     var submitBtn1:QZHUIButton = QZHUIButton()
     
@@ -97,7 +99,9 @@ class QZHRegisterViewController: QZHBaseViewController {
         QZHRegisterModel.password = password.text!
         QZHRegisterModel.companyName = companyNameLabel.text!
         QZHRegisterModel.nickName = nilkNmeLabel.text!
-        print(QZHRegisterModel.nickName)
+        if refferLabel.text! != ""{
+            QZHRegisterModel.reffer = Int.init(refferLabel.text!)!
+        }
         registerData.register { (result, regiuster, isSuccess) in
             if regiuster{
                 self.dismiss(animated: true, completion: nil)
@@ -117,6 +121,14 @@ extension QZHRegisterViewController{
         self.tabbelView?.separatorStyle = .none
         
         self.tabbelView?.y = 128*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                self.tabbelView?.y = 176*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         tabbelView?.backgroundColor = UIColor.white
         
@@ -142,6 +154,7 @@ extension QZHRegisterViewController{
     func setupInfo(){
         
        let phoneView = self.setupListView(y: 239, title: "手机号", placeholder: "请输入手机号码", inputName: phoneLabel, inputWidth: 330)
+        phoneLabel.keyboardType = .numberPad
         getAuthBtn.setupButton(500*PX, 20*PX, 195*PX, 60*PX, UIColor.white, myColor().blue2088ff(), "获取验证码", 30, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
         getAuthBtn.frame = CGRect(x:500*PX,y:20*PX,width:190*PX,height:60*PX)
         getAuthBtn.addTarget(self, action: #selector(self.getAuthCode), for: .touchUpInside)
@@ -191,6 +204,10 @@ extension QZHRegisterViewController{
         self.setupListView(y: 759, title: "昵称", placeholder: "请输入昵称", inputName: nilkNmeLabel, inputWidth: 524)
         nilkNmeLabel.restorationIdentifier = "nilk"
         
+        self.setupListView(y: 861, title: "推荐人ID", placeholder: "(选填)", inputName: refferLabel, inputWidth: 524)
+        refferLabel.restorationIdentifier = "reffer"
+        refferLabel.keyboardType = .numberPad
+        
     }
     // 设置单条信息输入
     func setupListView(y:CGFloat,title:String,placeholder:String,inputName:UITextField,inputWidth:CGFloat)->QZHUIView{
@@ -221,13 +238,13 @@ extension QZHRegisterViewController{
     
     // 提交按钮设置
     func  setupSubmitBtn(){
-        submitBtn.setupButton(30*PX, 917*PX, 690*PX, 100*PX, myColor().gray9(), myColor().grayF0(), "完成", 36, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
-        submitBtn.frame = CGRect(x:30*PX,y:917*PX,width:690*PX,height:100*PX)
+        submitBtn.setupButton(30*PX, 1019*PX, 690*PX, 100*PX, myColor().gray9(), myColor().grayF0(), "完成", 36, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
+        submitBtn.frame = CGRect(x:30*PX,y:1019*PX,width:690*PX,height:100*PX)
         submitBtn.layer.cornerRadius = 5*PX
         tabbelView?.addSubview(submitBtn)
         
-        submitBtn1.setupButton(30*PX, 917*PX, 690*PX, 100*PX, UIColor.white, myColor().blue2088ff(), "完成", 36, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
-        submitBtn1.frame = CGRect(x:30*PX,y:917*PX,width:690*PX,height:100*PX)
+        submitBtn1.setupButton(30*PX, 1019*PX, 690*PX, 100*PX, UIColor.white, myColor().blue2088ff(), "完成", 36, 0, UIColor.clear, "", UIControlState.normal, 0, UIViewContentMode.center)
+        submitBtn1.frame = CGRect(x:30*PX,y:1019*PX,width:690*PX,height:100*PX)
         submitBtn1.layer.cornerRadius = 5*PX
         submitBtn1.isHidden = true
         submitBtn1.addTarget(self, action: #selector(self.registerSubmit), for: .touchUpInside)

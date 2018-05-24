@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="288" id="KGk-i7-Jjw" customClass="QZH_CYSQCarTableViewCell" customModule="qzhApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="554" height="288"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="571" id="KGk-i7-Jjw" customClass="QZH_CYSQCarTableViewCell" customModule="qzhApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="554" height="571"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM" customClass="QZHUIView" customModule="qzhApp" customModuleProvider="target">
-                <rect key="frame" x="0.0" y="0.0" width="554" height="288"/>
+                <rect key="frame" x="0.0" y="0.0" width="554" height="571"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2EW-Bs-JkI" customClass="QZHUIView" customModule="qzhApp" customModuleProvider="target">
@@ -72,15 +72,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K9a-7E-QbU">
-                        <rect key="frame" x="51" y="8" width="139" height="128"/>
+                        <rect key="frame" x="127" y="264" width="139" height="128"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HC2-oX-lFD">
-                        <rect key="frame" x="0.0" y="119" width="43" height="47"/>
+                        <rect key="frame" x="28" y="345" width="43" height="47"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pYc-Pg-WdM" customClass="QZHUIView" customModule="qzhApp" customModuleProvider="target">
-                        <rect key="frame" x="239" y="141" width="295" height="128"/>
+                        <rect key="frame" x="259" y="345" width="295" height="128"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJM-GG-evG">
@@ -112,15 +112,27 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWk-s0-J90" customClass="QZHUIView" customModule="qzhApp" customModuleProvider="target">
+                        <rect key="frame" x="293" y="188" width="240" height="128"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k30-zP-UtY" customClass="QZHUIView" customModule="qzhApp" customModuleProvider="target">
+                        <rect key="frame" x="8" y="289" width="103" height="128"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="choosenBtn" destination="HC2-oX-lFD" id="eTy-Bi-bVB"/>
+                <outlet property="chossenView" destination="k30-zP-UtY" id="R3X-8g-wUr"/>
                 <outlet property="numText" destination="k5W-dV-p1l" id="Cj1-u8-nMb"/>
                 <outlet property="okBtn" destination="zJM-GG-evG" id="Lfq-IZ-OL1"/>
                 <outlet property="price1" destination="2Le-kJ-uwy" id="csA-pf-Jvv"/>
                 <outlet property="price2" destination="BHZ-xS-0ac" id="kIr-pj-WOc"/>
                 <outlet property="priceIcon" destination="sLu-UY-46E" id="kRR-xU-6Hr"/>
+                <outlet property="proBtn" destination="bWk-s0-J90" id="e5x-9l-bOS"/>
                 <outlet property="proEditBtn" destination="l2D-7j-IqX" id="i7X-9G-T79"/>
                 <outlet property="proEditView" destination="pYc-Pg-WdM" id="bok-P8-Nz1"/>
                 <outlet property="proImg" destination="K9a-7E-QbU" id="0SA-xD-DqZ"/>
@@ -131,7 +143,7 @@
                 <outlet property="specBtn" destination="Xnx-FF-R6V" id="DIA-3C-KG9"/>
                 <outlet property="specText" destination="9b7-Ar-Ip4" id="jaD-8P-tb5"/>
             </connections>
-            <point key="canvasLocation" x="-1486" y="-232"/>
+            <point key="canvasLocation" x="-1486" y="-90.5"/>
         </tableViewCell>
     </objects>
 </document>

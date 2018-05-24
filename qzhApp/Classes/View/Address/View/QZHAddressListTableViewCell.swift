@@ -27,7 +27,7 @@ class QZHAddressListTableViewCell: UITableViewCell {
         // 地址
         addressLabel.setLabelView(20*PX, 77*PX, 713*PX, 70*PX, NSTextAlignment.left, UIColor.white, myColor().gray3(), 26, "")
         addressLabel.numberOfLines = 2
-        addressLabel.lineBreakMode = .byWordWrapping
+        addressLabel.lineBreakMode = .byTruncatingTail 
         
         // 分割线
         line.dividers(0, y: 164*PX, width:750*PX, height: 1*PX, color: myColor().grayF0())

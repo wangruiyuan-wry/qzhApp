@@ -258,7 +258,7 @@ class QZHProductDetail_PROSpecOptionModel:NSObject{
 class QZHProductDetail_PROShopStatisticsModel:NSObject{
     
     // 店铺简称
-    var short_name:String = ""
+    var shortName:String = ""
     
     // 店铺图片
     var storeLogo:String = ""
@@ -290,6 +290,29 @@ class QZHProductDetail_PROShopStatisticsModel:NSObject{
     }
 }
 
+class QZHProductDetail_PROListCommentRepliesModel:NSObject{
+    // 评论内容时间
+    var createTime:String = ""
+    
+    // 评论产品具体内容
+    var goodsDescripe:String = ""
+    
+    // 用户昵称
+    var accountName:String = ""
+    
+    // 店铺名称
+    var storeName:String = ""
+    
+    // 头像
+    var avatar:String = ""
+    
+    
+    /// 重写 description 的计算属性
+    override var description: String{
+        return yy_modelDescription()
+    }
+}
+
 // 评论列表数据模型
 class QZHProductDetail_PROListCommentModel:NSObject{
     struct counts {
@@ -297,43 +320,26 @@ class QZHProductDetail_PROListCommentModel:NSObject{
     }
     
     // 评论ID
-    var _id:Int = 0
+    var _id:String = ""
     
     // 货品Id
     var goodsId:Int = 0
     
-    // 评论内容
-    var content:String = ""
-    
     // 创建时间
-    var createTime:String = ""
-    
-    // 评论者昵称
-    var createName:String = ""
+    var orderTime:String = ""
     
     // 评论者Id
     var accountId:Int64 = 0
     
-    // 服务评价
-    var service_evaluation:String = ""
-    
-    // 商品评价
-    var goods_evaluation:String = ""
-    
-    //  头像
-    var avatar:String = ""
-    
-    // 回复
-    var replies:[AnyObject] = []
-    
-    // 几颗星
-    var starNum:Int = 0
+    // 货品评论分
+    var goodsComment:String = ""
     
     /// 重写 description 的计算属性
     override var description: String{
         return yy_modelDescription()
     }
 }
+
 extension QZHProductDetail_PROListCommentModel{
     class var count:Int{
         get{

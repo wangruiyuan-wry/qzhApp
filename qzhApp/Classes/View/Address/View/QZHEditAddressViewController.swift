@@ -66,6 +66,15 @@ extension QZHEditAddressViewController{
         
         tabbelView?.y = 128*PX
         tabbelView?.height = SCREEN_HEIGHT - 128*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                tabbelView?.y = 176*PX
+                tabbelView?.height = SCREEN_HEIGHT - 176*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         tabbelView?.separatorStyle = .none
         tabbelView?.backgroundColor = myColor().grayF0()
         
@@ -285,15 +294,28 @@ extension QZHEditAddressViewController{
         QZHAddressModel.phone = self.txtPhone.text!
         QZHAddressModel.code = self.txtArea.restorationIdentifier!
         QZHAddressModel.address = self.txtAddress.text!
-        if self.defaultBtn.isOn{
-            QZHAddressModel.isDefault = 1
-        }else{
-            QZHAddressModel.isDefault = 0
-        }
-        
-        self.addressStatus.editAddress { (isSuccess, result) in
-            self.dismiss(animated: true, completion: nil)
-            UIAlertController.showAlert(message: result, in: self)
+        if QZHAddressModel.person == ""{
+            UIAlertController.showAlert(message: "你还未输入收货人姓名！！！", in: self)
+        }else if QZHAddressModel.phone == ""{
+            UIAlertController.showAlert(message: "你还未输入收货人电话！！！", in: self)
+        }else if !PublicFunction().isTelNumber(QZHAddressModel.phone as NSString){
+            UIAlertController.showAlert(message: "你输入的是非法的手机号码，请重新输入！！！", in: self)
+            self.txtPhone.text = ""
+        }else if QZHAddressModel.code == ""{
+            UIAlertController.showAlert(message: "你还未选择省市区！！！", in: self)
+        }else if QZHAddressModel.address == ""{
+            UIAlertController.showAlert(message: "你还未输入详细地址！！！", in: self)
+        }else {
+            if self.defaultBtn.isOn{
+                QZHAddressModel.isDefault = 1
+            }else{
+                QZHAddressModel.isDefault = 0
+            }
+            
+            self.addressStatus.editAddress { (isSuccess, result) in
+                self.dismiss(animated: true, completion: nil)
+                UIAlertController.showAlert(message: result, in: self)
+            }
         }
     }
     

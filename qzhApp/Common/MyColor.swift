@@ -161,6 +161,14 @@ class myColor:UIColor{
     func grayF6()->UIColor{
         return UIColor(red:246/255,green:246/255,blue:246/255,alpha:1)
     }
+    //#f9f9f9
+    func grayF9()->UIColor{
+        return UIColor(red:249/255,green:249/255,blue:249/255,alpha:1)
+    }
+    //#5f5f5f
+    func gray5f()->UIColor{
+        return UIColor(red:95/255,green:95/255,blue:95/255,alpha:1)
+    }
     //#e6e6e6
     func grayE6()->UIColor{
         return UIColor(red:230/255,green:230/255,blue:230/255,alpha:1)
@@ -243,9 +251,36 @@ class myColor:UIColor{
     func redF835f()->UIColor{
         return UIColor(red:255/255,green:131/255,blue:95/255,alpha:1)
     }
+    //#e55775
+    func redE55775()->UIColor{
+        return UIColor(red:229/255,green:87/255,blue:117/255,alpha:1)
+    }
+    //#de2222
+    func redDe2222()->UIColor{
+        return UIColor(red:222/255,green:34/255,blue:34/255,alpha:1)
+    }
     
     //#f5d96c
     func yellowF5d96c()->UIColor{
         return UIColor(red:245/255,green:217/255,blue:108/255,alpha:1)
     }
+    //#e8a53a
+    func yellowE8a53a()->UIColor{
+        return UIColor(red:232/255,green:165/255,blue:58/255,alpha:1)
+    }
+    //#e65e2e
+    func yellowE65e2e()->UIColor{
+        return UIColor(red:230/255,green:94/255,blue:46/255,alpha:1)
+    }
+    
+    // #9090c7
+    func purple9090C7()->UIColor{
+        return UIColor(red:144/255,green:144/255,blue:199/255,alpha:1)
+    }
+    
+    // #5b5bdb5
+    func green5b5bdb5()->UIColor{
+        return UIColor(red:91/255,green:189/255,blue:181/255,alpha:1)
+    }
+
 }

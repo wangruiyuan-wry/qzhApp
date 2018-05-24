@@ -44,7 +44,11 @@ class QZHEnterpriseInfoViewController: QZHBaseViewController {
                 self.setupPurPro("暂无主购产品")
             }else{
                 if detail[0].status.logo != "" {
-                    self.logoView.image = UIImage(data:PublicFunction().imgFromURL(detail[0].status.logo!))
+                    if let url = URL(string: detail[0].status.logo!) {
+                        self.logoView.downloadedFrom(url: url)
+                    }else{
+                        self.logoView.image = UIImage(named:"noPic")
+                    }
                 }
                 
                 if info[0].status.remark != "" {
@@ -118,7 +122,7 @@ extension QZHEnterpriseInfoViewController{
         
         infoView.setLabelView(55*PX, bodyView.contentSize.height+30*PX, 640*PX, purPro.autoLabelHeight(text, font: 28, width: 640*PX), NSTextAlignment.center, UIColor.clear, UIColor.black, 28, text)
         infoView.numberOfLines = 0
-        infoView.lineBreakMode = NSLineBreakMode.byWordWrapping
+        infoView.lineBreakMode = NSLineBreakMode.byTruncatingTail
         bodyView.contentSize = CGSize(width:640*PX,height:infoView.height+infoView.y)
         bodyView.addSubview(infoView)
         
@@ -132,7 +136,7 @@ extension QZHEnterpriseInfoViewController{
         
         mainPro.setLabelView(55*PX, labeltile.height+labeltile.y+30*PX, 640*PX, purPro.autoLabelHeight(text, font: 28, width: 640*PX), NSTextAlignment.center, UIColor.clear, UIColor.black, 28, text)
         mainPro.numberOfLines = 0
-        mainPro.lineBreakMode = NSLineBreakMode.byWordWrapping
+        mainPro.lineBreakMode = NSLineBreakMode.byTruncatingTail
         bodyView.contentSize = CGSize(width:640*PX,height:mainPro.height+mainPro.y)
         bodyView.addSubview(mainPro)
     }
@@ -145,7 +149,7 @@ extension QZHEnterpriseInfoViewController{
         
         purPro.setLabelView(55*PX, labeltile.height+labeltile.y+30*PX, 640*PX, purPro.autoLabelHeight(text, font: 28, width: 640*PX), NSTextAlignment.center, UIColor.clear, UIColor.black, 28, text)
         purPro.numberOfLines = 0
-        purPro.lineBreakMode = NSLineBreakMode.byWordWrapping
+        purPro.lineBreakMode = NSLineBreakMode.byTruncatingTail 
         bodyView.contentSize = CGSize(width:640*PX,height:purPro.height+purPro.y+20)
         bodyView.addSubview(purPro)
     }

@@ -47,7 +47,7 @@ class QZGH_CYSQHomeModel_sildeTodayRecommend: NSObject {
 /// 分类图片模型
 class QZGH_CYSQHomeModel_getMarketClass:NSObject{
     
-    // Id
+    // Id categoryId categoryId
     var categoryId:Int = 0
     
     // 图片地址
@@ -140,7 +140,7 @@ class QZGH_CYSQHomeModel_hotSell:NSObject{
     var salesVolume:Int = 0
     
     // 产品图片信息
-    var pic:[Dictionary<String,AnyObject>] = []
+    var pic:[String:AnyObject] = [:]
     
     // 是否是自营产品
     var selfSupport:Int = 0

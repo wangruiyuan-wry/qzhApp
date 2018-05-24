@@ -21,6 +21,8 @@ class QZHPWDModel:NSObject{
         
         // 页面跳转
         static var pageFrom:Bool = true
+        
+        static var pageName:String = ""
     }
     
 }
@@ -35,6 +37,14 @@ extension QZHPWDModel{
         }
     }
 
+    class var pageName: String {
+        get{
+            return paramers.pageName
+        }
+        set{
+            paramers.pageName = newValue
+        }
+    }
     class var phone: String {
         get{
             return paramers.phone

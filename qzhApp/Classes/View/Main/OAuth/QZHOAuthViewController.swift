@@ -61,8 +61,14 @@ class QZHOAuthViewController: QZHBaseViewController {
         
         loginData.Login { (text, loginSuccess, isSuccess) in
             if loginSuccess{
-                UIAlertController.showAlert(message: text)
-                self.dismiss(animated: true, completion: nil)
+                if LoginModel.isLogin != 1 && LoginModel.isLogin != -1{
+                    self.dismiss(animated: true, completion: nil)
+                }else if LoginModel.isLogin == -1{
+                    self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }else if LoginModel.isLogin == 1{
+                    let rootViewController = QZHMainViewController()
+                    self.present(rootViewController, animated: true, completion: nil)
+                }
             }else{
                 UIAlertController.showAlert(message: text, in: self)
             }
@@ -79,7 +85,14 @@ extension QZHOAuthViewController{
         self.tabbelView?.separatorStyle = .none
         
         self.tabbelView?.y = 128*PX
-        
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                self.tabbelView?.y = 176*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         tabbelView?.backgroundColor = UIColor.white
         
         // 注册原型 cell
@@ -269,7 +282,11 @@ extension QZHOAuthViewController{
 extension QZHOAuthViewController{
     //MARK: - 监听方法
     @objc func close(){
-        dismiss(animated: true, completion: nil)
+        if LoginModel.isLogin == 1{
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        }else if LoginModel.isLogin == 0{
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     // 密码明文显示监听方法
@@ -293,6 +310,7 @@ extension QZHOAuthViewController{
     
     // 跳转忘记密码
     func goToForgetPWD(){
+        QZHPWDModel.pageName = "忘记密码"
         let nav = QZHPWDViewController()
         present(nav, animated: true, completion: nil)
     }

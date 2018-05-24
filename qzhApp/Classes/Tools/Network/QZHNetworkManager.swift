@@ -58,9 +58,15 @@ class QZHNetworkManager: AFHTTPSessionManager {
     ///   - parameters: 参数字典
     ///   - completion: 回调方法
     func request(method:QZHHTTPMethod = .GET,URLString: String,parameters:[String:AnyObject],completion: @escaping (_ json:AnyObject?,_ isSubccess:Bool)->()){
-        QZHNetworkManager.shared.requestSerializer.setValue(accessToken, forHTTPHeaderField: "QZH_TOKEN")
+        var _cache:[String:AnyObject] = CacheFunc().getCahceData(fileName: "login.plist", folderName: "Login") as! [String : AnyObject]
+        if _cache["token"] == nil{
+            QZHNetworkManager.shared.requestSerializer.setValue(accessToken, forHTTPHeaderField: "QZH_TOKEN")
+        }else{
+            QZHNetworkManager.shared.requestSerializer.setValue(_cache["token"]! as! String, forHTTPHeaderField: "QZH_TOKEN")
+        }//73758079b2a042fd8988f4e995189080
+        //QZHNetworkManager.shared.requestSerializer.setValue("73758079b2a042fd8988f4e995189080", forHTTPHeaderField: "QZH_TOKEN")
+        print(_cache["token"])
         QZHNetworkManager.shared.responseSerializer = AFJSONResponseSerializer()
-        print("request:\(QZHNetworkManager.shared.requestSerializer.httpRequestHeaders)")
         if method == .GET{
            get(URLString, parameters: parameters, progress: nil, success: { (_, json) in
             completion(json as AnyObject, true)
@@ -73,6 +79,7 @@ class QZHNetworkManager: AFHTTPSessionManager {
 
         }else{
             post(URLString, parameters: parameters, progress: nil, success:{(hesder, json) in
+                print("parameters222:\(parameters)")
                 completion(json as AnyObject, true)
             }, failure: { (task, error) in
                 print(error)
@@ -91,6 +98,9 @@ class QZHNetworkManager: AFHTTPSessionManager {
     ///   - parameters: 参数字典
     ///   - completion: 回调方法
     func requestArray(method:QZHHTTPMethod = .GET,URLString: String,parameters:[String:AnyObject],completion: @escaping (_ json:AnyObject?,_ isSubccess:Bool)->()){
+        
+        var _cache:[String:AnyObject] = CacheFunc().getCahceData(fileName: "login.plist", folderName: "Login") as! [String : AnyObject]
+        print("_cache=========\(_cache)")
         QZHNetworkManager.shared.requestSerializer.setValue(accessToken, forHTTPHeaderField: "QZH_TOKEN")
         QZHNetworkManager.shared.responseSerializer = AFHTTPResponseSerializer()
         if method == .GET{
@@ -128,19 +138,53 @@ class QZHNetworkManager: AFHTTPSessionManager {
     /// - parameter completion: 完成回调
     
     func unload(urlString: String, parameters:[String:AnyObject], img : UIImage , uploadProgress: ((_ progress:Progress) -> Void)?, success: ((_ responseObject:AnyObject?) -> Void)?, failure: ((_ error: NSError) -> Void)?) -> Void {
-        post(urlString, parameters: parameters, constructingBodyWith: { (formData) in
-            let imageData = UIImageJPEGRepresentation(img, 0.8)
-            
-            formData.appendPart(withFileData: imageData!, name: "upload", fileName: "head.img", mimeType: "image/jpeg")
+        print("parameters:\(parameters)")
+        let URLString = "\(httpURL)\(urlString)"
+        //http://192.168.120.234:8100/
+        print("URLString:\(URLString)")
+        //let URLString = "http://192.168.120.234:8100/api/portal/homeAd/uploadpersonalInfoPic"
+       // let URLString = "http://192.168.60.253:881/homeAd/uploadpersonalInfoPic"
+        var _cache:[String:AnyObject] = CacheFunc().getCahceData(fileName: "login.plist", folderName: "Login") as! [String : AnyObject]
+        QZHNetworkManager.shared.responseSerializer = AFJSONResponseSerializer()
+
+        //print("_cache[ token]\(_cache["token"])")
+        
+        //print("http:\(QZHNetworkManager.shared.requestSerializer.httpRequestHeaders)")
+        
+        let array = ["text/html","text/plain","text/json","application/json","text/javascript"]
+        
+        let sets=NSSet(array: array) as! Set<AnyHashable>
+        if _cache["token"] == nil{
+            QZHNetworkManager.shared.requestSerializer.setValue(accessToken, forHTTPHeaderField: "QZH_TOKEN")
+        }else{
+            QZHNetworkManager.shared.requestSerializer.setValue(_cache["token"]! as! String, forHTTPHeaderField: "QZH_TOKEN")
+        }
+        
+        
+        QZHNetworkManager.shared.responseSerializer.acceptableContentTypes = sets as! Set<String>
+        
+        
+        //QZHNetworkManager.shared.requestSerializer = AFHTTPRequestSerializer()
+        QZHNetworkManager.shared.requestSerializer = AFJSONRequestSerializer()
+        
+        var tokenData = (_cache["token"]! as! String).data(using: .utf8)
+        
+        post(URLString, parameters: parameters, constructingBodyWith: { (formData:AFMultipartFormData?) in
+            let imageData = UIImageJPEGRepresentation(img, 0.05)
+            formData?.appendPart(withFileData: imageData!, name: "file", fileName: "file.jpg", mimeType: "image/jpeg")
+            formData?.appendPart(withForm: tokenData!, name:"QZH_TOKEN")
         }, progress: { (progress) in
             uploadProgress!(progress)
         }, success: { (task, objc) in
-            
-            if objc != nil {
+            //print("http2:\(QZHNetworkManager.shared.requestSerializer.httpRequestHeaders)")
+
                 success!(objc as AnyObject?)
-            }
             
         }, failure: { (task, error) in
+            print("task:\(task)")
+            print("task11:\(task.debugDescription)")
+            print("error:\(error)")
+            print("error111:\(error.localizedDescription)")
             failure!(error as NSError)
             
         })
@@ -154,5 +198,6 @@ class QZHNetworkManager: AFHTTPSessionManager {
             //处理token过期操作
         }
     }
+    
 }
 

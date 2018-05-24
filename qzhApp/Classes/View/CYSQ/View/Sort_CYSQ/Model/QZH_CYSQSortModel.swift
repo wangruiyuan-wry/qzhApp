@@ -10,6 +10,10 @@ import Foundation
 
 // 一级分类数据模型
 class QZH_CYSQSortModel: NSObject {
+    /// 重写 description 的计算属性
+    override var description: String{
+        return yy_modelDescription()
+    }
     
     // 分类ID
     var id:Int = 0
@@ -19,10 +23,20 @@ class QZH_CYSQSortModel: NSObject {
     
     // 一级分类名称
     var lableName:String = ""
+    
+    // 产品列表
+    var categoryId:Int = 0
+    
+    // 名称
+    var name:String = ""
 }
 
 // 二级分类数据模型
 class QZH_CYSQSort_SecondModel:NSObject{
+    /// 重写 description 的计算属性
+    override var description: String{
+        return yy_modelDescription()
+    }
     
     // ID
     var id:Int = 0

@@ -156,6 +156,15 @@ extension QZHEnterpriseDetail{
         //分页菜单控制器尺寸设置
         pagingMenuController.view.frame.origin.y += 128*PX+1
         pagingMenuController.view.frame.size.height -= 128*PX+1
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                pagingMenuController.view.frame.origin.y += 176*PX+1
+                pagingMenuController.view.frame.size.height -= 176*PX+1
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         //建立父子关系
         addChildViewController(pagingMenuController)
@@ -181,7 +190,7 @@ extension QZHEnterpriseDetail{
     //／显示消息 好友列表
     func showFriends(){
         let vc = QZHDemoViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     //返回

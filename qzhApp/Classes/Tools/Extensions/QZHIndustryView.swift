@@ -35,7 +35,7 @@ class QZHIndustryView: QZHUIView {
             if isSuccess{
                 for i in 0..<self.listMode.fristIndustryList.count{
                     scroller.addSubview(self.setupListView(y: 62*PX+62*PX*CGFloat(i), width: 250*PX, action: action, title: self.listMode.fristIndustryList[i].status.value, res: self.listMode.fristIndustryList[i].status.key, bgColor: UIColor.white, ownself: ownself))
-                    scroller.contentSize.height = (60+62*CGFloat(i))*PX
+                    scroller.contentSize.height = (122+62*CGFloat(i))*PX
                 }
             }
         }
@@ -57,7 +57,7 @@ class QZHIndustryView: QZHUIView {
             if isSuccess{
                 for i in 0..<self.listMode.secondIndustryList.count{
                     scroller.addSubview(self.setupListView(y: 62*PX+62*PX*CGFloat(i), width: 499*PX, action: action, title: self.listMode.secondIndustryList[i].status.value, res: self.listMode.secondIndustryList[i].status.key, bgColor: myColor().grayF6(), ownself: ownself))
-                    scroller.contentSize.height = (60+62*CGFloat(i))*PX
+                    scroller.contentSize.height = (122+62*CGFloat(i))*PX
                 }
             }
         }

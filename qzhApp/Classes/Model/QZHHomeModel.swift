@@ -34,4 +34,18 @@ class QZHHomeModel: NSObject {
     override var description: String{
         return yy_modelDescription()
     }
+    
+    struct param {
+        static var first:Bool = true
+    }
+}
+extension QZHHomeModel{
+    class var first:Bool{
+        set{
+            param.first = newValue
+        }
+        get{
+            return param.first
+        }
+    }
 }

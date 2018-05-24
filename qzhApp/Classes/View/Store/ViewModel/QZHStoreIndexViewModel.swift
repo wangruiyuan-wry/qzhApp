@@ -41,7 +41,6 @@ class QZHStoreIndexViewModel:NSObject{
             
             return
         }
-         QZHStoreInfoModel.memberID = 30
         QZHNetworkManager.shared.statusList(method: .POST, url: "store/storeInformation/findStore", params: ["memberId":QZHStoreInfoModel.memberID as AnyObject]) { (result, isSuccess) in
             if !isSuccess{
                 completion(other,false)
@@ -80,10 +79,14 @@ class QZHStoreIndexViewModel:NSObject{
     ///
     /// - Parameter completion: 回调
     func insert(completion:@escaping (_ isSuccess:Bool)->()){
-        QZHNetworkManager.shared.statusList(method: .POST, url: "personalCenter/attentionStore/insert", params: ["storeId":QZHStoreInfoModel.memberID as AnyObject]) { (result, isSuccess) in
+        QZHNetworkManager.shared.statusList(method: .POST, url: "personalCenter/attentionStore/insert", params: ["storeId":QZHStoreInfoModel.storeId as AnyObject]) { (result, isSuccess) in
             print("result:\(result)")
             if isSuccess{
-                completion( isSuccess)
+                if result["status"] as!Int == 200{
+                    completion( isSuccess)
+                }else{
+                    completion(false)
+                }
             }else{
                 completion( isSuccess)
             }
@@ -94,9 +97,15 @@ class QZHStoreIndexViewModel:NSObject{
     ///
     /// - Parameter completion: 回调
     func delet(completion:@escaping (_ isSuccess:Bool)->()){
-        QZHNetworkManager.shared.statusFile(method: .GET, url: "personalCenter/attentionStore/delet", params: ["ids":QZHStoreInfoModel.memberID as AnyObject]) { (result, isSuccess) in
+        QZHNetworkManager.shared.statusList(method: .GET, url: "personalCenter/attentionStore/deletByStoreId", params: ["ids":QZHStoreInfoModel.storeId as AnyObject]) { (result, isSuccess) in
+            print(result)
             if isSuccess{
-                completion( isSuccess)
+                
+                if result["status"] as!Int == 200{
+                    completion( isSuccess)
+                }else{
+                    completion(false)
+                }
             }else{
                 completion( isSuccess)
             }
@@ -125,6 +134,7 @@ class QZHStoreIndexViewModel:NSObject{
             if !isSuccess{
                 completion(false, false)
             }else{
+               
                 if result["status"] as! Int != 200{
                     completion(false,false)
                 }else{
@@ -198,6 +208,7 @@ class QZHStoreIndexViewModel:NSObject{
             if !isSuccess{
                 completion(false, false)
             }else{
+                 print("result:\(result)")
                 if result["status"] as! Int != 200{
                     completion(false,false)
                 }else{

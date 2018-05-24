@@ -25,13 +25,18 @@ class QZH_CYSQCarTableViewHeader: UIView {
     // 选择按钮
     var chooseBtn: UIButton! = UIButton()
     
+    var choosenView:UIButton = UIButton()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        chooseBtn.frame = CGRect(x:0,y:0,width:75*PX,height:81*PX)
+        chooseBtn.frame = CGRect(x:20*PX,y:22*PX,width:35*PX,height:35*PX)
         chooseBtn.setImage(UIImage(named:"CarSel"), for: .normal)
         chooseBtn.layer.cornerRadius = 17.5*PX
         chooseBtn.layer.masksToBounds = true
+        choosenView.frame = CGRect(x:0,y:0,width:180*PX,height:81*PX)
+        choosenView.backgroundColor = UIColor.clear
         self.addSubview(chooseBtn)
+        self.addSubview(choosenView)
         
         storeIcon.frame = CGRect(x:75*PX,y:24*PX,width:35*PX,height:33*PX)
         storeIcon.image = UIImage(named:"CarStoreIcon")

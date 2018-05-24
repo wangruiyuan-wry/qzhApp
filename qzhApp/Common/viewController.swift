@@ -113,7 +113,7 @@ class viewControllers: UIView {
         lines.restorationIdentifier="lines"
         self.addSubview(lines)
         
-        let radioView:imgClass=imgClass(frame:CGRect(x:0,y:15,width:10,height:10)) as! imgClass
+        let radioView:imgClass=imgClass(frame:CGRect(x:0,y:15,width:10,height:10)) 
         var radioImg:UIImage=UIImage(named:"radio_0")!
         radioImg=radioImg.specifiesWidth(10)
         radioView.image=radioImg
@@ -233,7 +233,11 @@ class viewControllers: UIView {
         if customerPic==""{
             imgView.image=UIImage(named:"noPic")
         }else{
-            imgView.image=UIImage(data:PublicFunction().imgFromURL(customerPic))
+            if let url = URL(string: customerPic) {
+                imgView.downloadedFrom(url: url)
+            }else{
+                imgView.image = UIImage(named:"noPic")
+            }
         }
         self.addSubview(imgView)
         
@@ -272,222 +276,8 @@ class viewControllers: UIView {
         self.restorationIdentifier=btnName
     }
     
-    //纸品交易产品列表单项
-    func setProductList(y:Int,width:Int,product:NSDictionary)->Int{
-        let proImgview:imgClass=imgClass()
-        proImgview.frame=CGRect(x:0,y:5,width:width/4,height:width/4)
-        var proImg:UIImage=UIImage()
-        let imgStr:String=product.object(forKey: "proImg") as! String
-        if imgStr==""{
-            proImg=UIImage(named:"noPic")!
-        }else{
-            proImg=UIImage(data:PublicFunction().imgFromURL(imgStr))!
-        }
-        proImgview.image=proImg
-        self.frame=CGRect(x:10,y:y,width:width-20,height:width/4)
-        self.tag=product.object(forKey: "proId") as! Int
-        
-        let lines:labelView=labelView()
-        lines.divider(0, y: width/4+10, width: width-20, height: 1, color: myColor().grayE())
-        self.addSubview(lines)
-        
-        self.addSubview(proImgview)
-        
-        let spaceToX:Int = width/4+5
-        
-        let proName:labelView=labelView()
-        var name:String=product.object(forKey: "proName") as! String
-        if name==""{
-            name="-"
-        }
-        proName.setLabelView(spaceToX, y: 0, width: Int(self.width)-spaceToX, height: width/16, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: UIColor.black, text: name)
-        proName.setBodyTxtSize()
-        self.addSubview(proName)
-        
-        let proSpace:labelView=labelView()
-        var space:String=product.object(forKey: "proSpec") as! String
-        if space==""{
-            space="-"
-        }
-        proSpace.setLabelView(spaceToX, y: width/16, width: Int(self.width)-spaceToX, height: width/16, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: myColor().Gray8(), text: "规格: \(space)")
-        proSpace.setSmallTxtSize()
-        self.addSubview(proSpace)
+   
 
-        let proPrice:labelView=labelView()
-        var price:String=product.object(forKey: "price") as! String
-        if price==""{
-            price="¥ -"
-        }else{
-            price="¥\(price)"
-        }
-        
-        proPrice.setLabelView(spaceToX, y: width/8, width: Int(self.width)-spaceToX, height: width/16, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: myColor().redfe000(), text: price)
-        proPrice.setSmallTxtSize()
-        self.addSubview(proPrice)
-        
-        let collectionView:viewControllers=viewControllers()
-        collectionView.setViewContent(x: spaceToX, y: width/16*3, width: (Int(self.width)-width/12)/2, height: width/16)
-        collectionView.tag = 909
-        let coll:Int = product.object(forKey: "collFlag") as! Int
-        let collIConView:imgClass=imgClass()
-        collIConView.frame=CGRect(x:0,y:(width/16-13)/2,width:13,height:13)
-        collIConView.tag = coll
-        let collTxt:labelView=labelView()
-        var collImg:UIImage=UIImage()
-        if coll==0{
-            collImg=UIImage(named:"collectionIcon")!
-            collTxt.setLabelView(18, y: 0, width: Int(collectionView.width-18), height: width/16, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: UIColor.black, text: "收藏")
-        }else{
-            collImg=UIImage(named:"collectionIconSel")!
-            collTxt.setLabelView(18, y: 0, width: Int(collectionView.width-18), height: width/16, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: myColor().redfe000(), text: "已收藏")
-        }
-        collTxt.setSmallTxtSize()
-        collIConView.image=collImg
-        collectionView.addSubview(collIConView)
-        collectionView.addSubview(collTxt)
-        collectionView.isUserInteractionEnabled=true
-        collectionView.restorationIdentifier=product.object(forKey: "proContactColl") as! String
-        self.addSubview(collectionView)
-        
-        let addCarView:viewControllers=viewControllers()
-        addCarView.tag=908
-        let carImg:imgClass=imgClass()
-        carImg.frame=CGRect(x:0,y:(width/16-13)/2,width:13,height:13)
-        carImg.image=UIImage(named:"listCarIcon")
-        let carTxt:labelView=labelView()
-        let widthTxt=carTxt.getLabelWidth("加入购物车", font: UIFont.systemFont(ofSize: 11), height: CGFloat(width/12))
-        carTxt.setLabelView(18, y: 0, width: Int(widthTxt), height: width/16, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: UIColor.black, text: "加入购物车")
-        carTxt.setSmallTxtSize()
-        addCarView.frame=CGRect(x:Int(self.width-widthTxt-18),y:width/16*3,width:Int(widthTxt)+18,height:width/16)
-        addCarView.addSubview(carImg)
-        addCarView.addSubview(carTxt)
-        addCarView.isUserInteractionEnabled=true
-        addCarView.restorationIdentifier=product.object(forKey: "proContact") as! String
-        self.addSubview(addCarView)
-        return width/4+11+y
-    }
-    
-    //企业详细信息列表项
-    func setCompanyInfoList(width:Int,y:Int,img:String,title:String){
-        self.setBgViewContent(x: 10, y: y, width: width-20, height: 31, bgColor: UIColor.clear)
-        
-        let line:labelView=labelView()
-        line.divider(0, y: 30, width: width-20, height: 1, color: myColor().grayD9())
-        self.addSubview(line)
-        
-        let imgView:imgClass=imgClass()
-        imgView.frame=CGRect(x:0,y:7,width:16,height:16)
-        imgView.image=UIImage(named:img)
-        self.addSubview(imgView)
-        
-        let titleLabel:labelView=labelView()
-        titleLabel.setLabelView(20, y: 7, width: 80, height: 16, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: UIColor.black, text: title)
-        titleLabel.setBodyTxtSize()
-        self.addSubview(titleLabel)
-    }
-    //我的客户通讯录列表
-    func setCustomerTXLList(y:Int,width:Int,person:NSDictionary){
-        self.frame=CGRect(x:10,y:y,width:width-20,height:41)
-        self.tag=person.object(forKey: "id") as! Int
-        self.restorationIdentifier=person.object(forKey: "params") as! String
-        let line:labelView=labelView()
-        line.divider(0, y: 40, width: width-20, height: 1, color: myColor().grayD9())
-        self.addSubview(line)
-        
-        let imgView:imgClass=imgClass()
-        imgView.frame=CGRect(x:0,y:5,width:30,height:30)
-        var imgstr:String=person.object(forKey: "pic") as! String
-        var img:UIImage=UIImage()
-        if imgstr==""{
-            img=UIImage(named:"login_photo")!
-        }else{
-            img=UIImage(data:PublicFunction().imgFromURL(imgstr))!
-        }
-        imgView.image=img
-        imgView.layer.borderWidth=1
-        imgView.layer.borderColor=myColor().blueA8e1f5().cgColor as! CGColor
-        imgView.setRoundImg(15)
-        self.addSubview(imgView)
-        
-        let txtLabel:labelView=labelView()
-        txtLabel.setLabelView(35, y: 12, width: width-60, height: 16, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: UIColor.black, text: person.object(forKey: "name") as! String)
-        txtLabel.setBodyTxtSize()
-        self.addSubview(txtLabel)
-        
-        let iconView:imgClass=imgClass()
-        iconView.frame=CGRect(x:width-30,y:20,width:10,height:10)
-        iconView.image=UIImage(named:"ToRightImg")
-        self.addSubview(iconView)
-    }
-    //我的客户通讯录添加联系人
-    func setAddContact(width:Int,y:Int,height:Int,img:String,title:String){
-        self.setBgViewContent(x: 10, y: y, width: width-20, height: height, bgColor: UIColor.clear)
-        
-        let line:labelView=labelView()
-        line.divider(0, y: height-1, width: width-20, height: 1, color: myColor().grayD9())
-        self.addSubview(line)
-        
-        let imgView:imgClass=imgClass()
-        imgView.frame=CGRect(x:0,y:(height-16)/2,width:16,height:16)
-        imgView.image=UIImage(named:img)
-        self.addSubview(imgView)
-        
-        let titleLabel:labelView=labelView()
-        titleLabel.setLabelView(20, y: (height-16)/2, width: 80, height: 16, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: UIColor.black, text: title)
-        titleLabel.setBodyTxtSize()
-        self.addSubview(titleLabel)
-    }
-    
-    //我的客户拜访记录列表
-    /*func setCustomerVisitRecordList(y:Int,width:Int,lisDic:NSDictionary)->Int{
-        self.backgroundColor=UIColor.white
-        var viewHeight:Int=0
-        let topview:viewControllers=viewControllers()
-        topview.setViewContent(x: 10, y: 0, width: width-20, height: 24)
-        
-        let dateTitle:labelView=labelView()
-        dateTitle.setLabelView(0,y:5,width:Int(dateTitle.getLabelWidth("日期时间", font: UIFont.systemFont(ofSize: 11), height: 14)),height:14, align: NSTextAlignment.left, bgColor: UIColor.clear ,txtColor: UIColor.black, text: "日期时间")
-        dateTitle.setSmallTxtSize()
-        topview.addSubview(dateTitle)
-        
-        var time:String=NSDate().timeTransform(time: lisDic.object(forKey: "date") as! Int, str: "yyyy-MM-dd HH:mm:ss")
-        let dateLabel:labelView=labelView()
-        dateLabel.setLabelView(Int(dateTitle.width+3), y: 5, width: Int(dateLabel.getLabelWidth(time, font: UIFont.systemFont(ofSize: 11), height: 14)), height: 14, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: myColor().blue01a8f9(), text: time)
-        dateLabel.setSmallTxtSize()
-        topview.addSubview(dateLabel)
-        
-        var visiter:String=lisDic.object(forKey: "visitPerson") as! String
-        let visitLabel:labelView=labelView()
-        var visitWidth=visitLabel.getLabelWidth(visiter, font: UIFont.systemFont(ofSize: 11), height: 14)
-        visitLabel.setLabelView(x: Int(topview.width-visitWidth), y: 5, width: Int(visitWidth), height: 14, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: myColor().blue01a8f9(), text: visiter)
-        visitLabel.setSmallTxtSize()
-        topview.addSubview(visitLabel)
-        let visitTitle:labelView=labelView()
-        visitWidth=visitWidth+visitTitle.getLabelWidth(labelStr: "人员",  font: UIFont.systemFont(ofSize: 11), height: 14)
-        visitTitle.setLabelView(x: Int(topview.width-visitWidth-3), y: 5, width: Int(visitTitle.getLabelWidth(labelStr: "人员",  font: UIFont.systemFont(ofSize: 11), height: 14)), height: 14, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: UIColor.black, text: "人员")
-        visitTitle.setSmallTxtSize()
-        topview.addSubview(visitTitle)
-        viewHeight=viewHeight+24
-        
-        let line:labelView=labelView()
-        line.divider(x: 10, y: viewHeight, width: width-20, height: 1, color: myColor().GrayD8())
-        viewHeight=viewHeight+1
-        
-        var visitRecord:String=lisDic.object(forKey: "txt") as!String
-        let txtLabel:labelView=labelView()
-        var txtHeight=txtLabel.getLabelHeight(labelStr: visitRecord, font: UIFont.systemFont(ofSize: 11), width: CGFloat(width-20))
-        txtLabel.setLabelView(x: 10, y:viewHeight+8, width: width-20, height:Int(txtHeight), align: NSTextAlignment.left, bgColor: .clear, txtColor: UIColor.black, text: visitRecord)
-        txtLabel.setSmallTxtSize()
-        viewHeight=viewHeight+Int(txtHeight)+16
-        
-        self.frame=CGRect(x:0,y:y,width:width,height:viewHeight)
-        self.addSubview(topview)
-        self.addSubview(line)
-        self.addSubview(txtLabel)
-        
-        return y+viewHeight
-    }*/
-    
     //地址管理列表项
     func setAddressList(y:Int,width:Int,listDic:NSDictionary)->Int{
         self.backgroundColor=UIColor.white
@@ -593,51 +383,7 @@ class viewControllers: UIView {
         return selfHeight
     }
     
-    //评价中心列表项
-    func  setEvalustionList(y:Int,width:Int,listDic:NSDictionary,title:String)->Int{
-        self.tag=listDic.object(forKey: "id") as! Int
-        var ownHeight:Int=0
-        let imgView:imgClass=imgClass()
-        imgView.frame=CGRect(x:10,y:10,width:width/5,height:width/5)
-        var img:UIImage=UIImage()
-        if listDic.object(forKey: "pic") as! String==""{
-            img=UIImage(named:"noPic")!
-        }else{
-            img=UIImage(data:PublicFunction().imgFromURL(listDic.object(forKey: "pic") as! String))!
-        }
-        img=img.specifiesWidth(CGFloat(width/5))
-        imgView.image=img
-        self.addSubview(imgView)
-        
-        let name:labelView=labelView()
-        name.setLabelView(width/5+15, y: 10, width: width/5*4-25, height: width/15, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: UIColor.black, text: listDic.object(forKey: "proName") as! String)
-        name.setBodyTxtSize()
-        self.addSubview(name)
-        
-        let num:labelView=labelView()
-        num.setLabelView(width/5+15, y: 10+width/15, width: width/5*4-25, height: width/15, align: NSTextAlignment.left, bgColor: UIColor.clear, txtColor: UIColor.black, text: listDic.object(forKey: "proNum") as! String)
-        num.setSmallTxtSize()
-        self.addSubview(num)
-        
-        let checkBtn:PublicButton=PublicButton()
-        checkBtn.tag=listDic.object(forKey: "id") as! Int
-        let btnWidth:Int=Int(name.getLabelWidth(title, font: UIFont.systemFont(ofSize: 13), height: 15))
-        let xValue:Int=width-btnWidth-10
-
-        checkBtn.setBtn(xValue, y: Int(width/5+21)-25, width: btnWidth, height: 15, bgColor: myColor().blue00a7f8(), title: title, txtColor: UIColor.white, borderColor: myColor().blue00a7f8())
-        checkBtn.setTitleSize(10)
-        self.addSubview(checkBtn)
-        ownHeight=ownHeight+width/5+20
-        
-        let line:labelView=labelView()
-        line.divider(0, y: ownHeight, width: width, height: 1, color: myColor().GrayD8())
-        self.addSubview(line)
-        
-        ownHeight=ownHeight+1
-        self.setBgViewContent(x: 0, y: y, width: width, height: ownHeight, bgColor: UIColor.white)
-        
-        return ownHeight+y
-    }
+    
     //评分图片
     func setScoreView(x:Int,y:Int,width:Int,height:Int){
         self.frame=CGRect(x:x,y:y,width:width,height:height)
@@ -815,6 +561,11 @@ class viewControllers: UIView {
             imgView.image=UIImage(named:"noPic")
         }else{
             imgView.image=UIImage(data:PublicFunction().imgFromURL(proDic["proPic"] as! String))
+            if let url = URL(string: proDic["proPic"] as! String) {
+                imgView.downloadedFrom(url: url)
+            }else{
+                imgView.image = UIImage(named:"noPic")
+            }
         }
         self.addSubview(imgView)
         //名称
@@ -888,7 +639,11 @@ class viewControllers: UIView {
         if customerPic==""{
             imgView.image=UIImage(named:"logoIcon")
         }else{
-            imgView.image=UIImage(data:PublicFunction().imgFromURL(customerPic))
+            if let url = URL(string: customerPic) {
+                imgView.downloadedFrom(url: url)
+            }else{
+                imgView.image = UIImage(named:"noPic")
+            }
         }
         self.addSubview(imgView)
         
@@ -950,8 +705,12 @@ class viewControllers: UIView {
         _imgView.frame=CGRect(x:Int(PX*30),y:Int(PX*20),width:Int(PX*200),height:Int(PX*200))
         if listDic["pic"] as! String == "" {
             _imgView.image=UIImage(named:"logoIcon")
-        }else{
-            _imgView.image=UIImage(data:PublicFunction().imgFromURL(listDic["pic"] as! String))
+        }else{            
+            if let url = URL(string: listDic["pic"] as! String) {
+                _imgView.downloadedFrom(url: url)
+            }else{
+                _imgView.image = UIImage(named:"noPic")
+            }
         }
         self.addSubview(_imgView)
         

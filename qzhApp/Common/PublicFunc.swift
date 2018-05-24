@@ -243,10 +243,20 @@ class PublicFunction:NSObject{
         return scan.scanInt(&val) && scan.isAtEnd
     }
     
+    func isPurnInt(string: String) -> Bool {
+        
+        let scan: Scanner = Scanner(string: string)
+        
+        var val:Int = 0
+        
+        return scan.scanInt(&val) && scan.isAtEnd
+        
+    }
+    
     //判断是否是手机号码
     func isTelNumber(_ num:NSString)->Bool
     {
-        let mobile = "^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$"
+        let mobile = "((13[0-9])|(15[^4,\\D]) |(17[0,0-9])|(18[0,0-9]))\\d{8}$"
         let  CM = "^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$"
         let  CU = "^1(3[0-2]|5[256]|8[56])\\d{8}$"
         let  CT = "^1((33|53|8[09])[0-9]|349)\\d{7}$"

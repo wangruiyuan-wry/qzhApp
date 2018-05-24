@@ -37,23 +37,70 @@ class QZH_CYSQCarSettlementViewController: QZHBaseViewController {
     var paySel:[String:AnyObject] = [:]
     
     // 支付方式
-    var  payMoneyType:QZHUILabelView = QZHUILabelView()
+    var  payMoneyType:QZHUIView = QZHUIView()
+    var totalMoney:QZHUILabelView = QZHUILabelView()
+    var payMoneyTag:Int = 1
+    var payDays:Int = 0
+    
+    var noAddress:QZHUILabelView = QZHUILabelView()
     
     override func loadData() {
-        self.listStatus.getOrderList { (isSuccess,totalMoney) in
-            self.tabbelView?.reloadData()
-            QZH_CYSQCarSettlementModel.person = "收货人：\(self.listStatus.addressStatus[0].status.person)"
-            QZH_CYSQCarSettlementModel.phone = self.listStatus.addressStatus[0].status.phone
-            QZH_CYSQCarSettlementModel.address = "收货地址：\(self.listStatus.addressStatus[0].status.areaInfo)\(self.listStatus.addressStatus[0].status.detailAddress)"
-            QZH_CYSQCarSettlementModel.addressId = self.listStatus.addressStatus[0].status.addressId
+        if QZH_CYSQCarSettlementModel.ShoppingFlag == 0{
+            self.listStatus.getOrderList { (isSuccess,totalMoney) in
+                self.tabbelView?.reloadData()
+                if self.listStatus.addressStatus[0].status.addressId == 0{
+                    self.noAddress.isHidden = false
+                    self.nameLabel.isHidden = true
+                    self.phoneLabel.isHidden = true
+                    self.addressLabel.isHidden = true
+                }else{
+                    self.noAddress.isHidden = true
+                    QZH_CYSQCarSettlementModel.person = "收货人：\(self.listStatus.addressStatus[0].status.person)"
+                    QZH_CYSQCarSettlementModel.phone = self.listStatus.addressStatus[0].status.phone
+                    QZH_CYSQCarSettlementModel.address = "收货地址：\(self.listStatus.addressStatus[0].status.areaInfo)\(self.listStatus.addressStatus[0].status.detailAddress)"
+                    QZH_CYSQCarSettlementModel.addressId = self.listStatus.addressStatus[0].status.addressId
+                }
             
-            self.nameLabel.text = QZH_CYSQCarSettlementModel.person
+                self.nameLabel.text = QZH_CYSQCarSettlementModel.person
             
-            self.phoneLabel.text = QZH_CYSQCarSettlementModel.phone
+                self.phoneLabel.text = QZH_CYSQCarSettlementModel.phone
             
-            self.addressLabel.text = QZH_CYSQCarSettlementModel.address
+                self.addressLabel.text = QZH_CYSQCarSettlementModel.address
             
-            self.totalSum.text = "\(totalMoney.roundTo(places: 2))"
+                self.totalSum.text = "\(totalMoney.roundTo(places: 2))"
+            
+                self.totalMoney.text = "¥\(totalMoney.roundTo(places: 2))"
+                
+                self.payDays = self.listStatus.periodStatus[0].status.periodDay
+                
+               
+            }
+        }else {
+            self.listStatus.getOrderList_buyNow(completion: { (isSuccess,totalMoney) in
+                self.tabbelView?.reloadData()
+                if self.listStatus.addressStatus[0].status.addressId == 0{
+                    self.noAddress.isHidden = false
+                    self.nameLabel.isHidden = true
+                    self.phoneLabel.isHidden = true
+                    self.addressLabel.isHidden = true
+                }else{
+                    self.noAddress.isHidden = true
+                    QZH_CYSQCarSettlementModel.person = "收货人：\(self.listStatus.addressStatus[0].status.person)"
+                    QZH_CYSQCarSettlementModel.phone = self.listStatus.addressStatus[0].status.phone
+                    QZH_CYSQCarSettlementModel.address = "收货地址：\(self.listStatus.addressStatus[0].status.areaInfo)\(self.listStatus.addressStatus[0].status.detailAddress)"
+                    QZH_CYSQCarSettlementModel.addressId = self.listStatus.addressStatus[0].status.addressId
+                }
+                self.nameLabel.text = QZH_CYSQCarSettlementModel.person
+                
+                self.phoneLabel.text = QZH_CYSQCarSettlementModel.phone
+                
+                self.addressLabel.text = QZH_CYSQCarSettlementModel.address
+                
+                self.totalSum.text = "\(totalMoney.roundTo(places: 2))"
+                
+                self.totalMoney.text = "¥\(totalMoney.roundTo(places: 2))"
+                self.payDays = self.listStatus.periodStatus[0].status.periodDay
+            })
         }
     }
     
@@ -65,6 +112,18 @@ class QZH_CYSQCarSettlementViewController: QZHBaseViewController {
         self.phoneLabel.text = QZH_CYSQCarSettlementModel.phone
         
         self.addressLabel.text = QZH_CYSQCarSettlementModel.address
+        
+        if QZH_CYSQCarSettlementModel.addressId == 0{
+            self.noAddress.isHidden = false
+            self.nameLabel.isHidden = true
+            self.phoneLabel.isHidden = true
+            self.addressLabel.isHidden = true
+        }else{
+            self.noAddress.isHidden = true
+            self.nameLabel.isHidden = false
+            self.phoneLabel.isHidden = false
+            self.addressLabel.isHidden = false
+        }
     }
 }
 
@@ -72,17 +131,33 @@ class QZH_CYSQCarSettlementViewController: QZHBaseViewController {
 extension QZH_CYSQCarSettlementViewController{
     override func setupUI() {
         super.setupUI()
+        QZH_CYSQCarSettlementModel.addressId = 0
+        QZH_CYSQCarSettlementModel.person = ""
         
+        QZH_CYSQCarSettlementModel.phone = ""
+        
+        QZH_CYSQCarSettlementModel.address = ""
+        LoginModel.isLogin = -1
         self.isPush = true
         // 注册原型 cell
         tabbelView?.register(UINib(nibName:"QZHCarJYTableViewCell",bundle:nil), forCellReuseIdentifier: cellId)
         
         tabbelView?.y = 128*PX
         tabbelView?.height = SCREEN_HEIGHT - 228*PX
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                tabbelView?.y = 176*PX
+                tabbelView?.height = SCREEN_HEIGHT - 344*PX
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         tabbelView?.backgroundColor = myColor().grayF0()
         tabbelView?.isEditing = false
         tabbelView?.allowsMultipleSelectionDuringEditing = true
         tabbelView?.separatorStyle = .none
+        
         
         setupNav()
         
@@ -92,6 +167,8 @@ extension QZH_CYSQCarSettlementViewController{
         
         
         setuppayWays()
+        QZHOrderListModel.from = 11
+
     }
     
     // 设置表格头
@@ -113,7 +190,7 @@ extension QZH_CYSQCarSettlementViewController{
         // 收货地址
         addressLabel.setLabelView(20*PX, 77*PX, 666*PX, 80*PX, NSTextAlignment.left, UIColor.white, myColor().gray3(), 26, "收货地址：")
         addressLabel.numberOfLines = 2
-        addressLabel.lineBreakMode = .byWordWrapping
+        addressLabel.lineBreakMode = .byTruncatingTail 
         addressView.addSubview(addressLabel)
         
         // 修改地址
@@ -124,6 +201,11 @@ extension QZH_CYSQCarSettlementViewController{
         let editImg:UIImageView = UIImageView(frame:CGRect(x:11*PX,y:35*PX,width:18*PX,height:30*PX))
         editImg.image = UIImage(named:"rightOpen1")
         editAddress.addSubview(editImg)
+        
+        noAddress.setLabelView(0, 0, 350*PX, 168*PX, NSTextAlignment.center, UIColor.clear, myColor().redFf4300(), 32, "你还没有选择地")
+        noAddress.addOnClickLister(target: self, action: #selector(self.editAddress(_:)))
+        noAddress.isHidden = true
+        addressView.addSubview(noAddress)
     }
     
     // 设置导航条
@@ -134,8 +216,16 @@ extension QZH_CYSQCarSettlementViewController{
     
     // 设置底部提交
     func setupBottom(_ total:String){
-        bottom.setupViews(x: 0, y: SCREEN_HEIGHT-101*PX, width: SCREEN_WIDTH, height: 101*PX, bgColor: UIColor.white)
+        bottom.setupViews(x: 0, y: SCREEN_HEIGHT-229*PX, width: SCREEN_WIDTH, height: 101*PX, bgColor: UIColor.white)
         self.view.addSubview(bottom)
+        if #available(iOS 11.0, *) {
+            if UIDevice().isX(){
+                bottom.setupViews(x: 0, y: SCREEN_HEIGHT-345*PX, width: SCREEN_WIDTH, height: 101*PX, bgColor: UIColor.white)
+            }
+            
+        } else {
+            // Fallback on earlier versions
+        }
         
         let lines:QZHUILabelView = QZHUILabelView()
         lines.dividers(0, y: 0, width: SCREEN_WIDTH, height: 1*PX, color: myColor().grayF0())
@@ -162,6 +252,8 @@ extension QZH_CYSQCarSettlementViewController{
         let titleLabel:QZHUILabelView = QZHUILabelView()
         titleLabel.setLabelView(340*PX - totalWidth, 30*PX, 150*PX, 40*PX, NSTextAlignment.right, UIColor.white, myColor().gray3(), 28, "合计金额:")
         bottom.addSubview(titleLabel)
+        
+        
     }
     
     // 设置付款方式
@@ -189,12 +281,13 @@ extension QZH_CYSQCarSettlementViewController{
         okBtn.addOnClickLister(target: self, action: #selector(self.payType(_:)))
         payWayView.addSubview(okBtn)
         
-        let payType = [["name":"全额支付","TypeId":1],["name":"定金支付","TypeId":1],["name":"账期支付（30天）","TypeId":1],["name":"账期支付（45天）","TypeId":1],["name":"账期支付（60天）","TypeId":1]]
+        let payType = [["name":"全额支付","TypeId":1,"days":0],["name":"账期支付（30天）","TypeId":2,"days":30],["name":"账期支付（45天）","TypeId":3,"days":45],["name":"账期支付（60天）","TypeId":4,"days":60]]
         
         var top = 80*PX
         for i in 0..<payType.count{
-            top = self.setupPAyType(parent: payWayView, y: top, payType: payType[i] as [String : AnyObject],num:i)
+            top = self.setupPAyType(parent: self.payWayView, y: top, payType: payType[i] as [String : AnyObject],num:i)
         }
+
         
     }
     func setupPAyType(parent:QZHUIView,y:CGFloat,payType:[String:AnyObject],num:Int)->CGFloat{
@@ -202,7 +295,7 @@ extension QZH_CYSQCarSettlementViewController{
         
         let btnView:QZHUIView = QZHUIView()
         btnView.setupViews(x: 0, y: y, width: SCREEN_WIDTH, height: 82*PX, bgColor: UIColor.white)
-        btnView.tag = payType["TypeId"] as! Int
+        btnView.tag = payType["days"] as! Int
         parent.addSubview(btnView)
         btnView.restorationIdentifier = "btn"
         btnView.addOnClickLister(target: self, action: #selector(self.payTypeAction(_:)))
@@ -263,6 +356,7 @@ extension QZH_CYSQCarSettlementViewController{
             
             
             payTypeLabel.setLabelView(230*PX, 20*PX, 450*PX, 40*PX, NSTextAlignment.right, UIColor.white, myColor().Gray6(), 28, "全额支付")
+            payTypeLabel.tag = 1
             headerView.addSubview(payTypeLabel)
             
             let payBtn:UIImageView = UIImageView(frame:CGRect(x:708*PX,y:28*PX,width:14*PX,height:24*PX))
@@ -301,10 +395,15 @@ extension QZH_CYSQCarSettlementViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! QZHCarJYTableViewCell
         
         let proStatus = self.listStatus.proStatus[indexPath.section][indexPath.row]
+        
         if proStatus.status.productInfo["picturePath"] as! String == ""{
             cell.proImg.image = UIImage(named:"noPic")
         }else{
-            cell.proImg.image = UIImage(data:PublicFunction().imgFromURL(proStatus.status.productInfo["picturePath"] as! String))
+            if let url = URL(string: proStatus.status.productInfo["picturePath"] as! String) {
+                cell.proImg.downloadedFrom(url: url)
+            }else{
+                cell.proImg.image = UIImage(named:"noPic")
+            }
         }
         
         cell.proName.text = proStatus.status.productInfo["productName"] as! String
@@ -341,38 +440,12 @@ extension QZH_CYSQCarSettlementViewController{
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //组头高度
-        let sectionHeaderHeight:CGFloat = 80*PX
-        //组尾高度
-        let sectionFooterHeight:CGFloat = 181*PX
-        
-        //获取是否有默认调整的内边距
-        let defaultEdgeTop:CGFloat = navigationController?.navigationBar != nil
-            && self.automaticallyAdjustsScrollViewInsets ? 64 : 0
-        
-        //上边距相关
-        var edgeTop = defaultEdgeTop
-        if scrollView.contentOffset.y >= -defaultEdgeTop &&
-            scrollView.contentOffset.y <= sectionHeaderHeight - defaultEdgeTop  {
-            edgeTop = -scrollView.contentOffset.y
+        let sectionHeaderHeight:CGFloat = 81*PX
+        if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
         }
-        else if (scrollView.contentOffset.y>=sectionHeaderHeight - defaultEdgeTop) {
-            edgeTop = -sectionHeaderHeight + defaultEdgeTop
-        }
-        
-        //下边距相关
-        var edgeBottom:CGFloat = 182*PX
-        let b = scrollView.contentOffset.y + scrollView.frame.height
-        let h = scrollView.contentSize.height - sectionFooterHeight
-        
-        if b <= h {
-            edgeBottom = -182*PX
-        }else if b > h && b < scrollView.contentSize.height {
-            edgeBottom = b - h - 182*PX
-        }
-        
-        //设置内边距
-        scrollView.contentInset = UIEdgeInsetsMake(edgeTop, 0, edgeBottom, 0)
     }
     
     // 删除
@@ -390,7 +463,46 @@ extension QZH_CYSQCarSettlementViewController{
     }
     
     // 提交订单
-    func submitOrder(_ sender:UIButton){}
+    func submitOrder(_ sender:UIButton){
+        QZH_CYSQCarSettlementModel.remark = ""
+        if self.payTypeLabel.tag != 1{
+            if QZH_CYSQCarSettlementModel.addressId == 0{
+                UIAlertController.showAlert(message: "收获地址不能为空，请先选择收货地址！！！", in: self)
+            }else{
+                self.listStatus.insertOrderMain_Period(completion: { (isSuccess, reuslt, orderId) in
+                    if isSuccess{
+                        QZHOrderDetailModel.fromPage = "Pay"
+                        let nav = QZHOrderViewController()
+                        self.present(nav, animated: true, completion: nil)
+                    }else{
+                        UIAlertController.showAlert(message: reuslt, in: self)
+                    }
+                })
+            }
+        }else{
+            if QZH_CYSQCarSettlementModel.addressId == 0{
+                UIAlertController.showAlert(message: "收获地址不能为空，请先选择收货地址！！！", in: self)
+            }else{
+                self.listStatus.insertOrderMain { (isSuccess, reuslt, orderId) in
+                    if isSuccess{
+                        //self.bgView.isHidden = false
+                        //self.payMoneyType.isHidden = false
+                        QZHOrderDetailModel.fromPage = "Pay"
+                        let nav = QZHOrderViewController()
+                        self.present(nav, animated: true, completion: nil)
+                        //let nav = QZHPayViewController()
+                        //nav.modalPresentationStyle = .overCurrentContext
+                        //self.present(nav, animated: true, completion: nil)
+                        self.payNow()
+                        
+                    }else{
+                        UIAlertController.showAlert(message: reuslt, in: self)
+                    }
+                    //UIAlertController.showAlert(message: reuslt, in: self)
+                }
+            }
+        }
+    }
     
     // 修改地址
     func editAddress(_ sender:UITapGestureRecognizer){
@@ -432,42 +544,75 @@ extension QZH_CYSQCarSettlementViewController{
     // 点击选择付款方式
     func payTypeAction(_ sender:UITapGestureRecognizer){
         let _this = sender.view
-        let children = payWayView.subviews
-        for child in children{
-            if child.restorationIdentifier == "btn"{
-                let viewArray = child.subviews
-                for views in viewArray{
-                    if views.restorationIdentifier == "label"{
-                        (views as! QZHUILabelView).textColor = myColor().gray3()
-                    }else if views.restorationIdentifier != "line"{
-                        views.isHidden = true
+        if (_this?.tag)! > self.payDays{
+            paySel.updateValue(self.payTypeLabel.text as AnyObject, forKey: "name")
+            paySel.updateValue(QZH_CYSQCarSettlementModel.accountSettlementDays as AnyObject, forKey: "days")
+            UIAlertController.showAlert(message: "你的账户不支持该账期支付", in: self)
+        }else{
+            let children = payWayView.subviews
+            for child in children{
+                if child.restorationIdentifier == "btn"{
+                    let viewArray = child.subviews
+                    for views in viewArray{
+                        if views.restorationIdentifier == "label"{
+                            (views as! QZHUILabelView).textColor = myColor().gray3()
+                        }else if views.restorationIdentifier != "line"{
+                            views.isHidden = true
+                        }
                     }
+                }
+            }
+            
+            
+            let thisChildren = _this?.subviews
+            for thisChild in thisChildren!{
+                if thisChild.restorationIdentifier == "label"{
+                    (thisChild as! QZHUILabelView).textColor = myColor().blue007aff()
+                    paySel.updateValue((thisChild as! QZHUILabelView).text as AnyObject, forKey: "name")
+                    paySel.updateValue((thisChild as! QZHUILabelView).tag as AnyObject, forKey: "days")
+                }else {
+                    thisChild.isHidden = false
                 }
             }
         }
         
-        let thisChildren = _this?.subviews
-        for thisChild in thisChildren!{
-            if thisChild.restorationIdentifier == "label"{
-                (thisChild as! QZHUILabelView).textColor = myColor().blue007aff()
-                paySel.updateValue((thisChild as! QZHUILabelView).text as AnyObject, forKey: "name")
-                paySel.updateValue((thisChild as! QZHUILabelView).tag as AnyObject, forKey: "TypeId")
-            }else {
-                thisChild.isHidden = false
-            }
-        }
+    }
+    // 确定所选付款方式
+    func payType(_ sender:UITapGestureRecognizer){
+        self.payTypeLabel.text = paySel["name"]! as! String
+        QZH_CYSQCarSettlementModel.accountSettlementDays = paySel["days"]! as! Int
+        self.closePayWayView()
     }
     
     // 关闭遮罩层以及付款方式
     func closePayWayView(){
         payWayView.isHidden = true
         bgView.isHidden = true
+        payMoneyType.isHidden = true
     }
     
-    // 确定所选付款方式
-    func payType(_ sender:UITapGestureRecognizer){
-        closePayWayView()
-        self.payTypeLabel.text = paySel["name"]! as! String
-        self.payTypeLabel.tag = paySel["TypeId"]! as! Int
+    
+    // 立即付款
+    func payNow(){
+            self.listStatus.paynow(completion: { (isSuccess,urlString) in
+                if let url = URL(string: urlString) {
+                    print(url)
+                    //根据iOS系统版本，分别处理
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url, options: [:],
+                                                  completionHandler: {
+                                                    (success) in
+                        })
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+                if QZHOrderListModel.from == 11{
+                    let nav = QZHOrderViewController()
+                    self.present(nav, animated: true, completion: nil)
+                }else if QZHOrderListModel.from == 0{
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
     }
 }

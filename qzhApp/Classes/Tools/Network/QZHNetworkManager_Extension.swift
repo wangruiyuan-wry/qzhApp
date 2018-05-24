@@ -21,21 +21,15 @@ extension QZHNetworkManager{
     ///   - completion: 完成回调[list:千纸鹤数据字典／是否成功]
     func statusList(method:QZHHTTPMethod = .GET,url:String,params:[String:AnyObject],completion:@escaping (_ list:[String:AnyObject],_ isSuccess:Bool)->()){
         let urlString = "\(httpURL)\(url)"
-        print("params:\(params)")
-        print("urlString:\(urlString)")
-        
         request(method:method,URLString:urlString, parameters: params){
             (json,isSuccess) in
-            if json == nil {
-                print("网络错误----")
+            if json == nil{
+                UIViewController.currentViewController()?.present(QZHVisitorView(), animated: true, completion: nil)
+            }else if  json?["status"]as!Int == 400 && url != "personalCenter/myFootprint/add" && url != "personalCenter/attentionStore/getMyInfo" && url != "order/shopCart/list" && url != "user/tokenLogin"{
+                UIViewController.currentViewController()?.present(QZHOAuthViewController(), animated: true, completion: nil)
             }else{
-                if  json?["status"]as!Int == 400{
-                    //QZHBaseViewController().login()
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: QZHUserShouldLoginNotification),                    object: nil)
-                }else{
-                   completion(json as! [String : AnyObject],isSuccess)
-                }
-                
+                //print(json)
+                completion(json as! [String : AnyObject],isSuccess)
             }
         }
     }
@@ -44,11 +38,7 @@ extension QZHNetworkManager{
         let urlString = "\(httpURL)\(url)"
         requestArray(method:method,URLString:urlString, parameters: params){
             (json,isSuccess) in
-            if json == nil {
-                print("网络错误----11")
-            }else{
-                completion(json!,isSuccess)
-            }
+             completion(json!,isSuccess)
         }
     }
 

@@ -59,7 +59,11 @@ extension QZHEnterpriseProViewController{
         cell.proName.text = listViewModel.proList[indexPath.row].status.goodsName
 
         if listViewModel.proList[indexPath.row].status.pic != ""{
-            cell.proLogo.image = UIImage(data:PublicFunction().imgFromURL(listViewModel.proList[indexPath.row].status.pic))
+            if let url = URL(string: listViewModel.proList[indexPath.row].status.pic) {
+                cell.proLogo.downloadedFrom(url: url)
+            }else{
+                cell.proLogo.image = UIImage(named:"noPic")
+            }
         }else{
             cell.proLogo.image = UIImage(named:"noPic")
         }

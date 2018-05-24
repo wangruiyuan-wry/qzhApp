@@ -20,7 +20,11 @@ class Menus:UITabBarController{
         //self.tabBar.tintColor=UIColor(red:67/255,green:137/255,blue:197/255,alpha:1)
         self.tabBar.barTintColor=UIColor.white
         self.tabBarItem.imageInsets=UIEdgeInsetsMake(0, -10, -6, -10)
-        self.tabBarItem.badgeColor=UIColor.white
+        if #available(iOS 10.0, *) {
+            self.tabBarItem.badgeColor=UIColor.white
+        } else {
+            // Fallback on earlier versions
+        }
         self.tabBarItem.setTitleTextAttributes([NSFontAttributeName:UIFont.systemFont(ofSize: 20)], for: .normal)
         self.tabBarItem.setTitleTextAttributes([NSFontAttributeName:UIFont.systemFont(ofSize: 10.0)], for: .selected)
         
